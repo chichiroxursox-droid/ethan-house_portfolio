@@ -22,11 +22,39 @@
       "linkCount": 5
     },
     {
+      "id": "ai-news-2026-04-27",
+      "title": "AI News Digest \u2014 2026-04-27",
+      "category": "concept",
+      "summary": "Daily AI news and YouTube video roundup covering the last 24 hours.",
+      "linkCount": 2
+    },
+    {
+      "id": "ai-news-2026-04-28",
+      "title": "AI News Digest \u2014 2026-04-28",
+      "category": "concept",
+      "summary": "Daily AI news and YouTube video roundup covering the last 24 hours.",
+      "linkCount": 3
+    },
+    {
+      "id": "ai-news-2026-04-29",
+      "title": "AI News Digest \u2014 2026-04-29",
+      "category": "concept",
+      "summary": "Daily AI news, YouTube videos, and trending GitHub repos roundup covering the last 24 hours.",
+      "linkCount": 4
+    },
+    {
+      "id": "ai-news-2026-05-11",
+      "title": "AI News Digest \u2014 2026-05-11",
+      "category": "concept",
+      "summary": "> **Drive:** [https://docs.google.com/document/d/1uie-3w1W6AE1JKS_BGA2UaHRNvraBsX_3SAp5QFKB_M/edit](https://docs.google.com/document/d/1uie-3w1W6AE1JKS_BGA2UaHRNvraBsX_3SAp5QFKB_M/edit) Daily AI ne...",
+      "linkCount": 5
+    },
+    {
       "id": "automatic-meeting-bot",
       "title": "Automatic Meeting Bot",
       "category": "project",
       "summary": "Browser automation bot that auto-joins scheduled Zoom and Google Meet meetings, disables camera/mic, sends a chat message (\"I'm here\"), and leaves at the scheduled end time. Built for Ethan's schoo...",
-      "linkCount": 4
+      "linkCount": 5
     },
     {
       "id": "bike-website",
@@ -50,6 +78,13 @@
       "linkCount": 4
     },
     {
+      "id": "brevity-constraints-study",
+      "title": "Brevity Constraints Study",
+      "category": "concept",
+      "summary": "Research paper by MD Azizul Hakim, submitted to arXiv 2026-03-11 as [arXiv:2604.00025](https://arxiv.org/abs/2604.00025), titled *\"Brevity Constraints Reverse Performance Hierarchies in Language Mo...",
+      "linkCount": 3
+    },
+    {
       "id": "browser-automation",
       "title": "Browser Automation",
       "category": "concept",
@@ -64,11 +99,18 @@
       "linkCount": 4
     },
     {
+      "id": "caveman-claude",
+      "title": "Caveman Claude",
+      "category": "tool",
+      "summary": "A [[claude-code-skills|Claude Code skill]] by Julius Brussee that makes the assistant \"talk like a caveman\" \u2014 dropping articles, filler, and pleasantries from prose output while leaving code, error...",
+      "linkCount": 5
+    },
+    {
       "id": "claude-api",
       "title": "Claude API",
       "category": "tool",
       "summary": "Anthropic's API for accessing Claude models. Used across multiple projects for classification, analysis, decision-making, and content generation.",
-      "linkCount": 9
+      "linkCount": 11
     },
     {
       "id": "claude-code-agents",
@@ -82,28 +124,42 @@
       "title": "Claude Code Skills",
       "category": "concept",
       "summary": "Reusable instruction sets that tell Claude Code how to handle specific task types. Skills are loaded on-demand \u2014 their descriptions are always visible, but full content only loads when invoked. Thi...",
-      "linkCount": 8
+      "linkCount": 9
     },
     {
       "id": "cultivaite",
       "title": "CULTIVaiTE (Faithfully)",
       "category": "project",
       "summary": "AI consultancy startup targeting faith-based nonprofits \u2014 Christian schools, churches, rescue missions, pregnancy centers, small NGOs. The pitch: save 10+ hours per week by upgrading communications...",
-      "linkCount": 3
+      "linkCount": 4
     },
     {
       "id": "email-organizer",
       "title": "Email Organizer",
       "category": "project",
       "summary": "Automates Gmail inbox management: fetches unread emails, classifies them as school or non-school using [[claude-api]], applies Gmail labels, and generates personalized draft replies that match your...",
-      "linkCount": 5
+      "linkCount": 6
+    },
+    {
+      "id": "ethan-aios",
+      "title": "Ethan AIOS (AI Operating System)",
+      "category": "project",
+      "summary": "[[ethan-hauger]]'s personal AI Operating System \u2014 a daily-driver folder at `~/Desktop/CLAUDE CODE/Operating Systems/` that any Claude Code session can `/clear` into and resume full context. Built 2...",
+      "linkCount": 9
     },
     {
       "id": "ethan-hauger",
       "title": "Ethan Hauger",
       "category": "entity",
       "summary": "The person behind all these projects. High school senior at SLA Beeber in West Philadelphia.",
-      "linkCount": 24
+      "linkCount": 25
+    },
+    {
+      "id": "ethan-portfolio",
+      "title": "Ethan Portfolio (Lovable)",
+      "category": "project",
+      "summary": "A polished, conventional React portfolio site for [[ethan-hauger]] at **ethan-portfolio.lovable.app**. Built with Lovable + Vite + React + shadcn-ui + Supabase. This is the **second portfolio** alo...",
+      "linkCount": 10
     },
     {
       "id": "file-structure-conventions",
@@ -152,13 +208,20 @@
       "title": "House Portfolio",
       "category": "project",
       "summary": "An interactive 3D portfolio website for Ethan Hauger. Users scroll through an outdoor environment into a 3D house modeled in Blender, then explore rooms, interact with objects, browse projects on a...",
-      "linkCount": 10
+      "linkCount": 11
     },
     {
       "id": "llm-routing",
       "title": "LLM Routing",
       "category": "concept",
       "summary": "A multi-tier decision routing pattern where requests are sent to different LLM providers based on complexity, cost, and speed requirements. The cheapest/fastest option handles most cases; expensive...",
+      "linkCount": 5
+    },
+    {
+      "id": "llm-verbosity-overthinking",
+      "title": "LLM Verbosity & Overthinking",
+      "category": "concept",
+      "summary": "The phenomenon where larger language models produce over-elaborate responses that accumulate errors during their own reasoning chain \u2014 sometimes causing them to underperform much smaller models on ...",
       "linkCount": 4
     },
     {
@@ -166,7 +229,7 @@
       "title": "LUMINARY-3D",
       "category": "project",
       "summary": "Real-time 3D scroll-driven website with bioluminescent jellyfish awakening in the deep ocean. A technical upgrade of the original LUMINARY project (which used pre-rendered video frames instead of r...",
-      "linkCount": 6
+      "linkCount": 7
     },
     {
       "id": "mamie-smith-research",
@@ -292,7 +355,7 @@
       "title": "Supabase",
       "category": "tool",
       "summary": "Open-source Firebase alternative providing PostgreSQL database, auth, storage, and edge functions. Backend platform for web applications.",
-      "linkCount": 5
+      "linkCount": 6
     },
     {
       "id": "tavily-api",
@@ -306,7 +369,7 @@
       "title": "The Lamppost",
       "category": "project",
       "summary": "A community website built for Uncle Nate featuring a reading room with a library-style wardrobe UI, a gift card system, and an autonomous research bot that finds positive community stories, emails ...",
-      "linkCount": 6
+      "linkCount": 7
     },
     {
       "id": "three-js",
@@ -327,7 +390,7 @@
       "title": "Work Standards",
       "category": "concept",
       "summary": "Operating principles that govern how the AI agent works within the [[wat-framework]]. These aren't suggestions \u2014 they're rules that apply across all projects.",
-      "linkCount": 3
+      "linkCount": 4
     },
     {
       "id": "writing-style-profiling",
@@ -364,6 +427,22 @@
     },
     {
       "source": "ai-content-creation",
+      "target": "ai-news-2026-04-27"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "ai-news-2026-04-28"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "ai-news-2026-04-29"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "ai-news-2026-05-11"
+    },
+    {
+      "source": "ai-content-creation",
       "target": "cultivaite"
     },
     {
@@ -395,12 +474,56 @@
       "target": "writing-style-profiling"
     },
     {
+      "source": "ai-news-2026-04-27",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "ai-news-2026-04-28",
+      "target": "claude-code-agents"
+    },
+    {
+      "source": "ai-news-2026-04-28",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "ai-news-2026-04-29",
+      "target": "caveman-claude"
+    },
+    {
+      "source": "ai-news-2026-04-29",
+      "target": "claude-code-agents"
+    },
+    {
+      "source": "ai-news-2026-04-29",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "ai-news-2026-05-11",
+      "target": "claude-api"
+    },
+    {
+      "source": "ai-news-2026-05-11",
+      "target": "claude-code-agents"
+    },
+    {
+      "source": "ai-news-2026-05-11",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "ai-news-2026-05-11",
+      "target": "ethan-aios"
+    },
+    {
       "source": "automatic-meeting-bot",
       "target": "browser-automation"
     },
     {
       "source": "automatic-meeting-bot",
       "target": "ethan-hauger"
+    },
+    {
+      "source": "automatic-meeting-bot",
+      "target": "ethan-portfolio"
     },
     {
       "source": "automatic-meeting-bot",
@@ -471,6 +594,18 @@
       "target": "writing-style-profiling"
     },
     {
+      "source": "brevity-constraints-study",
+      "target": "caveman-claude"
+    },
+    {
+      "source": "brevity-constraints-study",
+      "target": "claude-api"
+    },
+    {
+      "source": "brevity-constraints-study",
+      "target": "llm-verbosity-overthinking"
+    },
+    {
       "source": "browser-automation",
       "target": "canvas-automation"
     },
@@ -505,6 +640,22 @@
     {
       "source": "canvas-automation",
       "target": "school-assignments"
+    },
+    {
+      "source": "caveman-claude",
+      "target": "claude-api"
+    },
+    {
+      "source": "caveman-claude",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "caveman-claude",
+      "target": "llm-verbosity-overthinking"
+    },
+    {
+      "source": "caveman-claude",
+      "target": "self-improvement-loop"
     },
     {
       "source": "claude-api",
@@ -572,6 +723,10 @@
     },
     {
       "source": "claude-code-skills",
+      "target": "ethan-aios"
+    },
+    {
+      "source": "claude-code-skills",
       "target": "ethan-hauger"
     },
     {
@@ -604,6 +759,10 @@
     },
     {
       "source": "cultivaite",
+      "target": "ethan-portfolio"
+    },
+    {
+      "source": "cultivaite",
       "target": "house-portfolio"
     },
     {
@@ -612,7 +771,15 @@
     },
     {
       "source": "email-organizer",
+      "target": "ethan-aios"
+    },
+    {
+      "source": "email-organizer",
       "target": "ethan-hauger"
+    },
+    {
+      "source": "email-organizer",
+      "target": "ethan-portfolio"
     },
     {
       "source": "email-organizer",
@@ -629,6 +796,38 @@
     {
       "source": "email-organizer",
       "target": "writing-style-profiling"
+    },
+    {
+      "source": "ethan-aios",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "ethan-aios",
+      "target": "ethan-portfolio"
+    },
+    {
+      "source": "ethan-aios",
+      "target": "house-portfolio"
+    },
+    {
+      "source": "ethan-aios",
+      "target": "self-improvement-loop"
+    },
+    {
+      "source": "ethan-aios",
+      "target": "wat-framework"
+    },
+    {
+      "source": "ethan-aios",
+      "target": "work-standards"
+    },
+    {
+      "source": "ethan-aios",
+      "target": "writing-style-profiling"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "ethan-portfolio"
     },
     {
       "source": "ethan-hauger",
@@ -697,6 +896,30 @@
     {
       "source": "ethan-hauger",
       "target": "writing-style-profiling"
+    },
+    {
+      "source": "ethan-portfolio",
+      "target": "gemini-api"
+    },
+    {
+      "source": "ethan-portfolio",
+      "target": "house-portfolio"
+    },
+    {
+      "source": "ethan-portfolio",
+      "target": "luminary-3d"
+    },
+    {
+      "source": "ethan-portfolio",
+      "target": "supabase"
+    },
+    {
+      "source": "ethan-portfolio",
+      "target": "the-lamppost"
+    },
+    {
+      "source": "ethan-portfolio",
+      "target": "wat-framework"
     },
     {
       "source": "file-structure-conventions",
@@ -788,6 +1011,10 @@
     },
     {
       "source": "llm-routing",
+      "target": "llm-verbosity-overthinking"
+    },
+    {
+      "source": "llm-routing",
       "target": "poker-bot-v1"
     },
     {
@@ -797,6 +1024,10 @@
     {
       "source": "llm-routing",
       "target": "wat-framework"
+    },
+    {
+      "source": "llm-verbosity-overthinking",
+      "target": "work-standards"
     },
     {
       "source": "luminary-3d",
