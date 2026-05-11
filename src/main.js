@@ -119,6 +119,28 @@ function skipIntro() {
   hasTriggeredGreeting = true;
   document.getElementById('scroll-hint')?.classList.add('hidden');
   document.getElementById('skip-btn')?.classList.add('hidden');
+
+  // Camera is wherever the scroll spline left it — usually (0, 30, 0) up in the sky
+  // if the visitor never scrolled. Cinematically descend it into the room.
+  const lookProxy = { x: 0, y: 1.0, z: -1.0 };
+  // Capture current lookAt direction as a world-space target so the tween starts from the actual orientation.
+  const dir = new THREE.Vector3();
+  camera.getWorldDirection(dir);
+  const startLook = camera.position.clone().add(dir.multiplyScalar(5));
+  lookProxy.x = startLook.x;
+  lookProxy.y = startLook.y;
+  lookProxy.z = startLook.z;
+
+  gsap.to(camera.position, {
+    x: ROOM_POS.x, y: ROOM_POS.y, z: ROOM_POS.z,
+    duration: 0.9, ease: 'power2.inOut',
+  });
+  gsap.to(lookProxy, {
+    x: ROOM_LOOK.x, y: ROOM_LOOK.y, z: ROOM_LOOK.z,
+    duration: 0.9, ease: 'power2.inOut',
+    onUpdate: () => camera.lookAt(lookProxy.x, lookProxy.y, lookProxy.z),
+  });
+
   transitionTo(STATES.MENU);
   showMenu();
 }
@@ -240,6 +262,17 @@ async function init() {
   // Skip-intro button + ?skip=1 URL param
   document.getElementById('skip-btn')?.addEventListener('click', skipIntro);
   if (skipParam) skipIntro();
+
+  // Work-in-progress banner — show once per browser, dismissed via localStorage
+  const wipBanner = document.getElementById('wip-banner');
+  if (wipBanner && !localStorage.getItem('wip-dismissed')) {
+    wipBanner.hidden = false;
+    wipBanner.querySelector('.wip-close')?.addEventListener('click', () => {
+      wipBanner.classList.add('dismissed');
+      localStorage.setItem('wip-dismissed', '1');
+      setTimeout(() => { wipBanner.hidden = true; }, 300);
+    });
+  }
 
 
   // Escape key returns to menu (close game first if active)

@@ -73,7 +73,7 @@ html, body {
 .skip-btn {
   position: fixed;
   top: 24px;
-  right: 24px;
+  left: 24px;
   z-index: 22;
   padding: 10px 18px;
   background: rgba(0, 0, 0, 0.5);
@@ -97,6 +97,49 @@ html, body {
   opacity: 0;
   pointer-events: none;
 }
+
+/* Work-in-progress banner */
+.wip-banner {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 24;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px 10px 18px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid #E8B87A;
+  border-radius: 14px;
+  color: #FFE0AA;
+  font-family: 'Caveat', cursive;
+  font-size: 18px;
+  line-height: 1.2;
+  opacity: 1;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  max-width: calc(100vw - 48px);
+}
+.wip-banner[hidden] { display: none; }
+.wip-banner a { color: #FFE0AA; text-decoration: underline; }
+.wip-banner.dismissed {
+  opacity: 0;
+  transform: translateX(-50%) translateY(8px);
+  pointer-events: none;
+}
+.wip-close {
+  background: none;
+  border: none;
+  color: #FFE0AA;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+  opacity: 0.75;
+}
+.wip-close:hover { opacity: 1; }
 
 /* ── Overlays ── */
 .overlay {
