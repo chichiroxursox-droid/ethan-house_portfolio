@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PokerBot v2 — Heads Up</title>
+  <style>
+    /* =========================================================
+       Reset & Base
+    ========================================================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #e8e8e8;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      /* Felt texture via radial gradient */
+      background: radial-gradient(ellipse at center, #2d5a3f 0%, #1a472a 70%);
+      /* Vignette edges for atmosphere */
+      position: relative;
+    }
+
+    /* Vignette overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at center,
+        transparent 55%,
+        rgba(0, 0, 0, 0.55) 100%
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* =========================================================
+       Utility
+    ========================================================= */
+    .hidden {
+      display: none !important;
+    }
+
+    /* =========================================================
+       Info Bar (top strip)
+    ========================================================= */
+    #info-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 24px;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(4px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    #info-blinds {
+      font-size: 0.85em;
+      font-weight: 600;
+      color: #d4a847;
+      letter-spacing: 0.5px;
+    }
+
+    #info-timer {
+      font-size: 1em;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: #e8e8e8;
+      letter-spacing: 1px;
+    }
+
+    #info-hand {
+      font-size: 0.85em;
+      color: #a0a0a0;
+      letter-spacing: 0.4px;
+    }
+
+    .analysis-toggle {
+      font-size: 0.75em;
+      padding: 4px 10px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 4px;
+      background: transparent;
+      color: #a0a0a0;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .analysis-toggle:hover { border-color: rgba(255,255,255,0.4); color: #e8e8e8; }
+    .analysis-toggle.active {
+      background: rgba(212,168,71,0.2);
+      border-color: #d4a847;
+      color: #d4a847;
+    }
+
+    /* =========================================================
+       Main Table Layout
+       Three equal sections: bot | board | human
+    ========================================================= */
+    #table {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px 0;
+      position: relative;
+      z-index: 2;
+      min-height: 0;
+    }
+
+    /* =========================================================
+       Player Areas (Bot & Human)
+    ========================================================= */
+    #bot-area,
+    #human-area {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 14px 32px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    /* Both player areas centered horizontally */
+    #bot-area {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    #human-area {
+      flex-direction: row-reverse;
+      justify-content: center;
+    }
+
+    /* Card containers */
+    #bot-cards,
+    #human-cards {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      min-width: 160px;
+    }
+
+    /* Player info block */
+    .player-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 8px 14px;
+    }
+
+    .player-name {
+      font-weight: 700;
+      font-size: 0.95em;
+      color: #e8e8e8;
+      white-space: nowrap;
+    }
+
+    .stack {
+      font-size: 0.9em;
+      font-weight: 600;
+      color: #d4a847;
+      white-space: nowrap;
+    }
+
+    /* Chip icon prefix on stack values — added via JS, styled here */
+    .stack::before {
+      content: '● ';
+      font-size: 0.75em;
+      color: #d4a847;
+    }
+
+    /* Dealer chip */
+    .dealer-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #d4a847;
+      color: #1a1a2e;
+      font-weight: 800;
+      font-size: 0.75em;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+      flex-shrink: 0;
+    }
+
+    .dealer-chip.hidden {
+      display: none !important;
+    }
+
+    /* Bot reasoning text */
+    .reasoning {
+      font-size: 0.8em;
+      font-style: italic;
+      color: #a0a0a0;
+      min-height: 1.2em;
+      max-width: 260px;
+      line-height: 1.4;
+      transition: opacity 0.3s;
+    }
+
+    /* Action badge (shows last action: FOLD / CALL / RAISE 12 etc.) */
+    .action-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.85em;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: opacity 0.3s;
+      white-space: nowrap;
+    }
+
+    .action-badge.hidden {
+      display: none !important;
+    }
+
+    .badge-fold   { background: #c0392b; color: #fff; }
+    .badge-check  { background: #555;    color: #ddd; }
+    .badge-call   { background: #2980b9; color: #fff; }
+    .badge-raise  { background: #27ae60; color: #fff; }
+    .badge-allin  { background: #e67e22; color: #fff; }
+
+    /* =========================================================
+       Board Area (center)
+    ========================================================= */
+    #board-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    #community-cards {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Empty card slot placeholders */
+    .card-slot {
+      width: clamp(55px, 5vw, 80px);
+      height: clamp(80px, 7vw, 115px);
+      border-radius: 8px;
+      border: 2px dashed rgba(255, 255, 255, 0.15);
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    #pot-display {
+      font-size: clamp(1em, 2vw, 1.4em);
+      font-weight: 700;
+      color: #d4a847;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Street bet chips (between player area and board) */
+    .street-bet {
+      text-align: center;
+      font-size: 0.9em;
+      font-weight: 600;
+      color: #e8e8e8;
+      height: 28px;
+      line-height: 28px;
+      transition: opacity 0.25s;
+    }
+    .street-bet.hidden { visibility: hidden; }
+    .street-bet::before {
+      content: '';
+      display: inline-block;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: #d4a847;
+      margin-right: 6px;
+      vertical-align: middle;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    }
+    /* Check indicator — reuses .street-bet position but no gold chip */
+    .street-bet.check-indicator {
+      color: #c8c8c8;
+      font-style: italic;
+      letter-spacing: 1px;
+      animation: checkPop 0.35s ease-out;
+    }
+    .street-bet.check-indicator::before {
+      content: '✓';
+      width: auto; height: auto;
+      background: none;
+      box-shadow: none;
+      color: #6fbf73;
+      font-style: normal;
+      font-weight: 700;
+      margin-right: 6px;
+      font-size: 1.05em;
+    }
+    @keyframes checkPop {
+      0%   { opacity: 0; transform: scale(0.6); }
+      60%  { opacity: 1; transform: scale(1.08); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Hand label (e.g. "Pair", "Two Pair") */
+    .hand-label {
+      font-size: 0.8em;
+      font-weight: 600;
+      color: #d4a847;
+      letter-spacing: 0.3px;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+      padding: 3px 10px;
+      border-radius: 4px;
+      background: rgba(0,0,0,0.3);
+      transition: opacity 0.3s;
+    }
+    .hand-label.hidden { display: none; }
+    .hand-label.winner-label {
+      color: #2ecc71;
+      background: rgba(46,204,113,0.15);
+      border: 1px solid rgba(46,204,113,0.3);
+    }
+    .hand-label.loser-label {
+      color: #e74c3c;
+      background: rgba(231,76,60,0.1);
+    }
+
+    /* Winning card highlight */
+    .card.winning-card {
+      box-shadow: 0 0 12px 3px rgba(46,204,113,0.6), 0 2px 8px rgba(0,0,0,0.4);
+      transform: translateY(-4px);
+    }
+
+    /* Stack won/lost flash */
+    .stack-flash {
+      position: absolute;
+      font-size: 0.85em;
+      font-weight: 700;
+      pointer-events: none;
+      animation: stackFlash 1.2s ease-out forwards;
+    }
+    .stack-flash.flash-win { color: #2ecc71; }
+    .stack-flash.flash-lose { color: #e74c3c; }
+    @keyframes stackFlash {
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-20px); }
+    }
+
+    /* =========================================================
+       Cards
+    ========================================================= */
+    .card {
+      width: clamp(55px, 5vw, 80px);
+      height: clamp(80px, 7vw, 115px);
+      border-radius: 8px;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 4px;
+      font-weight: 700;
+      position: relative;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    /* Face-up cards */
+    .card-red   { background: #f5f5f0; color: #dc3545; }
+    .card-black { background: #f5f5f0; color: #1a1a2e; }
+
+    .card-rank {
+      font-size: clamp(1em, 1.5vw, 1.6em);
+      line-height: 1;
+    }
+
+    .card-suit {
+      font-size: clamp(1.2em, 1.8vw, 2em);
+      line-height: 1;
+    }
+
+    /* Face-down / back of card */
+    .card-back {
+      background: linear-gradient(135deg, #1a237e, #283593);
+      border: 2px solid #3949ab;
+    }
+
+    .card-pattern {
+      width: 80%;
+      height: 80%;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 5px,
+        rgba(255, 255, 255, 0.05) 5px,
+        rgba(255, 255, 255, 0.05) 10px
+      );
+    }
+
+    /* Community card winner highlight */
+    .card-highlight {
+      box-shadow: 0 0 12px 3px rgba(212, 168, 71, 0.7);
+    }
+
+    /* Dealing animation */
+    .card-dealing {
+      animation: dealCard 0.4s ease-out;
+    }
+
+    @keyframes dealCard {
+      from { transform: translateY(-60px) scale(0.8); opacity: 0; }
+      to   { transform: translateY(0)     scale(1);   opacity: 1; }
+    }
+
+    /* Flip animation at showdown */
+    .card-revealing {
+      animation: flipCard 0.5s ease-in-out;
+    }
+
+    @keyframes flipCard {
+      0%   { transform: rotateY(0deg);   }
+      50%  { transform: rotateY(90deg);  }
+      100% { transform: rotateY(0deg);   }
+    }
+
+    /* =========================================================
+       Action Bar (bottom controls)
+    ========================================================= */
+    #action-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px 24px;
+      background: rgba(0, 0, 0, 0.4);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(4px);
+      flex-shrink: 0;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    .action-btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.15s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      outline: none;
+      position: relative;
+    }
+
+    .action-btn:hover:not(:disabled) {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .action-btn:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    .action-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .fold-btn       { background: #c0392b; color: #fff; }
+    .check-call-btn { background: #2980b9; color: #fff; }
+    .raise-btn      { background: #27ae60; color: #fff; }
+    .allin-btn      { background: #e67e22; color: #fff; }
+
+    .fold-btn:hover:not(:disabled)       { background: #a93226; }
+    .check-call-btn:hover:not(:disabled) { background: #2471a3; }
+    .raise-btn:hover:not(:disabled)      { background: #229954; }
+    .allin-btn:hover:not(:disabled)      { background: #ca6f1e; }
+
+    /* =========================================================
+       Raise Group & Controls
+    ========================================================= */
+    #raise-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #raise-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+
+    .raise-presets {
+      display: flex;
+      gap: 6px;
+    }
+
+    .preset-btn {
+      padding: 5px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.07);
+      color: #ccc;
+      font-size: 0.8em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .preset-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .preset-btn:active {
+      background: rgba(39, 174, 96, 0.3);
+      border-color: #27ae60;
+      color: #fff;
+    }
+
+    /* Raise slider row */
+    .raise-slider-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #raise-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 200px;
+      height: 6px;
+      border-radius: 3px;
+      background: #444;
+      outline: none;
+      cursor: pointer;
+    }
+
+    #raise-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #27ae60;
+      cursor: pointer;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+      transition: background 0.15s, transform 0.15s;
+    }
+
+    #raise-slider::-webkit-slider-thumb:hover {
+      background: #2ecc71;
+      transform: scale(1.15);
+    }
+
+    #raise-slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #27ae60;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    }
+
+    #raise-amount {
+      font-size: 1em;
+      font-weight: 700;
+      color: #27ae60;
+      width: 56px;
+      text-align: center;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px;
+      padding: 2px 4px;
+      outline: none;
+      font-family: inherit;
+      -moz-appearance: textfield;
+    }
+    #raise-amount:focus {
+      border-color: #27ae60;
+    }
+    #raise-amount::-webkit-inner-spin-button,
+    #raise-amount::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* =========================================================
+       Overlays
+    ========================================================= */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 100;
+      transition: opacity 0.3s ease;
+    }
+
+    .overlay.hidden {
+      display: none !important;
+    }
+
+    .overlay-content {
+      text-align: center;
+      padding: 36px 52px;
+      border-radius: 16px;
+      background: rgba(22, 22, 22, 0.97);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+      min-width: 260px;
+      max-width: 90vw;
+    }
+
+    /* Result overlay (shown briefly after each hand) */
+    #result-text {
+      font-size: clamp(1.2em, 3vw, 2em);
+      font-weight: 700;
+      color: #e8e8e8;
+      line-height: 1.5;
+    }
+
+    /* Game over overlay */
+    .gameover-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    #gameover-text {
+      font-size: clamp(1.6em, 4vw, 2.8em);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    #gameover-text.win  { color: #27ae60; }
+    #gameover-text.lose { color: #c0392b; }
+
+    #gameover-stats {
+      font-size: 0.95em;
+      color: #a0a0a0;
+      line-height: 1.9;
+      text-align: left;
+    }
+
+    #gameover-stats strong {
+      color: #d4a847;
+    }
+
+    .gameover-buttons {
+      display: flex;
+      gap: 14px;
+      margin-top: 4px;
+    }
+
+    #btn-play-again { background: #27ae60; color: #fff; }
+    #btn-quit       { background: #555;    color: #ddd; }
+
+    #btn-play-again:hover:not(:disabled) { background: #229954; }
+    #btn-quit:hover:not(:disabled)       { background: #666; }
+
+    /* =========================================================
+       Scrollbar (hidden, just in case)
+    ========================================================= */
+    ::-webkit-scrollbar { display: none; }
+
+    /* =========================================================
+       Focus ring (accessibility)
+    ========================================================= */
+    .action-btn:focus-visible,
+    .preset-btn:focus-visible {
+      outline: 2px solid #d4a847;
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =====================================================
+       Info Bar
+  ====================================================== -->
+  <div id="info-bar">
+    <span id="info-blinds">Blinds: 1/2</span>
+    <span id="info-timer">2:00</span>
+    <span id="info-hand">Hand #1</span>
+    <button id="btn-analysis" class="analysis-toggle" title="Toggle analysis mode">Analysis</button>
+  </div>
+
+  <!-- =====================================================
+       Main Table
+  ====================================================== -->
+  <div id="table">
+
+    <!-- Bot area (top) -->
+    <div id="bot-area">
+      <div id="bot-cards"></div>
+      <div class="player-info">
+        <span id="bot-name" class="player-name">PokerBot v2</span>
+        <span id="bot-stack" class="stack">200</span>
+        <span id="bot-dealer-chip" class="dealer-chip hidden">D</span>
+      </div>
+      <div id="bot-reasoning" class="reasoning hidden"></div>
+      <div id="bot-action-badge" class="action-badge hidden"></div>
+      <div id="bot-hand-label" class="hand-label hidden"></div>
+    </div>
+
+    <!-- Bot bet (between bot and board) -->
+    <div id="bot-bet" class="street-bet hidden"></div>
+
+    <!-- Board area (center) -->
+    <div id="board-area">
+      <div id="community-cards">
+        <div class="card-slot"></div>
+        <div class="card-slot"></div>
+        <div class="card-slot"></div>
+        <div class="card-slot"></div>
+        <div class="card-slot"></div>
+      </div>
+      <div id="pot-display">Pot: 0</div>
+    </div>
+
+    <!-- Human bet (between board and human) -->
+    <div id="human-bet" class="street-bet hidden"></div>
+
+    <!-- Human area (bottom) -->
+    <div id="human-area">
+      <div id="human-action-badge" class="action-badge hidden"></div>
+      <div class="player-info">
+        <span id="human-name" class="player-name">You</span>
+        <span id="human-stack" class="stack">200</span>
+        <span id="human-dealer-chip" class="dealer-chip hidden">D</span>
+      </div>
+      <div id="human-cards"></div>
+      <div id="human-hand-label" class="hand-label hidden"></div>
+    </div>
+
+  </div><!-- /#table -->
+
+  <!-- =====================================================
+       Action Bar
+  ====================================================== -->
+  <div id="action-bar">
+    <button id="btn-fold" class="action-btn fold-btn">Fold</button>
+    <button id="btn-check-call" class="action-btn check-call-btn">Check</button>
+
+    <div id="raise-group">
+      <div id="raise-controls" class="hidden">
+        <div class="raise-presets">
+          <button class="preset-btn" data-raise-preset="min">Min</button>
+          <button class="preset-btn" data-raise-preset="halfpot">1/2</button>
+          <button class="preset-btn" data-raise-preset="pot">Pot</button>
+          <button class="preset-btn" data-raise-preset="allin">All-In</button>
+        </div>
+        <div class="raise-slider-row">
+          <input type="range" id="raise-slider" min="4" max="200" value="4">
+          <input type="number" id="raise-amount" value="4">
+        </div>
+      </div>
+      <button id="btn-raise" class="action-btn raise-btn">Raise</button>
+    </div>
+
+    <button id="btn-allin" class="action-btn allin-btn">All-In</button>
+  </div>
+
+  <!-- =====================================================
+       Result Overlay (hand result)
+  ====================================================== -->
+  <div id="result-overlay" class="overlay hidden">
+    <div id="result-text" class="overlay-content"></div>
+  </div>
+
+  <!-- =====================================================
+       Game Over Overlay
+  ====================================================== -->
+  <div id="gameover-overlay" class="overlay hidden">
+    <div class="overlay-content gameover-content">
+      <h1 id="gameover-text"></h1>
+      <div id="gameover-stats"></div>
+      <div class="gameover-buttons">
+        <button id="btn-play-again" class="action-btn">Play Again</button>
+        <button id="btn-quit" class="action-btn">Exit</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+
+</body>
+</html>

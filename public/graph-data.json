@@ -1,0 +1,938 @@
+{
+  "nodes": [
+    {
+      "id": "agentic-workflows-demo",
+      "title": "Agentic Workflows Demo",
+      "category": "project",
+      "summary": "A template project showcasing the [[wat-framework]] architecture with a real-world job scraping example. Demonstrates how to separate deterministic execution (tools) from probabilistic reasoning (a...",
+      "linkCount": 4
+    },
+    {
+      "id": "ai-content-creation",
+      "title": "AI Content Creation",
+      "category": "project",
+      "summary": "Planned YouTube + TikTok/Reels content series about AI education for students. Three content pillars: Reality Check (what AI actually does), Try This (hands-on demos), and Student's Guide (practica...",
+      "linkCount": 2
+    },
+    {
+      "id": "ai-detection-countermeasures",
+      "title": "AI Detection Countermeasures",
+      "category": "concept",
+      "summary": "Empirically tested techniques for reducing AI detection scores on generated text. Tested against GPTZero Premium (Model 2026-03-11-base) across 18+ attempts with sentence-level analysis.",
+      "linkCount": 5
+    },
+    {
+      "id": "automatic-meeting-bot",
+      "title": "Automatic Meeting Bot",
+      "category": "project",
+      "summary": "Browser automation bot that auto-joins scheduled Zoom and Google Meet meetings, disables camera/mic, sends a chat message (\"I'm here\"), and leaves at the scheduled end time. Built for Ethan's schoo...",
+      "linkCount": 4
+    },
+    {
+      "id": "bike-website",
+      "title": "Bike Website",
+      "category": "project",
+      "summary": "Scroll-driven bike animation website using pre-rendered frames. Part of the same scroll-animation exploration that produced [[boreal]] and eventually led to the real-time 3D approach in [[house-por...",
+      "linkCount": 5
+    },
+    {
+      "id": "boreal",
+      "title": "BOREAL",
+      "category": "project",
+      "summary": "Scroll-driven aurora borealis and solar animation website. Uses pre-rendered video frames that play forward/backward based on scroll position \u2014 the frame-based predecessor technique to [[luminary-3...",
+      "linkCount": 4
+    },
+    {
+      "id": "bot-feedback-loop",
+      "title": "Bot Feedback Loop",
+      "category": "concept",
+      "summary": "A pattern where an autonomous bot performs work (research, monitoring, processing), presents results to a human for approval, and the human's natural language feedback is parsed to update the bot's...",
+      "linkCount": 4
+    },
+    {
+      "id": "browser-automation",
+      "title": "Browser Automation",
+      "category": "concept",
+      "summary": "Using headless or headed browsers programmatically to automate web interactions \u2014 clicking buttons, filling forms, navigating pages, extracting content. A recurring pattern across multiple projects.",
+      "linkCount": 5
+    },
+    {
+      "id": "canvas-automation",
+      "title": "Canvas Automation (Zion Work)",
+      "category": "project",
+      "summary": "Python utilities for reading and organizing assignments from Canvas LMS (SLA Beeber school instance). Uses Playwright for browser automation and the Canvas API for data access.",
+      "linkCount": 4
+    },
+    {
+      "id": "claude-api",
+      "title": "Claude API",
+      "category": "tool",
+      "summary": "Anthropic's API for accessing Claude models. Used across multiple projects for classification, analysis, decision-making, and content generation.",
+      "linkCount": 9
+    },
+    {
+      "id": "claude-code-agents",
+      "title": "Claude Code Agents",
+      "category": "concept",
+      "summary": "Custom agent definitions that extend Claude Code with specialized personas. Each agent has its own system prompt, tool permissions, and model assignment. They run as subagents \u2014 spawned for specifi...",
+      "linkCount": 6
+    },
+    {
+      "id": "claude-code-skills",
+      "title": "Claude Code Skills",
+      "category": "concept",
+      "summary": "Reusable instruction sets that tell Claude Code how to handle specific task types. Skills are loaded on-demand \u2014 their descriptions are always visible, but full content only loads when invoked. Thi...",
+      "linkCount": 8
+    },
+    {
+      "id": "cultivaite",
+      "title": "CULTIVaiTE (Faithfully)",
+      "category": "project",
+      "summary": "AI consultancy startup targeting faith-based nonprofits \u2014 Christian schools, churches, rescue missions, pregnancy centers, small NGOs. The pitch: save 10+ hours per week by upgrading communications...",
+      "linkCount": 3
+    },
+    {
+      "id": "email-organizer",
+      "title": "Email Organizer",
+      "category": "project",
+      "summary": "Automates Gmail inbox management: fetches unread emails, classifies them as school or non-school using [[claude-api]], applies Gmail labels, and generates personalized draft replies that match your...",
+      "linkCount": 5
+    },
+    {
+      "id": "ethan-hauger",
+      "title": "Ethan Hauger",
+      "category": "entity",
+      "summary": "The person behind all these projects. High school senior at SLA Beeber in West Philadelphia.",
+      "linkCount": 24
+    },
+    {
+      "id": "file-structure-conventions",
+      "title": "File Structure Conventions",
+      "category": "concept",
+      "summary": "The standard directory layout for projects using the [[wat-framework]]. Not all projects use every directory \u2014 if `tools/`, `workflows/`, or `tasks/` don't exist, those WAT instructions are skipped.",
+      "linkCount": 3
+    },
+    {
+      "id": "firecrawl",
+      "title": "FireCrawl",
+      "category": "tool",
+      "summary": "Headless browser scraping API. Renders JavaScript-heavy pages and returns clean HTML. Solves the problem of sites that block direct HTTP requests (403 errors).",
+      "linkCount": 2
+    },
+    {
+      "id": "gemini-api",
+      "title": "Gemini API",
+      "category": "tool",
+      "summary": "Google's LLM API. Used for conversational AI where the character needs to feel natural and responsive.",
+      "linkCount": 4
+    },
+    {
+      "id": "gmail-api",
+      "title": "Gmail API",
+      "category": "tool",
+      "summary": "Google's API for programmatic email access. Used for both reading (fetch, search) and writing (drafts, labels).",
+      "linkCount": 3
+    },
+    {
+      "id": "groq-api",
+      "title": "Groq API",
+      "category": "tool",
+      "summary": "Fast, cheap LLM inference provider. Used when speed matters more than capability \u2014 quick decisions, transcription, and real-time interactions.",
+      "linkCount": 6
+    },
+    {
+      "id": "gsap",
+      "title": "GSAP (GreenSock)",
+      "category": "tool",
+      "summary": "Professional-grade JavaScript animation library. Used for timeline-based animations, scroll-triggered effects, and smooth transitions.",
+      "linkCount": 3
+    },
+    {
+      "id": "house-portfolio",
+      "title": "House Portfolio",
+      "category": "project",
+      "summary": "An interactive 3D portfolio website for Ethan Hauger. Users scroll through an outdoor environment into a 3D house modeled in Blender, then explore rooms, interact with objects, browse projects on a...",
+      "linkCount": 10
+    },
+    {
+      "id": "llm-routing",
+      "title": "LLM Routing",
+      "category": "concept",
+      "summary": "A multi-tier decision routing pattern where requests are sent to different LLM providers based on complexity, cost, and speed requirements. The cheapest/fastest option handles most cases; expensive...",
+      "linkCount": 4
+    },
+    {
+      "id": "luminary-3d",
+      "title": "LUMINARY-3D",
+      "category": "project",
+      "summary": "Real-time 3D scroll-driven website with bioluminescent jellyfish awakening in the deep ocean. A technical upgrade of the original LUMINARY project (which used pre-rendered video frames instead of r...",
+      "linkCount": 6
+    },
+    {
+      "id": "mamie-smith-research",
+      "title": "Mamie Smith Research",
+      "category": "project",
+      "summary": "School history research project exploring how Mamie Smith's 1920 recording of \"Crazy Blues\" contributed to Harlem becoming a national center for Black music during the Harlem Renaissance.",
+      "linkCount": 2
+    },
+    {
+      "id": "movie-clone",
+      "title": "Movie Clone",
+      "category": "project",
+      "summary": "TMDB-powered movie and TV show browser built with React, TypeScript, and Tailwind CSS. Features search, catalog browsing, detail pages with trailers, and dark/light theme switching.",
+      "linkCount": 2
+    },
+    {
+      "id": "mrbeast-puzzle",
+      "title": "MrBeast $1M Puzzle",
+      "category": "project",
+      "summary": "Collaborative attempt to solve MrBeast's $1 million online puzzle challenge. Heavy research-driven project using Discord findings, community analysis, and systematic puzzle documentation. No code \u2014...",
+      "linkCount": 1
+    },
+    {
+      "id": "parallax-game",
+      "title": "Parallax Game",
+      "category": "project",
+      "summary": "3D parkour/exploration game built in Godot 4. Features multiple camera perspectives, room-based challenges, and a Python control script for autonomous testing. Uses the `godot-visual-dev` skill for...",
+      "linkCount": 6
+    },
+    {
+      "id": "playwright-browser-automation",
+      "title": "Playwright",
+      "category": "tool",
+      "summary": "Browser automation library by Microsoft. Controls Chrome, Firefox, and WebKit programmatically. More reliable than Selenium, with built-in wait mechanisms and better selector support.",
+      "linkCount": 3
+    },
+    {
+      "id": "poker-bot-v1",
+      "title": "Poker Bot v1",
+      "category": "project",
+      "summary": "The original poker bot \u2014 predecessor to [[poker-bot-v2]]. A more traditional architecture with separate agents, engine, executor, reader, and tracker modules. Uses a YAML config file rather than th...",
+      "linkCount": 5
+    },
+    {
+      "id": "poker-bot-v2",
+      "title": "Poker Bot v2",
+      "category": "project",
+      "summary": "An autonomous AI poker bot for Club WPT Gold that plays No-Limit Hold'em cash games and tournaments. Reads the screen via OCR and template matching, makes decisions through a tiered routing system ...",
+      "linkCount": 8
+    },
+    {
+      "id": "promptcraft",
+      "title": "PromptCraft",
+      "category": "project",
+      "summary": "Educational web game that teaches AI prompting skills through gameplay. Players enter minimalist 2D rooms and write prompts to make an AI build objects and solve puzzles. Includes a community level...",
+      "linkCount": 3
+    },
+    {
+      "id": "pyautogui",
+      "title": "PyAutoGUI",
+      "category": "tool",
+      "summary": "Python library for programmatic mouse and keyboard control. Operates at the OS level \u2014 clicks actual screen coordinates, types keystrokes, takes screenshots.",
+      "linkCount": 3
+    },
+    {
+      "id": "scholarship-applications",
+      "title": "Scholarship Applications",
+      "category": "project",
+      "summary": "Penn State Honors scholarship application essays. Includes a \"Transformational Idea\" essay proposing a student-run AI governance council, plus short answer responses on empowered growth, travel, an...",
+      "linkCount": 3
+    },
+    {
+      "id": "school-assignments",
+      "title": "School Assignments",
+      "category": "concept",
+      "summary": "Comprehensive school assignment workflow built around [[ethan-hauger]]'s needs as a 12th grader at SLA Beeber. Combines writing style profiling, AI detection countermeasures, file generation skills...",
+      "linkCount": 7
+    },
+    {
+      "id": "screen-reading-ocr",
+      "title": "Screen Reading & OCR",
+      "category": "concept",
+      "summary": "Capturing screen regions and extracting text/data using OCR (Optical Character Recognition) and template matching. Used when there's no API \u2014 the screen IS the interface.",
+      "linkCount": 4
+    },
+    {
+      "id": "scroll-driven-3d",
+      "title": "Scroll-Driven 3D",
+      "category": "concept",
+      "summary": "A technique for controlling 3D camera movement and animations through scroll position. The user scrolls the page, and the camera moves along a predefined spline path through a 3D scene. Creates an ...",
+      "linkCount": 6
+    },
+    {
+      "id": "self-improvement-loop",
+      "title": "Self-Improvement Loop",
+      "category": "concept",
+      "summary": "A core mechanism within the [[wat-framework]]. Every failure is treated as a chance to make the system stronger, not just something to fix and move on from.",
+      "linkCount": 6
+    },
+    {
+      "id": "sentence-remix-system",
+      "title": "Sentence Remix System",
+      "category": "concept",
+      "summary": "A novel approach to AI-assisted writing that bypasses AI detectors by assembling essays from real human-written sentences rather than generating new ones. The core insight: AI detectors flag token-...",
+      "linkCount": 5
+    },
+    {
+      "id": "sprint-city",
+      "title": "Sprint City",
+      "category": "project",
+      "summary": "Roblox parkour hub where players race pre-built routes, duel-race friends, and build their own 60-second micro-courses that go live immediately for the whole server to run and rate. The Weekly Feat...",
+      "linkCount": 4
+    },
+    {
+      "id": "student-ai-toolkit",
+      "title": "Student AI Toolkit",
+      "category": "project",
+      "summary": "Web application built with React, TypeScript, Tailwind CSS, and Supabase. Details sparse \u2014 no CLAUDE.md. Appears to be a toolkit providing AI-powered tools for students.",
+      "linkCount": 2
+    },
+    {
+      "id": "supabase",
+      "title": "Supabase",
+      "category": "tool",
+      "summary": "Open-source Firebase alternative providing PostgreSQL database, auth, storage, and edge functions. Backend platform for web applications.",
+      "linkCount": 5
+    },
+    {
+      "id": "tavily-api",
+      "title": "Tavily API",
+      "category": "tool",
+      "summary": "AI-optimized search API for finding web content. Returns clean, relevant results filtered by source type (news, blogs, reddit, etc.). Designed for LLM applications.",
+      "linkCount": 3
+    },
+    {
+      "id": "the-lamppost",
+      "title": "The Lamppost",
+      "category": "project",
+      "summary": "A community website built for Uncle Nate featuring a reading room with a library-style wardrobe UI, a gift card system, and an autonomous research bot that finds positive community stories, emails ...",
+      "linkCount": 6
+    },
+    {
+      "id": "three-js",
+      "title": "Three.js",
+      "category": "tool",
+      "summary": "JavaScript 3D rendering library for creating WebGL experiences in the browser. The foundation of the [[house-portfolio]]'s interactive 3D environment.",
+      "linkCount": 3
+    },
+    {
+      "id": "wat-framework",
+      "title": "WAT Framework",
+      "category": "concept",
+      "summary": "The WAT framework (Workflows, Agents, Tools) is the core operating architecture used across all projects. It separates concerns so that probabilistic AI handles reasoning while deterministic code h...",
+      "linkCount": 3
+    },
+    {
+      "id": "work-standards",
+      "title": "Work Standards",
+      "category": "concept",
+      "summary": "Operating principles that govern how the AI agent works within the [[wat-framework]]. These aren't suggestions \u2014 they're rules that apply across all projects.",
+      "linkCount": 3
+    },
+    {
+      "id": "writing-style-profiling",
+      "title": "Writing Style Profiling",
+      "category": "concept",
+      "summary": "A technique for capturing a person's writing voice as a structured configuration file, enabling AI-generated text that matches their tone, vocabulary, and patterns. The profile is built once from w...",
+      "linkCount": 8
+    }
+  ],
+  "edges": [
+    {
+      "source": "agentic-workflows-demo",
+      "target": "browser-automation"
+    },
+    {
+      "source": "agentic-workflows-demo",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "agentic-workflows-demo",
+      "target": "firecrawl"
+    },
+    {
+      "source": "agentic-workflows-demo",
+      "target": "self-improvement-loop"
+    },
+    {
+      "source": "agentic-workflows-demo",
+      "target": "wat-framework"
+    },
+    {
+      "source": "agentic-workflows-demo",
+      "target": "work-standards"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "cultivaite"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "ai-detection-countermeasures",
+      "target": "claude-code-agents"
+    },
+    {
+      "source": "ai-detection-countermeasures",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "ai-detection-countermeasures",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "ai-detection-countermeasures",
+      "target": "school-assignments"
+    },
+    {
+      "source": "ai-detection-countermeasures",
+      "target": "sentence-remix-system"
+    },
+    {
+      "source": "ai-detection-countermeasures",
+      "target": "writing-style-profiling"
+    },
+    {
+      "source": "automatic-meeting-bot",
+      "target": "browser-automation"
+    },
+    {
+      "source": "automatic-meeting-bot",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "automatic-meeting-bot",
+      "target": "groq-api"
+    },
+    {
+      "source": "automatic-meeting-bot",
+      "target": "playwright-browser-automation"
+    },
+    {
+      "source": "automatic-meeting-bot",
+      "target": "wat-framework"
+    },
+    {
+      "source": "bike-website",
+      "target": "boreal"
+    },
+    {
+      "source": "bike-website",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "bike-website",
+      "target": "house-portfolio"
+    },
+    {
+      "source": "bike-website",
+      "target": "luminary-3d"
+    },
+    {
+      "source": "bike-website",
+      "target": "scroll-driven-3d"
+    },
+    {
+      "source": "boreal",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "boreal",
+      "target": "house-portfolio"
+    },
+    {
+      "source": "boreal",
+      "target": "luminary-3d"
+    },
+    {
+      "source": "boreal",
+      "target": "scroll-driven-3d"
+    },
+    {
+      "source": "bot-feedback-loop",
+      "target": "gmail-api"
+    },
+    {
+      "source": "bot-feedback-loop",
+      "target": "supabase"
+    },
+    {
+      "source": "bot-feedback-loop",
+      "target": "tavily-api"
+    },
+    {
+      "source": "bot-feedback-loop",
+      "target": "the-lamppost"
+    },
+    {
+      "source": "bot-feedback-loop",
+      "target": "writing-style-profiling"
+    },
+    {
+      "source": "browser-automation",
+      "target": "canvas-automation"
+    },
+    {
+      "source": "browser-automation",
+      "target": "firecrawl"
+    },
+    {
+      "source": "browser-automation",
+      "target": "playwright-browser-automation"
+    },
+    {
+      "source": "browser-automation",
+      "target": "poker-bot-v2"
+    },
+    {
+      "source": "browser-automation",
+      "target": "pyautogui"
+    },
+    {
+      "source": "browser-automation",
+      "target": "screen-reading-ocr"
+    },
+    {
+      "source": "canvas-automation",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "canvas-automation",
+      "target": "playwright-browser-automation"
+    },
+    {
+      "source": "canvas-automation",
+      "target": "school-assignments"
+    },
+    {
+      "source": "claude-api",
+      "target": "cultivaite"
+    },
+    {
+      "source": "claude-api",
+      "target": "email-organizer"
+    },
+    {
+      "source": "claude-api",
+      "target": "gemini-api"
+    },
+    {
+      "source": "claude-api",
+      "target": "groq-api"
+    },
+    {
+      "source": "claude-api",
+      "target": "house-portfolio"
+    },
+    {
+      "source": "claude-api",
+      "target": "llm-routing"
+    },
+    {
+      "source": "claude-api",
+      "target": "poker-bot-v2"
+    },
+    {
+      "source": "claude-api",
+      "target": "promptcraft"
+    },
+    {
+      "source": "claude-api",
+      "target": "screen-reading-ocr"
+    },
+    {
+      "source": "claude-api",
+      "target": "writing-style-profiling"
+    },
+    {
+      "source": "claude-code-agents",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "claude-code-agents",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "claude-code-agents",
+      "target": "llm-routing"
+    },
+    {
+      "source": "claude-code-agents",
+      "target": "school-assignments"
+    },
+    {
+      "source": "claude-code-agents",
+      "target": "wat-framework"
+    },
+    {
+      "source": "claude-code-agents",
+      "target": "writing-style-profiling"
+    },
+    {
+      "source": "claude-code-skills",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "claude-code-skills",
+      "target": "parallax-game"
+    },
+    {
+      "source": "claude-code-skills",
+      "target": "school-assignments"
+    },
+    {
+      "source": "claude-code-skills",
+      "target": "self-improvement-loop"
+    },
+    {
+      "source": "claude-code-skills",
+      "target": "sentence-remix-system"
+    },
+    {
+      "source": "claude-code-skills",
+      "target": "sprint-city"
+    },
+    {
+      "source": "claude-code-skills",
+      "target": "writing-style-profiling"
+    },
+    {
+      "source": "cultivaite",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "cultivaite",
+      "target": "house-portfolio"
+    },
+    {
+      "source": "cultivaite",
+      "target": "work-standards"
+    },
+    {
+      "source": "email-organizer",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "email-organizer",
+      "target": "gmail-api"
+    },
+    {
+      "source": "email-organizer",
+      "target": "the-lamppost"
+    },
+    {
+      "source": "email-organizer",
+      "target": "wat-framework"
+    },
+    {
+      "source": "email-organizer",
+      "target": "writing-style-profiling"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "house-portfolio"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "luminary-3d"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "mamie-smith-research"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "movie-clone"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "mrbeast-puzzle"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "parallax-game"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "poker-bot-v1"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "poker-bot-v2"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "promptcraft"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "scholarship-applications"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "school-assignments"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "sentence-remix-system"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "sprint-city"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "student-ai-toolkit"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "the-lamppost"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "wat-framework"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "writing-style-profiling"
+    },
+    {
+      "source": "file-structure-conventions",
+      "target": "self-improvement-loop"
+    },
+    {
+      "source": "file-structure-conventions",
+      "target": "wat-framework"
+    },
+    {
+      "source": "file-structure-conventions",
+      "target": "work-standards"
+    },
+    {
+      "source": "gemini-api",
+      "target": "groq-api"
+    },
+    {
+      "source": "gemini-api",
+      "target": "house-portfolio"
+    },
+    {
+      "source": "gemini-api",
+      "target": "writing-style-profiling"
+    },
+    {
+      "source": "gmail-api",
+      "target": "the-lamppost"
+    },
+    {
+      "source": "groq-api",
+      "target": "house-portfolio"
+    },
+    {
+      "source": "groq-api",
+      "target": "llm-routing"
+    },
+    {
+      "source": "groq-api",
+      "target": "poker-bot-v2"
+    },
+    {
+      "source": "gsap",
+      "target": "house-portfolio"
+    },
+    {
+      "source": "gsap",
+      "target": "luminary-3d"
+    },
+    {
+      "source": "gsap",
+      "target": "scroll-driven-3d"
+    },
+    {
+      "source": "gsap",
+      "target": "three-js"
+    },
+    {
+      "source": "house-portfolio",
+      "target": "luminary-3d"
+    },
+    {
+      "source": "house-portfolio",
+      "target": "movie-clone"
+    },
+    {
+      "source": "house-portfolio",
+      "target": "poker-bot-v2"
+    },
+    {
+      "source": "house-portfolio",
+      "target": "promptcraft"
+    },
+    {
+      "source": "house-portfolio",
+      "target": "scroll-driven-3d"
+    },
+    {
+      "source": "house-portfolio",
+      "target": "the-lamppost"
+    },
+    {
+      "source": "house-portfolio",
+      "target": "three-js"
+    },
+    {
+      "source": "house-portfolio",
+      "target": "writing-style-profiling"
+    },
+    {
+      "source": "llm-routing",
+      "target": "poker-bot-v1"
+    },
+    {
+      "source": "llm-routing",
+      "target": "poker-bot-v2"
+    },
+    {
+      "source": "llm-routing",
+      "target": "wat-framework"
+    },
+    {
+      "source": "luminary-3d",
+      "target": "scroll-driven-3d"
+    },
+    {
+      "source": "luminary-3d",
+      "target": "three-js"
+    },
+    {
+      "source": "mamie-smith-research",
+      "target": "school-assignments"
+    },
+    {
+      "source": "parallax-game",
+      "target": "pyautogui"
+    },
+    {
+      "source": "parallax-game",
+      "target": "screen-reading-ocr"
+    },
+    {
+      "source": "parallax-game",
+      "target": "self-improvement-loop"
+    },
+    {
+      "source": "parallax-game",
+      "target": "sprint-city"
+    },
+    {
+      "source": "playwright-browser-automation",
+      "target": "pyautogui"
+    },
+    {
+      "source": "poker-bot-v1",
+      "target": "poker-bot-v2"
+    },
+    {
+      "source": "poker-bot-v1",
+      "target": "screen-reading-ocr"
+    },
+    {
+      "source": "poker-bot-v1",
+      "target": "self-improvement-loop"
+    },
+    {
+      "source": "poker-bot-v2",
+      "target": "pyautogui"
+    },
+    {
+      "source": "poker-bot-v2",
+      "target": "screen-reading-ocr"
+    },
+    {
+      "source": "poker-bot-v2",
+      "target": "self-improvement-loop"
+    },
+    {
+      "source": "poker-bot-v2",
+      "target": "wat-framework"
+    },
+    {
+      "source": "promptcraft",
+      "target": "supabase"
+    },
+    {
+      "source": "pyautogui",
+      "target": "screen-reading-ocr"
+    },
+    {
+      "source": "pyautogui",
+      "target": "sprint-city"
+    },
+    {
+      "source": "scholarship-applications",
+      "target": "school-assignments"
+    },
+    {
+      "source": "scholarship-applications",
+      "target": "writing-style-profiling"
+    },
+    {
+      "source": "school-assignments",
+      "target": "sentence-remix-system"
+    },
+    {
+      "source": "school-assignments",
+      "target": "writing-style-profiling"
+    },
+    {
+      "source": "screen-reading-ocr",
+      "target": "sprint-city"
+    },
+    {
+      "source": "scroll-driven-3d",
+      "target": "three-js"
+    },
+    {
+      "source": "self-improvement-loop",
+      "target": "sprint-city"
+    },
+    {
+      "source": "self-improvement-loop",
+      "target": "wat-framework"
+    },
+    {
+      "source": "self-improvement-loop",
+      "target": "work-standards"
+    },
+    {
+      "source": "sentence-remix-system",
+      "target": "writing-style-profiling"
+    },
+    {
+      "source": "student-ai-toolkit",
+      "target": "supabase"
+    },
+    {
+      "source": "supabase",
+      "target": "tavily-api"
+    },
+    {
+      "source": "supabase",
+      "target": "the-lamppost"
+    },
+    {
+      "source": "tavily-api",
+      "target": "the-lamppost"
+    },
+    {
+      "source": "the-lamppost",
+      "target": "wat-framework"
+    },
+    {
+      "source": "wat-framework",
+      "target": "work-standards"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+# Node / build outputs
+node_modules/
+dist/
+.vercel/
+
+# Environment secrets
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+
+# Logs
+*.log

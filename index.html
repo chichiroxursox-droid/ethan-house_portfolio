@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ethan Hauger</title>
+  <meta name="description" content="18, self-taught builder in West Philly. Co-founded Faithfully (AI for nonprofits), spoke at the UN on gun violence, shipped 15+ projects." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Ethan Hauger" />
+  <meta property="og:description" content="18, self-taught builder in West Philly. Co-founded Faithfully (AI for nonprofits), spoke at the UN on gun violence, shipped 15+ projects." />
+  <meta property="og:image" content="/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ethan Hauger" />
+  <meta name="twitter:description" content="18, self-taught builder in West Philly. Co-founded Faithfully, spoke at the UN, shipped 15+ projects." />
+  <meta name="twitter:image" content="/og-image.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/main.css" />
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+
+  <div id="scroll-container">
+    <div class="scroll-spacer"></div>
+  </div>
+
+  <div id="scroll-hint">
+    <span>SCROLL TO EXPLORE</span>
+    <div class="arrow"></div>
+  </div>
+
+  <button id="skip-btn" class="skip-btn" type="button">Enter the room &rarr;</button>
+
+  <!-- Visual Novel overlay -->
+  <div id="vn-overlay" class="overlay" style="display:none">
+    <img id="vn-sprite" class="vn-sprite" src="/character/wave.png" alt="Ethan" />
+    <video id="vn-talking" class="vn-sprite" src="/character/talking.webm" loop muted playsinline style="display:none"></video>
+    <div class="vn-dialogue">
+      <span class="vn-name">Ethan</span>
+      <p id="vn-text" class="vn-text"></p>
+    </div>
+    <div id="vn-choices" class="vn-choices" style="display:none">
+      <button class="vn-choice" data-action="about">About me</button>
+      <button class="vn-choice" data-action="work">View my work</button>
+      <button class="vn-choice" data-action="explore">Explore the room</button>
+    </div>
+  </div>
+
+  <!-- Computer overlay -->
+  <div id="computer-overlay" class="overlay overlay-minimal" style="display:none">
+    <button id="btn-back-computer" class="back-btn">&larr; Back to menu</button>
+  </div>
+
+  <!-- Game iframe overlay (Parallax) -->
+  <div id="game-overlay" style="display:none">
+    <iframe id="game-iframe" allowfullscreen allow="fullscreen"></iframe>
+    <button id="btn-close-game" class="game-close-btn">&times; EXIT</button>
+  </div>
+
+  <!-- Explore mode overlay -->
+  <div id="explore-overlay" class="overlay overlay-minimal" style="display:none">
+    <button id="btn-back-explore" class="back-btn">&larr; Back to menu</button>
+    <div id="explore-crosshair" class="explore-crosshair" style="display:none"></div>
+    <div id="explore-lock-hint" class="explore-lock-hint" style="display:none">
+      <span>Click to look around</span>
+    </div>
+    <div id="explore-esc-hint" class="explore-esc-hint">ESC to exit</div>
+    <div id="tooltip" class="tooltip"></div>
+    <div id="focus-description" class="focus-description" style="display:none">
+      <div class="focus-name"></div>
+      <div class="focus-text"></div>
+      <div class="focus-hint">Click anywhere to return</div>
+    </div>
+    <div id="bookshelf-card" class="bookshelf-card" style="display:none">
+      <div class="bookshelf-name">Bookshelf</div>
+      <div class="bookshelf-text"></div>
+      <div class="bookshelf-hint">Click anywhere to dismiss</div>
+    </div>
+  </div>
+
+  <!-- About overlay (bio + email + collapsible chat) -->
+  <div id="about-overlay" class="overlay" style="display:none">
+    <div class="about-panel">
+      <div class="about-header">
+        <span>About me</span>
+        <button id="btn-close-about" class="close-btn">&times;</button>
+      </div>
+      <div class="about-body">
+        <p class="about-bio">I'm Ethan — 18, senior at SLA Beeber in West Philly. Self-taught builder: I co-founded Faithfully (AI for nonprofits) with my siblings, spoke at the UN on gun violence, and have shipped 15+ projects across 3D web, Python, and game dev — most learned by doing. This portfolio is some of what I've built. If you'd like to connect, I'm open to internships, jobs, and mentoring others learning to build.</p>
+        <a class="about-email" href="mailto:ethan.chi.hauger@gmail.com">ethan.chi.hauger@gmail.com</a>
+      </div>
+      <div class="about-chat-label">Or chat with the AI version of me</div>
+      <div id="chat-panel" class="chat-panel chat-panel--embedded">
+        <div id="chat-messages" class="chat-messages"></div>
+        <div class="chat-input-area">
+          <input id="chat-input" type="text" placeholder="Ask me anything..." />
+          <button id="chat-send">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Music overlay (piano music stand) -->
+  <div id="music-overlay" class="overlay" style="display:none">
+    <div class="music-panel">
+      <div class="music-header">
+        <span>My Music</span>
+        <button id="btn-close-music" class="close-btn">&times;</button>
+      </div>
+      <div class="music-grid"></div>
+      <div class="music-player" style="display:none">
+        <button id="btn-back-music-grid" class="back-btn">&larr; Back</button>
+        <iframe allowfullscreen allow="autoplay; encrypted-media"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio mute toggle -->
+  <button id="audio-toggle" class="audio-btn" title="Toggle sound">
+    <span class="audio-icon">♪</span>
+  </button>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
