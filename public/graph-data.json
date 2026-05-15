@@ -15,13 +15,6 @@
       "linkCount": 2
     },
     {
-      "id": "ai-detection-countermeasures",
-      "title": "AI Detection Countermeasures",
-      "category": "concept",
-      "summary": "Empirically tested techniques for reducing AI detection scores on generated text. Tested against GPTZero Premium (Model 2026-03-11-base) across 18+ attempts with sentence-level analysis.",
-      "linkCount": 5
-    },
-    {
       "id": "ai-news-2026-04-27",
       "title": "AI News Digest \u2014 2026-04-27",
       "category": "concept",
@@ -50,10 +43,31 @@
       "linkCount": 5
     },
     {
-      "id": "automatic-meeting-bot",
-      "title": "Automatic Meeting Bot",
-      "category": "project",
-      "summary": "Browser automation bot that auto-joins scheduled Zoom and Google Meet meetings, disables camera/mic, sends a chat message (\"I'm here\"), and leaves at the scheduled end time. Built for Ethan's schoo...",
+      "id": "ai-news-2026-05-12",
+      "title": "AI News Digest \u2014 2026-05-12",
+      "category": "concept",
+      "summary": "> **Drive:** [https://docs.google.com/document/d/1lYbeYQ5EOaASCZ7J_KmFgltAFpcbu9DmsiLN6YgkAO4/edit](https://docs.google.com/document/d/1lYbeYQ5EOaASCZ7J_KmFgltAFpcbu9DmsiLN6YgkAO4/edit) Daily AI ne...",
+      "linkCount": 3
+    },
+    {
+      "id": "ai-news-2026-05-13",
+      "title": "AI News Digest \u2014 2026-05-13",
+      "category": "concept",
+      "summary": "> **Drive:** [https://docs.google.com/document/d/19_Se4czRbOBZjvKXwyS1S_3HTsNQaP_8eoN_xPQTWoU/edit](https://docs.google.com/document/d/19_Se4czRbOBZjvKXwyS1S_3HTsNQaP_8eoN_xPQTWoU/edit) Daily AI ne...",
+      "linkCount": 4
+    },
+    {
+      "id": "ai-news-2026-05-14",
+      "title": "AI News Digest \u2014 2026-05-14",
+      "category": "concept",
+      "summary": "> **Drive:** [https://docs.google.com/document/d/1vp1XSeNFj40Ps5sdOdI6qksGJ8WVjigPmjNyg_3-vmY/edit](https://docs.google.com/document/d/1vp1XSeNFj40Ps5sdOdI6qksGJ8WVjigPmjNyg_3-vmY/edit) Daily AI ne...",
+      "linkCount": 2
+    },
+    {
+      "id": "ai-news-2026-05-15",
+      "title": "AI News Digest \u2014 2026-05-15",
+      "category": "concept",
+      "summary": "> **Drive:** [https://docs.google.com/document/d/11US5nFNyMSaWkcQu9k9vHsjvskBV_P8PvtD4P8CChhQ/edit](https://docs.google.com/document/d/11US5nFNyMSaWkcQu9k9vHsjvskBV_P8PvtD4P8CChhQ/edit) Daily AI ne...",
       "linkCount": 5
     },
     {
@@ -89,14 +103,14 @@
       "title": "Browser Automation",
       "category": "concept",
       "summary": "Using headless or headed browsers programmatically to automate web interactions \u2014 clicking buttons, filling forms, navigating pages, extracting content. A recurring pattern across multiple projects.",
-      "linkCount": 5
+      "linkCount": 3
     },
     {
       "id": "canvas-automation",
       "title": "Canvas Automation (Zion Work)",
       "category": "project",
       "summary": "Python utilities for reading and organizing assignments from Canvas LMS (SLA Beeber school instance). Uses Playwright for browser automation and the Canvas API for data access.",
-      "linkCount": 4
+      "linkCount": 3
     },
     {
       "id": "caveman-claude",
@@ -110,21 +124,21 @@
       "title": "Claude API",
       "category": "tool",
       "summary": "Anthropic's API for accessing Claude models. Used across multiple projects for classification, analysis, decision-making, and content generation.",
-      "linkCount": 11
+      "linkCount": 10
     },
     {
       "id": "claude-code-agents",
       "title": "Claude Code Agents",
       "category": "concept",
       "summary": "Custom agent definitions that extend Claude Code with specialized personas. Each agent has its own system prompt, tool permissions, and model assignment. They run as subagents \u2014 spawned for specifi...",
-      "linkCount": 6
+      "linkCount": 5
     },
     {
       "id": "claude-code-skills",
       "title": "Claude Code Skills",
       "category": "concept",
       "summary": "Reusable instruction sets that tell Claude Code how to handle specific task types. Skills are loaded on-demand \u2014 their descriptions are always visible, but full content only loads when invoked. Thi...",
-      "linkCount": 9
+      "linkCount": 6
     },
     {
       "id": "cultivaite",
@@ -152,14 +166,14 @@
       "title": "Ethan Hauger",
       "category": "entity",
       "summary": "The person behind all these projects. High school senior at SLA Beeber in West Philadelphia.",
-      "linkCount": 25
+      "linkCount": 19
     },
     {
       "id": "ethan-portfolio",
       "title": "Ethan Portfolio (Lovable)",
       "category": "project",
       "summary": "A polished, conventional React portfolio site for [[ethan-hauger]] at **ethan-portfolio.lovable.app**. Built with Lovable + Vite + React + shadcn-ui + Supabase. This is the **second portfolio** alo...",
-      "linkCount": 10
+      "linkCount": 9
     },
     {
       "id": "file-structure-conventions",
@@ -194,7 +208,7 @@
       "title": "Groq API",
       "category": "tool",
       "summary": "Fast, cheap LLM inference provider. Used when speed matters more than capability \u2014 quick decisions, transcription, and real-time interactions.",
-      "linkCount": 6
+      "linkCount": 4
     },
     {
       "id": "gsap",
@@ -208,14 +222,14 @@
       "title": "House Portfolio",
       "category": "project",
       "summary": "An interactive 3D portfolio website for Ethan Hauger. Users scroll through an outdoor environment into a 3D house modeled in Blender, then explore rooms, interact with objects, browse projects on a...",
-      "linkCount": 11
+      "linkCount": 10
     },
     {
       "id": "llm-routing",
       "title": "LLM Routing",
       "category": "concept",
       "summary": "A multi-tier decision routing pattern where requests are sent to different LLM providers based on complexity, cost, and speed requirements. The cheapest/fastest option handles most cases; expensive...",
-      "linkCount": 5
+      "linkCount": 4
     },
     {
       "id": "llm-verbosity-overthinking",
@@ -236,7 +250,7 @@
       "title": "Mamie Smith Research",
       "category": "project",
       "summary": "School history research project exploring how Mamie Smith's 1920 recording of \"Crazy Blues\" contributed to Harlem becoming a national center for Black music during the Harlem Renaissance.",
-      "linkCount": 2
+      "linkCount": 1
     },
     {
       "id": "movie-clone",
@@ -244,13 +258,6 @@
       "category": "project",
       "summary": "TMDB-powered movie and TV show browser built with React, TypeScript, and Tailwind CSS. Features search, catalog browsing, detail pages with trailers, and dark/light theme switching.",
       "linkCount": 2
-    },
-    {
-      "id": "mrbeast-puzzle",
-      "title": "MrBeast $1M Puzzle",
-      "category": "project",
-      "summary": "Collaborative attempt to solve MrBeast's $1 million online puzzle challenge. Heavy research-driven project using Discord findings, community analysis, and systematic puzzle documentation. No code \u2014...",
-      "linkCount": 1
     },
     {
       "id": "parallax-game",
@@ -264,21 +271,7 @@
       "title": "Playwright",
       "category": "tool",
       "summary": "Browser automation library by Microsoft. Controls Chrome, Firefox, and WebKit programmatically. More reliable than Selenium, with built-in wait mechanisms and better selector support.",
-      "linkCount": 3
-    },
-    {
-      "id": "poker-bot-v1",
-      "title": "Poker Bot v1",
-      "category": "project",
-      "summary": "The original poker bot \u2014 predecessor to [[poker-bot-v2]]. A more traditional architecture with separate agents, engine, executor, reader, and tracker modules. Uses a YAML config file rather than th...",
-      "linkCount": 5
-    },
-    {
-      "id": "poker-bot-v2",
-      "title": "Poker Bot v2",
-      "category": "project",
-      "summary": "An autonomous AI poker bot for Club WPT Gold that plays No-Limit Hold'em cash games and tournaments. Reads the screen via OCR and template matching, makes decisions through a tiered routing system ...",
-      "linkCount": 8
+      "linkCount": 2
     },
     {
       "id": "promptcraft",
@@ -292,28 +285,14 @@
       "title": "PyAutoGUI",
       "category": "tool",
       "summary": "Python library for programmatic mouse and keyboard control. Operates at the OS level \u2014 clicks actual screen coordinates, types keystrokes, takes screenshots.",
-      "linkCount": 3
-    },
-    {
-      "id": "scholarship-applications",
-      "title": "Scholarship Applications",
-      "category": "project",
-      "summary": "Penn State Honors scholarship application essays. Includes a \"Transformational Idea\" essay proposing a student-run AI governance council, plus short answer responses on empowered growth, travel, an...",
-      "linkCount": 3
-    },
-    {
-      "id": "school-assignments",
-      "title": "School Assignments",
-      "category": "concept",
-      "summary": "Comprehensive school assignment workflow built around [[ethan-hauger]]'s needs as a 12th grader at SLA Beeber. Combines writing style profiling, AI detection countermeasures, file generation skills...",
-      "linkCount": 7
+      "linkCount": 2
     },
     {
       "id": "screen-reading-ocr",
       "title": "Screen Reading & OCR",
       "category": "concept",
       "summary": "Capturing screen regions and extracting text/data using OCR (Optical Character Recognition) and template matching. Used when there's no API \u2014 the screen IS the interface.",
-      "linkCount": 4
+      "linkCount": 3
     },
     {
       "id": "scroll-driven-3d",
@@ -328,13 +307,6 @@
       "category": "concept",
       "summary": "A core mechanism within the [[wat-framework]]. Every failure is treated as a chance to make the system stronger, not just something to fix and move on from.",
       "linkCount": 6
-    },
-    {
-      "id": "sentence-remix-system",
-      "title": "Sentence Remix System",
-      "category": "concept",
-      "summary": "A novel approach to AI-assisted writing that bypasses AI detectors by assembling essays from real human-written sentences rather than generating new ones. The core insight: AI detectors flag token-...",
-      "linkCount": 5
     },
     {
       "id": "sprint-city",
@@ -397,7 +369,7 @@
       "title": "Writing Style Profiling",
       "category": "concept",
       "summary": "A technique for capturing a person's writing voice as a structured configuration file, enabling AI-generated text that matches their tone, vocabulary, and patterns. The profile is built once from w...",
-      "linkCount": 8
+      "linkCount": 5
     }
   ],
   "edges": [
@@ -443,35 +415,27 @@
     },
     {
       "source": "ai-content-creation",
+      "target": "ai-news-2026-05-12"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "ai-news-2026-05-13"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "ai-news-2026-05-14"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "ai-news-2026-05-15"
+    },
+    {
+      "source": "ai-content-creation",
       "target": "cultivaite"
     },
     {
       "source": "ai-content-creation",
       "target": "ethan-hauger"
-    },
-    {
-      "source": "ai-detection-countermeasures",
-      "target": "claude-code-agents"
-    },
-    {
-      "source": "ai-detection-countermeasures",
-      "target": "claude-code-skills"
-    },
-    {
-      "source": "ai-detection-countermeasures",
-      "target": "ethan-hauger"
-    },
-    {
-      "source": "ai-detection-countermeasures",
-      "target": "school-assignments"
-    },
-    {
-      "source": "ai-detection-countermeasures",
-      "target": "sentence-remix-system"
-    },
-    {
-      "source": "ai-detection-countermeasures",
-      "target": "writing-style-profiling"
     },
     {
       "source": "ai-news-2026-04-27",
@@ -514,28 +478,44 @@
       "target": "ethan-aios"
     },
     {
-      "source": "automatic-meeting-bot",
-      "target": "browser-automation"
+      "source": "ai-news-2026-05-12",
+      "target": "ai-news-2026-05-13"
     },
     {
-      "source": "automatic-meeting-bot",
+      "source": "ai-news-2026-05-12",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "ai-news-2026-05-12",
       "target": "ethan-hauger"
     },
     {
-      "source": "automatic-meeting-bot",
-      "target": "ethan-portfolio"
+      "source": "ai-news-2026-05-13",
+      "target": "claude-code-skills"
     },
     {
-      "source": "automatic-meeting-bot",
-      "target": "groq-api"
+      "source": "ai-news-2026-05-13",
+      "target": "ethan-hauger"
     },
     {
-      "source": "automatic-meeting-bot",
-      "target": "playwright-browser-automation"
+      "source": "ai-news-2026-05-14",
+      "target": "claude-code-skills"
     },
     {
-      "source": "automatic-meeting-bot",
-      "target": "wat-framework"
+      "source": "ai-news-2026-05-15",
+      "target": "claude-api"
+    },
+    {
+      "source": "ai-news-2026-05-15",
+      "target": "claude-code-agents"
+    },
+    {
+      "source": "ai-news-2026-05-15",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "ai-news-2026-05-15",
+      "target": "ethan-aios"
     },
     {
       "source": "bike-website",
@@ -619,10 +599,6 @@
     },
     {
       "source": "browser-automation",
-      "target": "poker-bot-v2"
-    },
-    {
-      "source": "browser-automation",
       "target": "pyautogui"
     },
     {
@@ -636,10 +612,6 @@
     {
       "source": "canvas-automation",
       "target": "playwright-browser-automation"
-    },
-    {
-      "source": "canvas-automation",
-      "target": "school-assignments"
     },
     {
       "source": "caveman-claude",
@@ -683,10 +655,6 @@
     },
     {
       "source": "claude-api",
-      "target": "poker-bot-v2"
-    },
-    {
-      "source": "claude-api",
       "target": "promptcraft"
     },
     {
@@ -711,10 +679,6 @@
     },
     {
       "source": "claude-code-agents",
-      "target": "school-assignments"
-    },
-    {
-      "source": "claude-code-agents",
       "target": "wat-framework"
     },
     {
@@ -735,15 +699,7 @@
     },
     {
       "source": "claude-code-skills",
-      "target": "school-assignments"
-    },
-    {
-      "source": "claude-code-skills",
       "target": "self-improvement-loop"
-    },
-    {
-      "source": "claude-code-skills",
-      "target": "sentence-remix-system"
     },
     {
       "source": "claude-code-skills",
@@ -847,35 +803,11 @@
     },
     {
       "source": "ethan-hauger",
-      "target": "mrbeast-puzzle"
-    },
-    {
-      "source": "ethan-hauger",
       "target": "parallax-game"
     },
     {
       "source": "ethan-hauger",
-      "target": "poker-bot-v1"
-    },
-    {
-      "source": "ethan-hauger",
-      "target": "poker-bot-v2"
-    },
-    {
-      "source": "ethan-hauger",
       "target": "promptcraft"
-    },
-    {
-      "source": "ethan-hauger",
-      "target": "scholarship-applications"
-    },
-    {
-      "source": "ethan-hauger",
-      "target": "school-assignments"
-    },
-    {
-      "source": "ethan-hauger",
-      "target": "sentence-remix-system"
     },
     {
       "source": "ethan-hauger",
@@ -958,10 +890,6 @@
       "target": "llm-routing"
     },
     {
-      "source": "groq-api",
-      "target": "poker-bot-v2"
-    },
-    {
       "source": "gsap",
       "target": "house-portfolio"
     },
@@ -984,10 +912,6 @@
     {
       "source": "house-portfolio",
       "target": "movie-clone"
-    },
-    {
-      "source": "house-portfolio",
-      "target": "poker-bot-v2"
     },
     {
       "source": "house-portfolio",
@@ -1015,14 +939,6 @@
     },
     {
       "source": "llm-routing",
-      "target": "poker-bot-v1"
-    },
-    {
-      "source": "llm-routing",
-      "target": "poker-bot-v2"
-    },
-    {
-      "source": "llm-routing",
       "target": "wat-framework"
     },
     {
@@ -1036,10 +952,6 @@
     {
       "source": "luminary-3d",
       "target": "three-js"
-    },
-    {
-      "source": "mamie-smith-research",
-      "target": "school-assignments"
     },
     {
       "source": "parallax-game",
@@ -1062,34 +974,6 @@
       "target": "pyautogui"
     },
     {
-      "source": "poker-bot-v1",
-      "target": "poker-bot-v2"
-    },
-    {
-      "source": "poker-bot-v1",
-      "target": "screen-reading-ocr"
-    },
-    {
-      "source": "poker-bot-v1",
-      "target": "self-improvement-loop"
-    },
-    {
-      "source": "poker-bot-v2",
-      "target": "pyautogui"
-    },
-    {
-      "source": "poker-bot-v2",
-      "target": "screen-reading-ocr"
-    },
-    {
-      "source": "poker-bot-v2",
-      "target": "self-improvement-loop"
-    },
-    {
-      "source": "poker-bot-v2",
-      "target": "wat-framework"
-    },
-    {
       "source": "promptcraft",
       "target": "supabase"
     },
@@ -1100,22 +984,6 @@
     {
       "source": "pyautogui",
       "target": "sprint-city"
-    },
-    {
-      "source": "scholarship-applications",
-      "target": "school-assignments"
-    },
-    {
-      "source": "scholarship-applications",
-      "target": "writing-style-profiling"
-    },
-    {
-      "source": "school-assignments",
-      "target": "sentence-remix-system"
-    },
-    {
-      "source": "school-assignments",
-      "target": "writing-style-profiling"
     },
     {
       "source": "screen-reading-ocr",
@@ -1136,10 +1004,6 @@
     {
       "source": "self-improvement-loop",
       "target": "work-standards"
-    },
-    {
-      "source": "sentence-remix-system",
-      "target": "writing-style-profiling"
     },
     {
       "source": "student-ai-toolkit",
