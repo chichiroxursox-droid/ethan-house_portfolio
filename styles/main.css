@@ -496,6 +496,35 @@ html, body {
   text-transform: uppercase;
 }
 
+.focus-action-btn {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 11px 22px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: #0a0806;
+  background: linear-gradient(135deg, #f5c97a 0%, #e8b86a 100%);
+  border: 1px solid rgba(232, 184, 122, 0.6);
+  border-radius: 999px;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.focus-action-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+}
+
+.focus-action-btn:active {
+  transform: translateY(0);
+  filter: brightness(0.96);
+}
+
 /* ── Handwritten-note variant (for corkboard polaroids) ── */
 .focus-description.handwritten {
   max-width: 380px;
@@ -883,11 +912,14 @@ html, body {
   gap: 12px;
 }
 
-.music-player iframe {
+.music-player iframe,
+.music-player video {
   width: 100%;
   aspect-ratio: 16 / 9;
   border: none;
   border-radius: 10px;
+  background: #000;
+  display: block;
 }
 
 .music-player .back-btn {

@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 import { playChime, playLampClick, playDribble } from './audio.js';
 import { getLampRefs } from './house.js';
-import { enterPianoFocus, exitPianoFocus, isPianoFocused, updatePiano, hideMusicOverlay } from './piano.js';
+import { enterPianoFocus, exitPianoFocus, isPianoFocused, updatePiano, hideMusicOverlay, showMusicOverlay } from './piano.js';
 import { setClockFocused } from './clock.js';
 
 // ── Interactive object definitions ──
@@ -318,6 +318,29 @@ function showFocusDescription(text, name) {
   // Corkboard polaroids get the handwritten-note treatment; everything else
   // uses the default golden-caption look.
   el.classList.toggle('handwritten', name.startsWith('Polaroid_'));
+
+  // Piano focus: surface a clear button to watch the videos. The 3D
+  // music-stand sign is still clickable, but a real HTML button is far
+  // more discoverable and reliable than a tiny angled plane.
+  let videoBtn = el.querySelector('.focus-action-btn');
+  if (name === 'Piano') {
+    if (!videoBtn) {
+      videoBtn = document.createElement('button');
+      videoBtn.type = 'button';
+      videoBtn.className = 'focus-action-btn';
+      videoBtn.textContent = '▶  Watch my piano videos';
+      videoBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showMusicOverlay();
+      });
+      const hint = el.querySelector('.focus-hint');
+      el.insertBefore(videoBtn, hint);
+    }
+    videoBtn.style.display = '';
+  } else if (videoBtn) {
+    videoBtn.style.display = 'none';
+  }
+
   el.style.display = 'block';
   el.style.opacity = '1';
 }

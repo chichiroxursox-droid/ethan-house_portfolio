@@ -174,11 +174,19 @@ export function updatePiano() {
 // ── Music overlay ──
 
 const MUSIC_VIDEOS = [
-  // Add YouTube video IDs and titles here
-  // { id: 'dQw4w9WgXcQ', title: 'Song Title' },
+  { src: '/videos/piano-1.mp4', poster: '/videos/piano-1-thumb.jpg', title: 'Piano — Take 1' },
+  { src: '/videos/piano-2.mp4', poster: '/videos/piano-2-thumb.jpg', title: 'Piano — Take 2' },
 ];
 
-function showMusicOverlay() {
+function stopVideoPlayback(overlay) {
+  const video = overlay?.querySelector('.music-player video');
+  if (!video) return;
+  video.pause();
+  video.removeAttribute('src');
+  video.load();
+}
+
+export function showMusicOverlay() {
   const overlay = document.getElementById('music-overlay');
   if (!overlay) return;
   overlay.style.display = 'flex';
@@ -186,9 +194,11 @@ function showMusicOverlay() {
   const grid = overlay.querySelector('.music-grid');
   const player = overlay.querySelector('.music-player');
   if (player) player.style.display = 'none';
+  stopVideoPlayback(overlay);
 
   if (grid) {
     grid.innerHTML = '';
+    grid.style.display = '';
 
     if (MUSIC_VIDEOS.length === 0) {
       grid.innerHTML = '<p style="color:rgba(255,255,255,0.5);text-align:center;width:100%;">Videos coming soon...</p>';
@@ -199,25 +209,30 @@ function showMusicOverlay() {
       const card = document.createElement('div');
       card.className = 'music-card';
       card.innerHTML = `
-        <img src="https://img.youtube.com/vi/${video.id}/hqdefault.jpg" alt="${video.title}" />
+        <img src="${video.poster}" alt="${video.title}" />
         <span>${video.title}</span>
       `;
-      card.addEventListener('click', () => openVideo(video.id));
+      card.addEventListener('click', () => openVideo(video));
       grid.appendChild(card);
     });
   }
 }
 
-function openVideo(videoId) {
+function openVideo(video) {
   const overlay = document.getElementById('music-overlay');
   if (!overlay) return;
   const grid = overlay.querySelector('.music-grid');
   const player = overlay.querySelector('.music-player');
-  const iframe = overlay.querySelector('.music-player iframe');
+  const videoEl = overlay.querySelector('.music-player video');
 
   if (grid) grid.style.display = 'none';
   if (player) player.style.display = 'flex';
-  if (iframe) iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+  if (videoEl) {
+    videoEl.src = video.src;
+    videoEl.poster = video.poster || '';
+    videoEl.load();
+    videoEl.play().catch(() => {});
+  }
 }
 
 export function hideMusicOverlay() {
@@ -225,11 +240,8 @@ export function hideMusicOverlay() {
   if (!overlay) return;
   overlay.style.display = 'none';
 
-  // Stop video playback
-  const iframe = overlay.querySelector('.music-player iframe');
-  if (iframe) iframe.src = '';
+  stopVideoPlayback(overlay);
 
-  // Reset grid visibility
   const grid = overlay.querySelector('.music-grid');
   const player = overlay.querySelector('.music-player');
   if (grid) grid.style.display = '';
@@ -240,11 +252,11 @@ export function hideMusicOverlay() {
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-close-music')?.addEventListener('click', hideMusicOverlay);
   document.getElementById('btn-back-music-grid')?.addEventListener('click', () => {
-    const grid = document.querySelector('#music-overlay .music-grid');
-    const player = document.querySelector('#music-overlay .music-player');
-    const iframe = document.querySelector('#music-overlay .music-player iframe');
+    const overlay = document.getElementById('music-overlay');
+    const grid = overlay?.querySelector('.music-grid');
+    const player = overlay?.querySelector('.music-player');
     if (grid) grid.style.display = '';
     if (player) player.style.display = 'none';
-    if (iframe) iframe.src = '';
+    stopVideoPlayback(overlay);
   });
 });
