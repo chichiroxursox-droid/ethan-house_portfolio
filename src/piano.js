@@ -174,8 +174,8 @@ export function updatePiano() {
 // ── Music overlay ──
 
 const MUSIC_VIDEOS = [
-  { src: '/videos/piano-1.mp4', poster: '/videos/piano-1-thumb.jpg', title: 'Piano — Take 1' },
-  { src: '/videos/piano-2.mp4', poster: '/videos/piano-2-thumb.jpg', title: 'Piano — Take 2' },
+  { src: '/videos/piano-1.mp4', poster: '/videos/piano-1-thumb.jpg', title: 'Beanie' },
+  { src: '/videos/piano-2.mp4', poster: '/videos/piano-2-thumb.jpg', title: 'I Broke a String Playing This' },
 ];
 
 function stopVideoPlayback(overlay) {
