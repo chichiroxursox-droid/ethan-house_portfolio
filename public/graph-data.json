@@ -4,14 +4,14 @@
       "id": "agentic-workflows-demo",
       "title": "Agentic Workflows Demo",
       "category": "project",
-      "summary": "A template project showcasing the [[wat-framework]] architecture with a real-world job scraping example. Demonstrates how to separate deterministic execution (tools) from probabilistic reasoning (a...",
+      "summary": "A template project showcasing the [[wat-framework]] architecture with a real-world job scraping example. Demonstrates how to separate deterministic execution (tools) from probabilistic reasoning (agents) via documented instructions (workflows).",
       "linkCount": 4
     },
     {
       "id": "ai-content-creation",
       "title": "AI Content Creation",
       "category": "project",
-      "summary": "Planned YouTube + TikTok/Reels content series about AI education for students. Three content pillars: Reality Check (what AI actually does), Try This (hands-on demos), and Student's Guide (practica...",
+      "summary": "Planned YouTube + TikTok/Reels content series about AI education for students. Three content pillars: Reality Check (what AI actually does), Try This (hands-on demos), and Student's Guide (practical AI tools for school). Scripts written but no video production yet.",
       "linkCount": 2
     },
     {
@@ -39,63 +39,147 @@
       "id": "ai-news-2026-05-11",
       "title": "AI News Digest \u2014 2026-05-11",
       "category": "concept",
-      "summary": "> **Drive:** [https://docs.google.com/document/d/1uie-3w1W6AE1JKS_BGA2UaHRNvraBsX_3SAp5QFKB_M/edit](https://docs.google.com/document/d/1uie-3w1W6AE1JKS_BGA2UaHRNvraBsX_3SAp5QFKB_M/edit) Daily AI ne...",
+      "summary": "> **Drive:** [https://docs.google.com/document/d/1uie-3w1W6AE1JKS_BGA2UaHRNvraBsX_3SAp5QFKB_M/edit](https://docs.google.com/document/d/1uie-3w1W6AE1JKS_BGA2UaHRNvraBsX_3SAp5QFKB_M/edit) Daily AI news, YouTube videos, and trending GitHub repos roundup covering the last 24 hours.",
       "linkCount": 5
     },
     {
       "id": "ai-news-2026-05-12",
       "title": "AI News Digest \u2014 2026-05-12",
       "category": "concept",
-      "summary": "> **Drive:** [https://docs.google.com/document/d/1lYbeYQ5EOaASCZ7J_KmFgltAFpcbu9DmsiLN6YgkAO4/edit](https://docs.google.com/document/d/1lYbeYQ5EOaASCZ7J_KmFgltAFpcbu9DmsiLN6YgkAO4/edit) Daily AI ne...",
+      "summary": "> **Drive:** [https://docs.google.com/document/d/1lYbeYQ5EOaASCZ7J_KmFgltAFpcbu9DmsiLN6YgkAO4/edit](https://docs.google.com/document/d/1lYbeYQ5EOaASCZ7J_KmFgltAFpcbu9DmsiLN6YgkAO4/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
       "linkCount": 3
     },
     {
       "id": "ai-news-2026-05-13",
       "title": "AI News Digest \u2014 2026-05-13",
       "category": "concept",
-      "summary": "> **Drive:** [https://docs.google.com/document/d/19_Se4czRbOBZjvKXwyS1S_3HTsNQaP_8eoN_xPQTWoU/edit](https://docs.google.com/document/d/19_Se4czRbOBZjvKXwyS1S_3HTsNQaP_8eoN_xPQTWoU/edit) Daily AI ne...",
+      "summary": "> **Drive:** [https://docs.google.com/document/d/19_Se4czRbOBZjvKXwyS1S_3HTsNQaP_8eoN_xPQTWoU/edit](https://docs.google.com/document/d/19_Se4czRbOBZjvKXwyS1S_3HTsNQaP_8eoN_xPQTWoU/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
       "linkCount": 4
     },
     {
       "id": "ai-news-2026-05-14",
       "title": "AI News Digest \u2014 2026-05-14",
       "category": "concept",
-      "summary": "> **Drive:** [https://docs.google.com/document/d/1vp1XSeNFj40Ps5sdOdI6qksGJ8WVjigPmjNyg_3-vmY/edit](https://docs.google.com/document/d/1vp1XSeNFj40Ps5sdOdI6qksGJ8WVjigPmjNyg_3-vmY/edit) Daily AI ne...",
+      "summary": "> **Drive:** [https://docs.google.com/document/d/1vp1XSeNFj40Ps5sdOdI6qksGJ8WVjigPmjNyg_3-vmY/edit](https://docs.google.com/document/d/1vp1XSeNFj40Ps5sdOdI6qksGJ8WVjigPmjNyg_3-vmY/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
       "linkCount": 2
     },
     {
       "id": "ai-news-2026-05-15",
       "title": "AI News Digest \u2014 2026-05-15",
       "category": "concept",
-      "summary": "> **Drive:** [https://docs.google.com/document/d/11US5nFNyMSaWkcQu9k9vHsjvskBV_P8PvtD4P8CChhQ/edit](https://docs.google.com/document/d/11US5nFNyMSaWkcQu9k9vHsjvskBV_P8PvtD4P8CChhQ/edit) Daily AI ne...",
+      "summary": "> **Drive:** [https://docs.google.com/document/d/11US5nFNyMSaWkcQu9k9vHsjvskBV_P8PvtD4P8CChhQ/edit](https://docs.google.com/document/d/11US5nFNyMSaWkcQu9k9vHsjvskBV_P8PvtD4P8CChhQ/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
       "linkCount": 5
+    },
+    {
+      "id": "ai-news-2026-05-16",
+      "title": "AI News Digest \u2014 2026-05-16",
+      "category": "concept",
+      "summary": "> **Drive:** [https://docs.google.com/document/d/1aEzCkXfyKwksdsI83qcRk-jECQCs6FOUXJ-qdmcRJb4/edit](https://docs.google.com/document/d/1aEzCkXfyKwksdsI83qcRk-jECQCs6FOUXJ-qdmcRJb4/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
+      "linkCount": 3
+    },
+    {
+      "id": "ai-news-2026-05-17",
+      "title": "AI News Digest \u2014 2026-05-17",
+      "category": "concept",
+      "summary": "Daily AI news and YouTube video roundup covering the last 24 hours.",
+      "linkCount": 3
+    },
+    {
+      "id": "ai-news-2026-05-18",
+      "title": "AI News Digest \u2014 2026-05-18",
+      "category": "concept",
+      "summary": "Daily AI news and YouTube video roundup covering the last 24 hours.",
+      "linkCount": 3
+    },
+    {
+      "id": "ai-news-2026-05-19",
+      "title": "AI News Digest \u2014 2026-05-19",
+      "category": "concept",
+      "summary": "Daily AI news and YouTube video roundup covering the last 24 hours.",
+      "linkCount": 3
+    },
+    {
+      "id": "ai-news-2026-05-20",
+      "title": "AI News Digest \u2014 2026-05-20",
+      "category": "concept",
+      "summary": "> **Drive:** [https://docs.google.com/document/d/1MRR2Uya-gNu57R8LARW5aDmLJu-u8k6kIiWgnAdV13g/edit](https://docs.google.com/document/d/1MRR2Uya-gNu57R8LARW5aDmLJu-u8k6kIiWgnAdV13g/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
+      "linkCount": 3
+    },
+    {
+      "id": "ai-news-2026-05-21",
+      "title": "AI News Digest \u2014 2026-05-21",
+      "category": "concept",
+      "summary": "> **Drive:** [https://docs.google.com/document/d/1e8J9FSQ9R-AwpBi2glETQPt5IQHnHE3H4iHzeVg63rU/edit](https://docs.google.com/document/d/1e8J9FSQ9R-AwpBi2glETQPt5IQHnHE3H4iHzeVg63rU/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
+      "linkCount": 4
+    },
+    {
+      "id": "ai-news-2026-05-22",
+      "title": "AI News Digest \u2014 2026-05-22",
+      "category": "concept",
+      "summary": "> **Drive:** [https://docs.google.com/document/d/1nVysg6JgOJE_sCmFa5ADeXcqEIUkgUMr_PWl2zU1a_A/edit](https://docs.google.com/document/d/1nVysg6JgOJE_sCmFa5ADeXcqEIUkgUMr_PWl2zU1a_A/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
+      "linkCount": 3
+    },
+    {
+      "id": "ai-news-2026-05-23",
+      "title": "AI News Digest \u2014 2026-05-23",
+      "category": "concept",
+      "summary": "> **Drive:** [https://docs.google.com/document/d/1CfyxrT1dxYvYkCXmhwRiVcTm3OOMe0C_ydfJnLVCdG8/edit](https://docs.google.com/document/d/1CfyxrT1dxYvYkCXmhwRiVcTm3OOMe0C_ydfJnLVCdG8/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
+      "linkCount": 3
+    },
+    {
+      "id": "ai-news-2026-05-25",
+      "title": "AI News Digest \u2014 2026-05-25",
+      "category": "concept",
+      "summary": "> **Drive:** [https://docs.google.com/document/d/1FQhplwO-jzP7-jXgGyq0KBxHJTIRo7W0vg93K97QfNI/edit](https://docs.google.com/document/d/1FQhplwO-jzP7-jXgGyq0KBxHJTIRo7W0vg93K97QfNI/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
+      "linkCount": 4
+    },
+    {
+      "id": "ai-news-2026-05-26",
+      "title": "AI News Digest \u2014 2026-05-26",
+      "category": "concept",
+      "summary": "> **Drive:** [https://docs.google.com/document/d/1yMeReOG0P83tjzmdJGKnw79WNBjwUnuXIcrrYCHWnSI/edit](https://docs.google.com/document/d/1yMeReOG0P83tjzmdJGKnw79WNBjwUnuXIcrrYCHWnSI/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
+      "linkCount": 2
+    },
+    {
+      "id": "ai-news-2026-05-27",
+      "title": "AI News Digest \u2014 2026-05-27",
+      "category": "concept",
+      "summary": "Daily AI news and YouTube video roundup covering the last 24 hours.",
+      "linkCount": 3
+    },
+    {
+      "id": "ai-news-2026-05-28",
+      "title": "AI News Digest \u2014 2026-05-28",
+      "category": "concept",
+      "summary": "> **Drive:** [https://docs.google.com/document/d/1ioQHeoxz4NgAe2EmZVQFIQ14_LzVCHFMv9W0nZ7LeLg/edit](https://docs.google.com/document/d/1ioQHeoxz4NgAe2EmZVQFIQ14_LzVCHFMv9W0nZ7LeLg/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
+      "linkCount": 3
     },
     {
       "id": "bike-website",
       "title": "Bike Website",
       "category": "project",
-      "summary": "Scroll-driven bike animation website using pre-rendered frames. Part of the same scroll-animation exploration that produced [[boreal]] and eventually led to the real-time 3D approach in [[house-por...",
+      "summary": "Scroll-driven bike animation website using pre-rendered frames. Part of the same scroll-animation exploration that produced [[boreal]] and eventually led to the real-time 3D approach in [[house-portfolio]] and [[luminary-3d]].",
       "linkCount": 5
     },
     {
       "id": "boreal",
       "title": "BOREAL",
       "category": "project",
-      "summary": "Scroll-driven aurora borealis and solar animation website. Uses pre-rendered video frames that play forward/backward based on scroll position \u2014 the frame-based predecessor technique to [[luminary-3...",
+      "summary": "Scroll-driven aurora borealis and solar animation website. Uses pre-rendered video frames that play forward/backward based on scroll position \u2014 the frame-based predecessor technique to [[luminary-3d]]'s real-time 3D approach.",
       "linkCount": 4
     },
     {
       "id": "bot-feedback-loop",
       "title": "Bot Feedback Loop",
       "category": "concept",
-      "summary": "A pattern where an autonomous bot performs work (research, monitoring, processing), presents results to a human for approval, and the human's natural language feedback is parsed to update the bot's...",
+      "summary": "A pattern where an autonomous bot performs work (research, monitoring, processing), presents results to a human for approval, and the human's natural language feedback is parsed to update the bot's configuration. The bot learns preferences over time without hardcoding.",
       "linkCount": 4
     },
     {
       "id": "brevity-constraints-study",
       "title": "Brevity Constraints Study",
       "category": "concept",
-      "summary": "Research paper by MD Azizul Hakim, submitted to arXiv 2026-03-11 as [arXiv:2604.00025](https://arxiv.org/abs/2604.00025), titled *\"Brevity Constraints Reverse Performance Hierarchies in Language Mo...",
+      "summary": "Research paper by MD Azizul Hakim, submitted to arXiv 2026-03-11 as [arXiv:2604.00025](https://arxiv.org/abs/2604.00025), titled *\"Brevity Constraints Reverse Performance Hierarchies in Language Models.\"* Found that on a non-trivial fraction of benchmark problems, smaller language models outperform much larger ones \u2014 and that forcing large models to answer briefly can reverse this, improving accuracy by up to 26 percentage points.",
       "linkCount": 3
     },
     {
@@ -116,7 +200,7 @@
       "id": "caveman-claude",
       "title": "Caveman Claude",
       "category": "tool",
-      "summary": "A [[claude-code-skills|Claude Code skill]] by Julius Brussee that makes the assistant \"talk like a caveman\" \u2014 dropping articles, filler, and pleasantries from prose output while leaving code, error...",
+      "summary": "A [[claude-code-skills|Claude Code skill]] by Julius Brussee that makes the assistant \"talk like a caveman\" \u2014 dropping articles, filler, and pleasantries from prose output while leaving code, errors, and commits untouched. Went viral in April 2026 (6,885 stars in under a week). Pitches itself as a token-saving productivity win backed by research, but the real value is readability and the token math is heavily oversold.",
       "linkCount": 5
     },
     {
@@ -130,35 +214,35 @@
       "id": "claude-code-agents",
       "title": "Claude Code Agents",
       "category": "concept",
-      "summary": "Custom agent definitions that extend Claude Code with specialized personas. Each agent has its own system prompt, tool permissions, and model assignment. They run as subagents \u2014 spawned for specifi...",
+      "summary": "Custom agent definitions that extend Claude Code with specialized personas. Each agent has its own system prompt, tool permissions, and model assignment. They run as subagents \u2014 spawned for specific tasks, then return results to the main conversation.",
       "linkCount": 5
     },
     {
       "id": "claude-code-skills",
       "title": "Claude Code Skills",
       "category": "concept",
-      "summary": "Reusable instruction sets that tell Claude Code how to handle specific task types. Skills are loaded on-demand \u2014 their descriptions are always visible, but full content only loads when invoked. Thi...",
+      "summary": "Reusable instruction sets that tell Claude Code how to handle specific task types. Skills are loaded on-demand \u2014 their descriptions are always visible, but full content only loads when invoked. Think of them as SOPs for the AI.",
       "linkCount": 6
     },
     {
       "id": "cultivaite",
       "title": "CULTIVaiTE (Faithfully)",
       "category": "project",
-      "summary": "AI consultancy startup targeting faith-based nonprofits \u2014 Christian schools, churches, rescue missions, pregnancy centers, small NGOs. The pitch: save 10+ hours per week by upgrading communications...",
+      "summary": "AI consultancy startup targeting faith-based nonprofits \u2014 Christian schools, churches, rescue missions, pregnancy centers, small NGOs. The pitch: save 10+ hours per week by upgrading communications workflows with AI. Built by [[ethan-hauger]] and siblings.",
       "linkCount": 4
     },
     {
       "id": "email-organizer",
       "title": "Email Organizer",
       "category": "project",
-      "summary": "Automates Gmail inbox management: fetches unread emails, classifies them as school or non-school using [[claude-api]], applies Gmail labels, and generates personalized draft replies that match your...",
+      "summary": "Automates Gmail inbox management: fetches unread emails, classifies them as school or non-school using [[claude-api]], applies Gmail labels, and generates personalized draft replies that match your writing style.",
       "linkCount": 6
     },
     {
       "id": "ethan-aios",
       "title": "Ethan AIOS (AI Operating System)",
       "category": "project",
-      "summary": "[[ethan-hauger]]'s personal AI Operating System \u2014 a daily-driver folder at `~/Desktop/CLAUDE CODE/Operating Systems/` that any Claude Code session can `/clear` into and resume full context. Built 2...",
+      "summary": "[[ethan-hauger]]'s personal AI Operating System \u2014 a daily-driver folder at `~/Desktop/CLAUDE CODE/Operating Systems/` that any Claude Code session can `/clear` into and resume full context. Built 2026-05-09/10 by following Nate Herk's [Build & Sell Claude Code Operating Systems](https://www.youtube.com/watch?v=...) course template (`nateherkai/AIS-OS`) and customizing heavily against [[ethan-hauger]]'s existing knowledge infrastructure. Cloned from Nate's `nateherkai/AIS-OS` template, then wiped upstream git history and personalized through a 7-question `/onboard` interview. Distinct from project work \u2014 this is the *daily-driver / second-brain layer* that sits alongside [[house-portfolio]], [[ethan-portfolio]], [[email-organizer]], etc., not above them.",
       "linkCount": 9
     },
     {
@@ -172,7 +256,7 @@
       "id": "ethan-portfolio",
       "title": "Ethan Portfolio (Lovable)",
       "category": "project",
-      "summary": "A polished, conventional React portfolio site for [[ethan-hauger]] at **ethan-portfolio.lovable.app**. Built with Lovable + Vite + React + shadcn-ui + Supabase. This is the **second portfolio** alo...",
+      "summary": "A polished, conventional React portfolio site for [[ethan-hauger]] at **ethan-portfolio.lovable.app**. Built with Lovable + Vite + React + shadcn-ui + Supabase. This is the **second portfolio** alongside [[house-portfolio]] \u2014 where house-portfolio is the experimental 3D Three.js immersive experience, this one is the structured \"show me your resume\" version with multiple themed sections, an AI chat, contact form, mini-games, and engineering galleries. GitHub: `chichiroxursox-droid/ethan-portfolio` (created 2026-03-04)",
       "linkCount": 9
     },
     {
@@ -221,28 +305,28 @@
       "id": "house-portfolio",
       "title": "House Portfolio",
       "category": "project",
-      "summary": "An interactive 3D portfolio website for Ethan Hauger. Users scroll through an outdoor environment into a 3D house modeled in Blender, then explore rooms, interact with objects, browse projects on a...",
+      "summary": "An interactive 3D portfolio website for Ethan Hauger. Users scroll through an outdoor environment into a 3D house modeled in Blender, then explore rooms, interact with objects, browse projects on an in-game computer, chat with an AI version of Ethan, and play a piano. This is the **immersive 3D portfolio** \u2014 its conventional sibling is [[ethan-portfolio]] (a polished React/Lovable site at ethan-portfolio.lovable.app).",
       "linkCount": 10
     },
     {
       "id": "llm-routing",
       "title": "LLM Routing",
       "category": "concept",
-      "summary": "A multi-tier decision routing pattern where requests are sent to different LLM providers based on complexity, cost, and speed requirements. The cheapest/fastest option handles most cases; expensive...",
+      "summary": "A multi-tier decision routing pattern where requests are sent to different LLM providers based on complexity, cost, and speed requirements. The cheapest/fastest option handles most cases; expensive models are reserved for edge cases.",
       "linkCount": 4
     },
     {
       "id": "llm-verbosity-overthinking",
       "title": "LLM Verbosity & Overthinking",
       "category": "concept",
-      "summary": "The phenomenon where larger language models produce over-elaborate responses that accumulate errors during their own reasoning chain \u2014 sometimes causing them to underperform much smaller models on ...",
+      "summary": "The phenomenon where larger language models produce over-elaborate responses that accumulate errors during their own reasoning chain \u2014 sometimes causing them to underperform much smaller models on tasks they should easily solve. Introduced in the March 2026 [[brevity-constraints-study]] and framed as \"spontaneous scale-dependent verbosity.\"",
       "linkCount": 4
     },
     {
       "id": "luminary-3d",
       "title": "LUMINARY-3D",
       "category": "project",
-      "summary": "Real-time 3D scroll-driven website with bioluminescent jellyfish awakening in the deep ocean. A technical upgrade of the original LUMINARY project (which used pre-rendered video frames instead of r...",
+      "summary": "Real-time 3D scroll-driven website with bioluminescent jellyfish awakening in the deep ocean. A technical upgrade of the original LUMINARY project (which used pre-rendered video frames instead of real-time 3D). Shares the same [[scroll-driven-3d]] pattern as [[house-portfolio]].",
       "linkCount": 7
     },
     {
@@ -263,7 +347,7 @@
       "id": "parallax-game",
       "title": "Parallax Game",
       "category": "project",
-      "summary": "3D parkour/exploration game built in Godot 4. Features multiple camera perspectives, room-based challenges, and a Python control script for autonomous testing. Uses the `godot-visual-dev` skill for...",
+      "summary": "3D parkour/exploration game built in Godot 4. Features multiple camera perspectives, room-based challenges, and a Python control script for autonomous testing. Uses the `godot-visual-dev` skill for automated visual development \u2014 screenshot \u2192 analyze \u2192 fix \u2192 relaunch.",
       "linkCount": 6
     },
     {
@@ -277,7 +361,7 @@
       "id": "promptcraft",
       "title": "PromptCraft",
       "category": "project",
-      "summary": "Educational web game that teaches AI prompting skills through gameplay. Players enter minimalist 2D rooms and write prompts to make an AI build objects and solve puzzles. Includes a community level...",
+      "summary": "Educational web game that teaches AI prompting skills through gameplay. Players enter minimalist 2D rooms and write prompts to make an AI build objects and solve puzzles. Includes a community level builder where players create, share, and play each other's levels.",
       "linkCount": 3
     },
     {
@@ -298,7 +382,7 @@
       "id": "scroll-driven-3d",
       "title": "Scroll-Driven 3D",
       "category": "concept",
-      "summary": "A technique for controlling 3D camera movement and animations through scroll position. The user scrolls the page, and the camera moves along a predefined spline path through a 3D scene. Creates an ...",
+      "summary": "A technique for controlling 3D camera movement and animations through scroll position. The user scrolls the page, and the camera moves along a predefined spline path through a 3D scene. Creates an immersive, narrative-driven web experience.",
       "linkCount": 6
     },
     {
@@ -312,7 +396,7 @@
       "id": "sprint-city",
       "title": "Sprint City",
       "category": "project",
-      "summary": "Roblox parkour hub where players race pre-built routes, duel-race friends, and build their own 60-second micro-courses that go live immediately for the whole server to run and rate. The Weekly Feat...",
+      "summary": "Roblox parkour hub where players race pre-built routes, duel-race friends, and build their own 60-second micro-courses that go live immediately for the whole server to run and rate. The Weekly Featured Course appears on the Main Plaza billboard. Built in Roblox Studio with Lua.",
       "linkCount": 4
     },
     {
@@ -340,7 +424,7 @@
       "id": "the-lamppost",
       "title": "The Lamppost",
       "category": "project",
-      "summary": "A community website built for Uncle Nate featuring a reading room with a library-style wardrobe UI, a gift card system, and an autonomous research bot that finds positive community stories, emails ...",
+      "summary": "A community website built for Uncle Nate featuring a reading room with a library-style wardrobe UI, a gift card system, and an autonomous research bot that finds positive community stories, emails them for approval, and publishes approved articles.",
       "linkCount": 7
     },
     {
@@ -354,7 +438,7 @@
       "id": "wat-framework",
       "title": "WAT Framework",
       "category": "concept",
-      "summary": "The WAT framework (Workflows, Agents, Tools) is the core operating architecture used across all projects. It separates concerns so that probabilistic AI handles reasoning while deterministic code h...",
+      "summary": "The WAT framework (Workflows, Agents, Tools) is the core operating architecture used across all projects. It separates concerns so that probabilistic AI handles reasoning while deterministic code handles execution. This separation is what makes the system reliable.",
       "linkCount": 3
     },
     {
@@ -368,7 +452,7 @@
       "id": "writing-style-profiling",
       "title": "Writing Style Profiling",
       "category": "concept",
-      "summary": "A technique for capturing a person's writing voice as a structured configuration file, enabling AI-generated text that matches their tone, vocabulary, and patterns. The profile is built once from w...",
+      "summary": "A technique for capturing a person's writing voice as a structured configuration file, enabling AI-generated text that matches their tone, vocabulary, and patterns. The profile is built once from writing samples and reused across all future generation.",
       "linkCount": 5
     }
   ],
@@ -428,6 +512,54 @@
     {
       "source": "ai-content-creation",
       "target": "ai-news-2026-05-15"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "ai-news-2026-05-16"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "ai-news-2026-05-17"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "ai-news-2026-05-18"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "ai-news-2026-05-19"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "ai-news-2026-05-20"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "ai-news-2026-05-21"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "ai-news-2026-05-22"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "ai-news-2026-05-23"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "ai-news-2026-05-25"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "ai-news-2026-05-26"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "ai-news-2026-05-27"
+    },
+    {
+      "source": "ai-content-creation",
+      "target": "ai-news-2026-05-28"
     },
     {
       "source": "ai-content-creation",
@@ -516,6 +648,106 @@
     {
       "source": "ai-news-2026-05-15",
       "target": "ethan-aios"
+    },
+    {
+      "source": "ai-news-2026-05-16",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "ai-news-2026-05-16",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "ai-news-2026-05-17",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "ai-news-2026-05-17",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "ai-news-2026-05-18",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "ai-news-2026-05-18",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "ai-news-2026-05-19",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "ai-news-2026-05-19",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "ai-news-2026-05-20",
+      "target": "ai-news-2026-05-21"
+    },
+    {
+      "source": "ai-news-2026-05-20",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "ai-news-2026-05-20",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "ai-news-2026-05-21",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "ai-news-2026-05-21",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "ai-news-2026-05-22",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "ai-news-2026-05-22",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "ai-news-2026-05-23",
+      "target": "ai-news-2026-05-25"
+    },
+    {
+      "source": "ai-news-2026-05-23",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "ai-news-2026-05-23",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "ai-news-2026-05-25",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "ai-news-2026-05-25",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "ai-news-2026-05-26",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "ai-news-2026-05-27",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "ai-news-2026-05-27",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "ai-news-2026-05-28",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "ai-news-2026-05-28",
+      "target": "ethan-hauger"
     },
     {
       "source": "bike-website",
