@@ -174,7 +174,9 @@ const PROJECTS = {
       tech: ['React', 'Supabase', 'Tailwind CSS'],
       color: '#E67E22',
       url: 'https://nates-brakes.vercel.app',
-      description: "A living brake manual for Nate's shop. Techs look up procedures by vehicle, contributors submit field notes, and admins approve everything. Magic-link auth, role-based access, and built as a PWA so it works offline in the bay.",
+      screenshot: '/projects/nates-brakes-cards.png',
+      cards: ['/projects/nates-brakes-card-front.png', '/projects/nates-brakes-card-back.png'],
+      description: "A living brake manual for Nate's shop. Techs look up procedures by vehicle, contributors submit field notes, and admins approve everything. Magic-link auth, role-based access, and built as a PWA so it works offline in the bay. I also designed their business cards — click to view.",
     },
   ],
 };
@@ -199,6 +201,10 @@ const BACK_BTN = { x: WIN_X + 8, y: WIN_Y + 4, w: 32, h: 28 };
 const VISIT_BTN = { x: 0, y: 0, w: 160, h: 40 };
 const PLAY_BTN = { x: 0, y: 0, w: 160, h: 40 };
 const DEMO_BTN = { x: 0, y: 0, w: 160, h: 40 };
+const CARDS_BTN = { x: 0, y: 0, w: 160, h: 40 };
+// Preview-image rect (set while drawing a project detail) — clickable when the
+// project carries `cards`, opens the full-screen card viewer overlay.
+const CARDS_PREVIEW = { x: 0, y: 0, w: 0, h: 0, active: false };
 
 // ── Video fullscreen state ──
 let videoFullscreen = false;
@@ -764,6 +770,30 @@ function drawProjectDetail() {
     btnX += btnW + 16;
   }
 
+  // View Cards button (projects that ship a `cards` image set)
+  if (project.cards) {
+    CARDS_BTN.x = btnX;
+    CARDS_BTN.y = y;
+    CARDS_BTN.w = btnW;
+    CARDS_BTN.h = btnH;
+
+    const isHovered = hoveredElement?.type === 'cards';
+    ctx.fillStyle = isHovered ? '#ffffff30' : '#ffffff18';
+    roundRect(ctx, btnX, y, btnW, btnH, 20);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(232, 184, 122, 0.55)';
+    ctx.lineWidth = 1;
+    roundRect(ctx, btnX, y, btnW, btnH, 20);
+    ctx.stroke();
+
+    ctx.fillStyle = '#fff';
+    ctx.font = '600 14px "Helvetica Neue", Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('View Cards \uD83D\uDD0D', btnX + btnW / 2, y + btnH / 2);
+    btnX += btnW + 16;
+  }
+
   // Watch Demo button (for projects with demoVideo)
   if (project.demoVideo && videoCache.has(project.name)) {
     DEMO_BTN.x = btnX;
@@ -830,6 +860,35 @@ function drawProjectDetail() {
       ctx.textBaseline = 'middle';
       ctx.fillText('Loading preview...', previewX + previewW / 2, y + previewH / 2);
     }
+  }
+
+  // Make the preview clickable for projects that ship a card viewer, and draw
+  // a small "Click to enlarge" hint pill in its corner.
+  CARDS_PREVIEW.active = false;
+  if (previewH > 40 && project.cards && screenshotCache.get(project.name)) {
+    CARDS_PREVIEW.x = previewX;
+    CARDS_PREVIEW.y = y;
+    CARDS_PREVIEW.w = previewW;
+    CARDS_PREVIEW.h = previewH;
+    CARDS_PREVIEW.active = true;
+
+    const hint = '🔍 Click to enlarge';
+    ctx.font = '600 11px "Helvetica Neue", Arial, sans-serif';
+    const hw = ctx.measureText(hint).width + 20;
+    const hh = 22;
+    const hx = previewX + previewW - hw - 10;
+    const hy = y + previewH - hh - 10;
+    ctx.fillStyle = 'rgba(10, 8, 6, 0.7)';
+    roundRect(ctx, hx, hy, hw, hh, 11);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(232, 184, 122, 0.4)';
+    ctx.lineWidth = 1;
+    roundRect(ctx, hx, hy, hw, hh, 11);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(255, 224, 170, 0.95)';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(hint, hx + hw / 2, hy + hh / 2 + 0.5);
   }
 
   canvasTexture.needsUpdate = true;
@@ -1126,6 +1185,12 @@ function onScreenClick(event) {
       playClick();
       startVideoFullscreen();
     }
+    // View Cards button OR clicking the preview → open the card viewer overlay
+    if (project?.cards && (hitRect(hit.x, hit.y, CARDS_BTN) ||
+        (CARDS_PREVIEW.active && hitRect(hit.x, hit.y, CARDS_PREVIEW)))) {
+      playClick();
+      openCardsOverlay(project.cards);
+    }
   } else if (screenPhase === 'graph') {
     if (hitRect(hit.x, hit.y, CLOSE_BTN)) {
       playClick();
@@ -1245,6 +1310,10 @@ function onScreenPointerMove(event) {
       }
       if (project?.demoVideo && videoCache.has(project.name) && hitRect(hit.x, hit.y, DEMO_BTN)) {
         newHover = { type: 'demo' };
+      }
+      if (project?.cards && (hitRect(hit.x, hit.y, CARDS_BTN) ||
+          (CARDS_PREVIEW.active && hitRect(hit.x, hit.y, CARDS_PREVIEW)))) {
+        newHover = { type: 'cards' };
       }
     }
   } else if (screenPhase === 'graph') {
@@ -1506,7 +1575,9 @@ function preloadScreenshots() {
       screenshotCache.set(project.name, generatePlaceholder(project));
     };
 
-    img.src = `/projects/${slug}.png`;
+    // Prefer an explicit screenshot path when set (avoids awkward slugs like
+    // "nate's-brakes"); otherwise fall back to the derived slug filename.
+    img.src = project.screenshot || `/projects/${slug}.png`;
   }
 }
 
@@ -1884,6 +1955,48 @@ export function closeGame() {
   // Redraw project detail
   redrawCurrentPhase();
 }
+
+// ── Card viewer overlay (front/back business cards, full-resolution DOM) ──
+// A lightweight image lightbox layered over the computer view, mirroring the
+// music overlay. The full-screen `.overlay` captures pointer events, so the
+// computer's canvas listeners underneath stay harmlessly inert until close.
+
+export function openCardsOverlay(images) {
+  const overlay = document.getElementById('cards-overlay');
+  if (!overlay) return;
+  const wrap = overlay.querySelector('.cards-images');
+  if (wrap) {
+    wrap.innerHTML = '';
+    (images || []).forEach((src, i) => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = i === 0 ? 'Business card front' : 'Business card back';
+      img.className = 'card-img';
+      wrap.appendChild(img);
+    });
+  }
+  overlay.style.display = 'flex';
+  playClick();
+}
+
+export function closeCardsOverlay() {
+  const overlay = document.getElementById('cards-overlay');
+  if (overlay) overlay.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('btn-close-cards')?.addEventListener('click', closeCardsOverlay);
+  // Click the dimmed backdrop (but not the panel) to dismiss
+  document.getElementById('cards-overlay')?.addEventListener('click', (e) => {
+    if (e.target.id === 'cards-overlay') closeCardsOverlay();
+  });
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const overlay = document.getElementById('cards-overlay');
+    if (overlay && overlay.style.display !== 'none') closeCardsOverlay();
+  }
+});
 
 export function repositionGameIframe() {
   if (!gameActive) return;

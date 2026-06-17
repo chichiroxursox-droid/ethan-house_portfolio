@@ -925,3 +925,71 @@ html, body {
 .music-player .back-btn {
   align-self: flex-start;
 }
+
+/* ── Card viewer overlay (Nate's Brakes business cards) ── */
+#cards-overlay {
+  /* Unlike the bare .overlay, this lightbox dims the screen and captures
+     clicks so the computer view behind it stays inert. */
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: auto;
+  z-index: 30;
+}
+
+.cards-panel {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(232, 184, 122, 0.3);
+  border-radius: 18px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+  padding: 20px 24px 24px;
+  max-width: min(92vw, 1100px);
+  max-height: 88vh;
+  overflow: auto;
+}
+
+.cards-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.cards-header span {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #F3C98B;
+}
+
+.cards-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: center;
+}
+
+.card-img {
+  width: min(46vw, 480px);
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  border: 1px solid rgba(232, 184, 122, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.cards-caption {
+  margin-top: 18px;
+  text-align: center;
+  font-family: 'Caveat', cursive;
+  font-size: 22px;
+  color: #FFE0AA;
+}
+
+@media (max-width: 760px) {
+  .card-img { width: min(88vw, 520px); }
+}
