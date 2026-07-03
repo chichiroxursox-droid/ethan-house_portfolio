@@ -38,9 +38,9 @@ if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
 // ── Shared params ──
 const params = {
-  fog: { near: 18, far: 80 },
+  fog: { near: 24, far: 80 },
   light: { sunIntensity: 1.5, hemiIntensity: 0.7 },
-  render: { exposure: 0.72, envIntensity: 0.55 },
+  render: { exposure: 0.62, envIntensity: 0.38 },
   particles: { count: 400 },
   perf: { fps: 0, calls: 0 },
 };
@@ -56,7 +56,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setClearColor(0xE8B87A);
 renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.type = THREE.PCFShadowMap; // PCFSoft is deprecated in r183 (console-confirmed fallback)
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = params.render.exposure;
 renderer.outputColorSpace = THREE.SRGBColorSpace;

@@ -4,6 +4,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
+import { CopyShader } from 'three/examples/jsm/shaders/CopyShader.js';
 
 // Minimal post chain: render → bloom → golden-hour grade → output (tone map + sRGB).
 // Grade recipe (teal shadows / warm highlights before tone mapping) adapted from
@@ -14,13 +15,17 @@ import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 
 export const postState = {
   enabled: true,
-  bloomStrength: 0.25,
+  bloomStrength: 0.2,
   bloomRadius: 0.4,
-  bloomThreshold: 0.85,
+  // Display-space threshold. The interior's cream walls sit ~0.85-0.9 —
+  // anything lower blooms entire wall surfaces into white pools.
+  bloomThreshold: 0.93,
   tintStrength: 0.12,
   saturation: 1.08,
   contrast: 1.04,
 };
+// Live-tuning hook (debug pane binds these too; user has no DevTools)
+if (typeof window !== 'undefined') window.__postState = postState;
 
 const GradeShader = {
   uniforms: {
@@ -51,9 +56,9 @@ const GradeShader = {
       vec4 c = texture2D(tDiffuse, vUv);
       float l = dot(c.rgb, vec3(0.2126, 0.7152, 0.0722));
 
-      // Split toning: shadows cool, highlights warm
-      float sh = 1.0 - smoothstep(0.0, 0.5, l);
-      float hi = smoothstep(0.4, 1.2, l);
+      // Split toning: shadows cool, highlights warm (display-space luminance)
+      float sh = 1.0 - smoothstep(0.0, 0.45, l);
+      float hi = smoothstep(0.55, 0.95, l);
       c.rgb = mix(c.rgb, c.rgb * uShadowTint, sh * uTintStrength);
       c.rgb = mix(c.rgb, c.rgb * uHighlightTint, hi * uTintStrength);
 
@@ -87,6 +92,18 @@ export function initPostFX(renderer, scene, camera) {
 
   composer.addPass(new RenderPass(scene, camera));
 
+  // Tone mapping (ACESFilmic + per-state exposure) + sRGB conversion FIRST.
+  // Both grade and bloom must run in display space: in pre-tonemap linear HDR
+  // nearly every pixel reads as a "highlight" (l > 1), so the split-tone smears
+  // the whole frame and any bloom threshold catches the entire scene.
+  composer.addPass(new OutputPass());
+
+  // Split-tone grade on display-space values (l is 0..1 here as designed)
+  gradePass = new ShaderPass(GradeShader);
+  composer.addPass(gradePass);
+
+  // Bloom in display space — threshold 0.85 means "near-white pixels only"
+  // (sun disc, lamp, fireflies), not "most of the sky".
   bloomPass = new UnrealBloomPass(
     new THREE.Vector2(size.x, size.y),
     postState.bloomStrength,
@@ -95,12 +112,12 @@ export function initPostFX(renderer, scene, camera) {
   );
   composer.addPass(bloomPass);
 
-  gradePass = new ShaderPass(GradeShader);
-  composer.addPass(gradePass);
-
-  // Applies renderer.toneMapping (ACESFilmic) + sRGB conversion as the final step,
-  // reading toneMappingExposure each frame — the per-state exposure logic still works.
-  composer.addPass(new OutputPass());
+  // Final raw copy to screen. Bloom must NOT be the last pass: its
+  // render-to-screen path draws the base image through a MeshBasicMaterial,
+  // which re-applies ACES tone mapping + sRGB encode to the already-encoded
+  // buffer — double transform = washed-out pale frame. CopyShader is a raw
+  // ShaderMaterial, so the renderer applies no implicit transforms.
+  composer.addPass(new ShaderPass(CopyShader));
 }
 
 export function renderPost() {
