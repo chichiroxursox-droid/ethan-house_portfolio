@@ -6,8 +6,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initDebug } from './debug.js';
 import { initSky, updateSky } from './sky.js';
 import { initHouse, update as updateHouse } from './house.js';
-import { initEnvironment } from './environment.js';
-// import { initParticles, update as updateParticles } from './particles.js';
+import { initEnvironment, updateEnvironment } from './environment.js';
+import { initGrass } from './grass.js';
+import { updateWind, getWindStrength, windParams } from './wind.js';
+import { initParticles, update as updateParticles, setParticlesVisible } from './particles.js';
+import { initPostFX, renderPost, setPostSize } from './postfx.js';
 import { initScroll, getProgress, cameraState, refreshScroll } from './scroll.js';
 import { initVN, showGreeting, showMenu, hideVN, hideChoicesOnly, setExpression } from './vn.js';
 import { initState, getState, transitionTo, onStateChange, STATES } from './state.js';
@@ -35,9 +38,16 @@ if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
 // ── Shared params ──
 const params = {
-  fog: { near: 25, far: 80 },
-  light: { sunIntensity: 1.5, hemiIntensity: 0.6 },
+  fog: { near: 18, far: 80 },
+  light: { sunIntensity: 1.5, hemiIntensity: 0.7 },
+  render: { exposure: 0.72, envIntensity: 0.55 },
+  particles: { count: 400 },
+  perf: { fps: 0, calls: 0 },
 };
+
+// Fog warms toward the sun tint as the camera descends into the meadow
+const FOG_BASE = new THREE.Color(0xE8B87A);
+const FOG_WARM = new THREE.Color(0xF3C9A0);
 
 // ── Renderer ──
 const canvas = document.getElementById('webgl');
@@ -46,14 +56,17 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setClearColor(0xE8B87A);
 renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFShadowMap;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 0.6;
+renderer.toneMappingExposure = params.render.exposure;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
+// Manual reset so the debug pane's draw-call count covers the WHOLE frame —
+// autoReset would zero the counter on every internal composer pass.
+renderer.info.autoReset = false;
 
 // ── Scene ──
 const scene = new THREE.Scene();
-scene.environmentIntensity = 0.3;
+scene.environmentIntensity = params.render.envIntensity;
 // Fog color is overwritten in init() once the time-of-day preset is known.
 scene.fog = new THREE.Fog(0xE8B87A, params.fog.near, params.fog.far);
 
@@ -63,7 +76,7 @@ camera.position.set(0, 30, 0);
 camera.lookAt(0, 0, 0);
 
 // ── Lights ──
-const hemiLight = new THREE.HemisphereLight(0x87CEEB, 0xE8B87A, 0.6);
+const hemiLight = new THREE.HemisphereLight(0x87CEEB, 0xE8B87A, params.light.hemiIntensity);
 scene.add(hemiLight);
 
 const sunLight = new THREE.DirectionalLight(0xFFF5E0, params.light.sunIntensity);
@@ -89,6 +102,15 @@ lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add((time) => lenis.raf(time * 1000));
 gsap.ticker.lagSmoothing(0);
 
+// ── Post-processing (bloom + golden-hour grade) ──
+// ?nopost=1 skips the composer entirely; debug pane can also toggle at runtime.
+// Coarse-pointer devices (phones/tablets) skip it too — the bloom chain's
+// bandwidth cost is 30-50% of frame time on tile-based mobile GPUs.
+const noPost =
+  new URLSearchParams(window.location.search).get('nopost') === '1' ||
+  window.matchMedia('(pointer: coarse)').matches;
+if (!noPost) initPostFX(renderer, scene, camera);
+
 // ── Debug ──
 initDebug(params);
 
@@ -110,6 +132,7 @@ let startupReady = false;
 setTimeout(() => { startupReady = true; }, 500);
 
 const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+if (prefersReducedMotion) windParams.strength = 0; // stills the meadow + tree sway
 
 // ── Skip-intro fast path ──
 // Lets a recruiter bypass the 6-viewport scroll via a top-right button or ?skip=1.
@@ -164,8 +187,8 @@ onStateChange((newState, oldState) => {
   } else {
     scene.fog.near = params.fog.near;
     scene.fog.far = params.fog.far;
-    renderer.toneMappingExposure = 0.6;
-    scene.environmentIntensity = 0.3;
+    renderer.toneMappingExposure = params.render.exposure;
+    scene.environmentIntensity = params.render.envIntensity;
   }
 
   // ── Audio crossfade on state change ──
@@ -231,6 +254,8 @@ async function init() {
   }
 
   initEnvironment(scene);
+  initGrass(scene);
+  if (!prefersReducedMotion) initParticles(scene, params); // fireflies
   createParticleOrb(scene);
   createClock(scene);
   initComputer(scene, camera, renderer);
@@ -336,6 +361,7 @@ function animate() {
   if (!isTabVisible) return;
 
   timer.update();
+  renderer.info.reset();
   const progress = getProgress();
   const state = getState();
 
@@ -343,6 +369,9 @@ function animate() {
   if (state === STATES.SCROLLING) {
     scene.fog.near = params.fog.near;
     scene.fog.far = params.fog.far;
+    // Live-tunable outdoors; interior values are set once on state transition
+    renderer.toneMappingExposure = params.render.exposure;
+    scene.environmentIntensity = params.render.envIntensity;
   }
   hemiLight.intensity = params.light.hemiIntensity;
   sunLight.intensity = params.light.sunIntensity;
@@ -351,6 +380,13 @@ function animate() {
     // Apply camera proxy from scroll spline
     camera.position.set(cameraState.x, cameraState.y, cameraState.z);
     camera.lookAt(cameraState.lookX, cameraState.lookY, cameraState.lookZ);
+
+    // Golden haze deepens as the camera sinks toward the meadow
+    scene.fog.color.copy(FOG_BASE).lerp(FOG_WARM, progress * 0.8);
+    if (!prefersReducedMotion) {
+      setParticlesVisible(true);
+      updateParticles(progress); // fireflies fade in 0.3→0.7
+    }
 
     // ── Outdoor ambient volume: ramp in 0.10→0.30, ramp out 0.70→0.85 ──
     let outdoorVol = 0;
@@ -372,14 +408,21 @@ function animate() {
       showGreeting();
     }
   } else {
-    // Inside the house — keep outdoor ambient silent
+    // Inside the house — keep outdoor ambient silent, hide the fireflies
+    // (their spawn box spans the room; they'd hang frozen mid-air)
     setOutdoorVolume(0);
+    setParticlesVisible(false);
   }
 
   // Update modules
   updateHouse(progress);
   const elapsed = timer.getElapsed();
   const delta = timer.getDelta();
+
+  // Wind drives the grass shader + canopy/flower sway.
+  // Runs in all states — the meadow is visible through the door/windows.
+  updateWind(elapsed);
+  updateEnvironment(elapsed, getWindStrength());
 
   // EXPLORING → MENU return lerp (frame-rate independent exponential ease)
   if (returnLerpActive) {
@@ -407,7 +450,11 @@ function animate() {
     updateSky(elapsed);
   }
 
-  renderer.render(scene, camera);
+  if (!renderPost()) renderer.render(scene, camera);
+
+  // Perf readout for the debug pane (user has no DevTools access)
+  params.perf.calls = renderer.info.render.calls;
+  if (delta > 0) params.perf.fps = params.perf.fps * 0.95 + (1 / delta) * 0.05;
 }
 
 animate();
@@ -422,6 +469,7 @@ window.addEventListener('resize', () => {
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     renderer.setSize(w, h);
+    setPostSize(w, h);
     refreshScroll();
     repositionGameIframe();
   }, 150);

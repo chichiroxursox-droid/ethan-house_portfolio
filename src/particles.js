@@ -49,7 +49,7 @@ function createParticles(count) {
 
   material = new THREE.ShaderMaterial({
     uniforms: {
-      uColor: { value: new THREE.Color(0xFFDD66) },
+      uColor: { value: new THREE.Color(0xFFE0AA) }, // matches the lamp's warm gold
       uOpacity: { value: 0.0 },
     },
     vertexShader: /* glsl */ `
@@ -84,6 +84,12 @@ export function initParticles(_scene, _params) {
   params = _params;
   createParticles(params.particles.count);
   return { update, rebuild, cleanup: cleanupParticles };
+}
+
+// Hide fireflies indoors — the spawn box spans the house, so without this they
+// freeze mid-air inside the room when the scroll state ends.
+export function setParticlesVisible(visible) {
+  if (points) points.visible = visible;
 }
 
 export function cleanupParticles() {

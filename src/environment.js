@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 
 // ── Noise helpers ──
 
@@ -34,6 +35,14 @@ function smoothstep(edge0, edge1, x) {
   return t * t * (3 - 2 * t);
 }
 
+// World-space ground height (flat near the house, rolling hills outside).
+// Exported so grass/props placed by other modules sit on the same surface.
+export function getTerrainHeight(x, z) {
+  const dist = Math.sqrt(x * x + z * z);
+  const flatZone = smoothstep(4, 7, dist);
+  return terrainHeight(x, z) * 0.8 * flatZone;
+}
+
 // ── Seeded random for deterministic prop placement ──
 
 let seed = 42;
@@ -43,6 +52,9 @@ function seededRandom() {
 }
 
 const PALETTE = { grass: 0x4a6a2a, dirt: 0x6a5a40, canopy: 0x3d6a2d };
+
+// Swaying scenery collected at build time, animated in updateEnvironment()
+const swayTargets = []; // { obj, phase, freq, amp }
 
 // ── Main ──
 
@@ -120,35 +132,54 @@ function createTrees(scene, palette) {
     [6, 0],
   ];
 
+  const trunkGeo = new THREE.CylinderGeometry(0.12, 0.18, 1.5, 8);
+  const trunkMat = new THREE.MeshStandardMaterial({ color: 0x5a3a1a, roughness: 0.8 });
+
   for (const [x, z] of treePositions) {
-    const tree = createTree(palette);
-    // Set tree Y to match terrain height at this position
-    const dist = Math.sqrt(x * x + z * z);
-    const flatZone = smoothstep(4, 7, dist);
-    const y = terrainHeight(x, z) * 0.8 * flatZone;
-    tree.position.set(x, y, z);
+    const tree = createTree(palette, trunkGeo, trunkMat);
+    tree.position.set(x, getTerrainHeight(x, z), z);
     const s = 0.7 + seededRandom() * 0.6;
     tree.scale.set(s, s, s);
     scene.add(tree);
   }
 }
 
-function createTree(palette) {
+function createTree(palette, trunkGeo, trunkMat) {
   const group = new THREE.Group();
 
-  const trunkGeo = new THREE.CylinderGeometry(0.12, 0.18, 1.5, 8);
-  const trunkMat = new THREE.MeshStandardMaterial({ color: 0x5a3a1a, roughness: 0.8 });
   const trunk = new THREE.Mesh(trunkGeo, trunkMat);
   trunk.position.y = 0.75;
   trunk.castShadow = true;
   group.add(trunk);
 
-  const canopyGeo = new THREE.SphereGeometry(0.8, 8, 6);
+  // Canopy: 3 overlapping blobs merged into one geometry (kills the lollipop
+  // silhouette without extra draw calls), slight per-tree hue jitter.
+  const b1 = new THREE.SphereGeometry(0.8, 8, 6);
+  b1.translate(0, 2.0, 0);
+  const b2 = new THREE.SphereGeometry(0.55, 8, 6);
+  b2.translate(0.45, 1.75, 0.28);
+  const b3 = new THREE.SphereGeometry(0.5, 8, 6);
+  b3.translate(-0.42, 1.85, -0.22);
+  const canopyGeo = mergeGeometries([b1, b2, b3]);
+  b1.dispose(); b2.dispose(); b3.dispose();
+
   const canopyMat = new THREE.MeshStandardMaterial({ color: palette.canopy, roughness: 0.85 });
+  canopyMat.color.offsetHSL(
+    (seededRandom() - 0.5) * 0.05,
+    (seededRandom() - 0.5) * 0.12,
+    (seededRandom() - 0.5) * 0.06,
+  );
   const canopy = new THREE.Mesh(canopyGeo, canopyMat);
-  canopy.position.y = 2.0;
   canopy.castShadow = true;
   group.add(canopy);
+
+  // Whole-crown sway: rotating about the group base reads as trunk flex
+  swayTargets.push({
+    obj: canopy,
+    phase: seededRandom() * Math.PI * 2,
+    freq: 0.5 + seededRandom() * 0.3, // fixed per-tree frequency
+    amp: 0.018,
+  });
 
   return group;
 }
@@ -182,10 +213,7 @@ function createRocks(scene) {
     const radius = 6 + seededRandom() * 8;
     const x = Math.cos(angle) * radius;
     const z = Math.sin(angle) * radius;
-
-    const dist = Math.sqrt(x * x + z * z);
-    const flatZone = smoothstep(4, 7, dist);
-    const y = terrainHeight(x, z) * 0.8 * flatZone;
+    const y = getTerrainHeight(x, z);
 
     const rock = new THREE.Mesh(rockGeo, rockMat);
     rock.position.set(x, y + 0.05, z);
@@ -213,10 +241,7 @@ function createFlowers(scene) {
     const radius = 5 + seededRandom() * 9;
     const x = Math.cos(angle) * radius;
     const z = Math.sin(angle) * radius;
-
-    const dist = Math.sqrt(x * x + z * z);
-    const flatZone = smoothstep(4, 7, dist);
-    const y = terrainHeight(x, z) * 0.8 * flatZone;
+    const y = getTerrainHeight(x, z);
 
     const group = new THREE.Group();
     group.position.set(x, y, z);
@@ -238,6 +263,24 @@ function createFlowers(scene) {
     // Random rotation around Y
     group.rotation.y = seededRandom() * Math.PI * 2;
 
+    // Flowers bob a little more than tree crowns
+    swayTargets.push({
+      obj: group,
+      phase: seededRandom() * Math.PI * 2,
+      freq: 0.9 + seededRandom() * 0.5,
+      amp: 0.05,
+    });
+
     scene.add(group);
+  }
+}
+
+// ── Per-frame sway (8 canopies + 10 flowers — trivial JS cost) ──
+// Fixed per-object frequency; wind strength drives amplitude only.
+export function updateEnvironment(elapsed, windStrength) {
+  for (const t of swayTargets) {
+    const a = t.amp * windStrength;
+    t.obj.rotation.z = Math.sin(elapsed * t.freq + t.phase) * a;
+    t.obj.rotation.x = Math.sin(elapsed * t.freq * 0.83 + t.phase * 1.7) * a * 0.6;
   }
 }
