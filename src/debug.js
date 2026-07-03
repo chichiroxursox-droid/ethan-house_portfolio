@@ -36,6 +36,7 @@ export function initDebug(params) {
   post.addBinding(postState, 'bloomThreshold', { min: 0, max: 1.5, step: 0.01 });
   post.addBinding(postState, 'bloomRadius', { min: 0, max: 1, step: 0.01 });
   post.addBinding(postState, 'tintStrength', { min: 0, max: 0.5, step: 0.01 });
+  post.addBinding(postState, 'vignette', { min: 0, max: 0.6, step: 0.01 });
   post.addBinding(postState, 'saturation', { min: 0.5, max: 1.5, step: 0.01 });
   post.addBinding(postState, 'contrast', { min: 0.8, max: 1.3, step: 0.01 });
 

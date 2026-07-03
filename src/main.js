@@ -38,16 +38,17 @@ if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
 // ── Shared params ──
 const params = {
-  fog: { near: 24, far: 80 },
+  fog: { near: 32, far: 110 },
   light: { sunIntensity: 1.5, hemiIntensity: 0.7 },
   render: { exposure: 0.62, envIntensity: 0.38 },
   particles: { count: 400 },
   perf: { fps: 0, calls: 0 },
 };
 
-// Fog warms toward the sun tint as the camera descends into the meadow
+// Fog deepens toward a richer amber as the camera descends — lighter fog at
+// altitude reads as bright washed edges, so the descent goes darker, not lighter
 const FOG_BASE = new THREE.Color(0xE8B87A);
-const FOG_WARM = new THREE.Color(0xF3C9A0);
+const FOG_WARM = new THREE.Color(0xD9A05F);
 
 // ── Renderer ──
 const canvas = document.getElementById('webgl');

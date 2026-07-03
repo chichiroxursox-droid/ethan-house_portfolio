@@ -69,7 +69,10 @@ export function initEnvironment(scene) {
 // ── Terrain ──
 
 function createTerrain(scene, palette) {
-  const groundGeo = new THREE.PlaneGeometry(60, 60, 256, 256);
+  // 140m — big enough that the bird's-eye camera (y=30, 60° FOV) never sees
+  // past the edge onto the pale sky-dome ground, which read as a bright
+  // perimeter band around the frame.
+  const groundGeo = new THREE.PlaneGeometry(140, 140, 256, 256);
   const positions = groundGeo.attributes.position.array;
   const vertexCount = positions.length / 3;
 

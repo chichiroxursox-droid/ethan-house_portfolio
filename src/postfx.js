@@ -23,6 +23,7 @@ export const postState = {
   tintStrength: 0.12,
   saturation: 1.08,
   contrast: 1.04,
+  vignette: 0.28,
 };
 // Live-tuning hook (debug pane binds these too; user has no DevTools)
 if (typeof window !== 'undefined') window.__postState = postState;
@@ -35,6 +36,7 @@ const GradeShader = {
     uTintStrength: { value: postState.tintStrength },
     uSaturation: { value: postState.saturation },
     uContrast: { value: postState.contrast },
+    uVignette: { value: postState.vignette },
   },
   vertexShader: /* glsl */ `
     varying vec2 vUv;
@@ -50,6 +52,7 @@ const GradeShader = {
     uniform float uTintStrength;
     uniform float uSaturation;
     uniform float uContrast;
+    uniform float uVignette;
     varying vec2 vUv;
 
     void main() {
@@ -65,6 +68,10 @@ const GradeShader = {
       // Saturation, then gentle contrast around linear mid-grey
       c.rgb = mix(vec3(dot(c.rgb, vec3(0.2126, 0.7152, 0.0722))), c.rgb, uSaturation);
       c.rgb = max((c.rgb - 0.18) * uContrast + 0.18, 0.0);
+
+      // Vignette — darkens the frame perimeter, aspect-weighted radial falloff
+      float vd = distance(vUv, vec2(0.5)) * 1.15;
+      c.rgb *= 1.0 - uVignette * smoothstep(0.35, 0.78, vd);
 
       gl_FragColor = c;
     }
@@ -128,6 +135,7 @@ export function renderPost() {
   gradePass.uniforms.uTintStrength.value = postState.tintStrength;
   gradePass.uniforms.uSaturation.value = postState.saturation;
   gradePass.uniforms.uContrast.value = postState.contrast;
+  gradePass.uniforms.uVignette.value = postState.vignette;
   composer.render();
   return true;
 }
