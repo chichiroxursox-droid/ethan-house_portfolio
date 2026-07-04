@@ -5,12 +5,12 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initDebug } from './debug.js';
 import { initSky, updateSky } from './sky.js';
-import { initHouse, update as updateHouse } from './house.js';
+import { initHouse, update as updateHouse, getHouseBounds } from './house.js';
 import { initEnvironment, updateEnvironment } from './environment.js';
 import { initGrass } from './grass.js';
 import { updateWind, getWindStrength, windParams } from './wind.js';
 import { initParticles, update as updateParticles, setParticlesVisible } from './particles.js';
-import { initPostFX, renderPost, setPostSize } from './postfx.js';
+import { initPostFX, renderPost, setPostSize, postState } from './postfx.js';
 import { initScroll, getProgress, cameraState, refreshScroll } from './scroll.js';
 import { initVN, showGreeting, showMenu, hideVN, hideChoicesOnly, setExpression } from './vn.js';
 import { initState, getState, transitionTo, onStateChange, STATES } from './state.js';
@@ -192,6 +192,10 @@ onStateChange((newState, oldState) => {
     scene.environmentIntensity = params.render.envIntensity;
   }
 
+  // Bloom is tuned for the outdoor descent; indoors it halos the bright sky
+  // seen through the door/windows onto the walls. Damp it hard inside.
+  postState.bloomStrength = newState === STATES.SCROLLING ? 0.2 : 0.05;
+
   // ── Audio crossfade on state change ──
   const interiorStates = [STATES.GREETING, STATES.MENU, STATES.COMPUTER, STATES.EXPLORING, STATES.ABOUT];
   if (interiorStates.includes(newState)) {
@@ -255,7 +259,7 @@ async function init() {
   }
 
   initEnvironment(scene);
-  initGrass(scene);
+  initGrass(scene, getHouseBounds());
   if (!prefersReducedMotion) initParticles(scene, params); // fireflies
   createParticleOrb(scene);
   createClock(scene);

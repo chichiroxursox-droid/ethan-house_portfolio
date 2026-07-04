@@ -4,6 +4,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 let doorMesh = null;
 let lampGroup = null;
 let lampPointLight = null;
+let houseGroupRef = null;
 const clonedMaterials = [];
 
 export async function initHouse(scene) {
@@ -12,6 +13,7 @@ export async function initHouse(scene) {
   try {
     const gltf = await loader.loadAsync('/models/house.glb');
     const houseGroup = gltf.scene;
+    houseGroupRef = houseGroup;
 
     // Rotate 180° so front door faces +Z (toward camera)
     houseGroup.rotation.y = Math.PI;
@@ -109,6 +111,13 @@ export async function initHouse(scene) {
 
 export function getLampRefs() {
   return { lampPointLight, lampGroup };
+}
+
+// World-space bounding box of the loaded house (includes roof overhang).
+// Used by grass scatter so blades never poke through the floor.
+export function getHouseBounds() {
+  if (!houseGroupRef) return null;
+  return new THREE.Box3().setFromObject(houseGroupRef);
 }
 
 export function update(progress) {

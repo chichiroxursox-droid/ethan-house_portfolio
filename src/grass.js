@@ -18,7 +18,14 @@ function rnd() {
   return (seed - 1) / 2147483646;
 }
 
-export function initGrass(scene) {
+export function initGrass(scene, houseBounds = null) {
+  // House exclusion in XZ, padded so blades don't clip walls. Falls back to a
+  // conservative box if the GLB bounds aren't available.
+  const PAD = 0.5;
+  const hx0 = houseBounds ? houseBounds.min.x - PAD : -4.5;
+  const hx1 = houseBounds ? houseBounds.max.x + PAD : 4.5;
+  const hz0 = houseBounds ? houseBounds.min.z - PAD : -4.5;
+  const hz1 = houseBounds ? houseBounds.max.z + PAD : 3.0;
   // ── Clump geometry ──
   const p1 = new THREE.PlaneGeometry(0.16, 1.0, 1, 2);
   p1.translate(0, 0.5, 0); // base at y=0, tip at y=1
@@ -108,8 +115,8 @@ export function initGrass(scene) {
 
     // Skip dirt path + walkway strip
     if (Math.abs(x) < 1.1 && z > 0.8 && z < 8.5) continue;
-    // Skip house footprint
-    if (x > -3.2 && x < 3.2 && z > -3.5 && z < 1.2) continue;
+    // Skip house footprint (real GLB bounds + padding)
+    if (x > hx0 && x < hx1 && z > hz0 && z < hz1) continue;
 
     pos.set(x, getTerrainHeight(x, z), z);
     quat.setFromAxisAngle(up, rnd() * Math.PI * 2);
