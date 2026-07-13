@@ -106,11 +106,11 @@ const PROJECTS = {
       description: "Silence is the first language of ice. That's the vibe. 700+ frames, particle effects, and scientific coordinates. One of my most immersive builds.",
     },
     {
-      name: 'Cosmos',
-      tech: ['Three.js', 'GSAP', 'Lenis'],
-      color: '#8E44AD',
-      url: 'https://cosmosv1.netlify.app/',
-      description: "My first go at building another portfolio. I didn't end up building it out, but I thought some of the features were cool so I'm still including it.",
+      name: 'Scroll World',
+      tech: ['Seedance 2.0', 'GPT Image 2', 'FFmpeg', 'Vanilla JS'],
+      color: '#C97B5A',
+      url: 'https://webdev-scroll-site.vercel.app',
+      description: "A pitch site for my web dev services told as a miniature clay world. Scroll flies the camera through four AI-generated dioramas: the idea, the build, the launch, and the open storefront. Every frame is Seedance video scrubbed by scroll position.",
     },
     {
       name: 'Apex',
