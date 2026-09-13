@@ -9,7 +9,7 @@ import { getTerrainHeight } from './environment.js';
 // cantilever bend ∝ height², lean ∝ strength², fixed per-instance frequency
 // with gust-driven amplitude.
 
-const COUNT = 25000;
+const COUNT = 12000;
 
 // Deterministic placement (same field every load)
 let seed = 1337;
