@@ -21,12 +21,10 @@ export async function initHouse(scene) {
     houseGroup.position.y = 0.02;
 
     // Materials that sit flush on another surface and need depth bias to avoid z-fighting.
-    // NOTE: the renderer uses `logarithmicDepthBuffer: true`, which writes gl_FragDepth
-    // in the fragment shader and silently bypasses gl.polygonOffset — so the bias below
-    // is effectively a no-op for these materials. It's kept because it's harmless and
-    // documents intent, but the real separation for these items comes from the modeller
-    // baking a small offset into the mesh itself. Where that isn't true (see `Coffee`
-    // below), we physically nudge the mesh in local space instead.
+    // The renderer uses a standard depth buffer (log depth was dropped for perf — it
+    // wrote gl_FragDepth and silently bypassed gl.polygonOffset), so this bias is live.
+    // The modeller also baked small offsets into most of these meshes; where that isn't
+    // true (see `Coffee` below) we physically nudge the mesh in local space as well.
     const flushMaterials = new Set([
       // Inset surfaces (art, glass, screens)
       'PosterArt1', 'PosterArt2', 'Glass', 'MonitorScreen',
@@ -53,8 +51,8 @@ export async function initHouse(scene) {
         }
 
         // The Coffee liquid disk shares its top Y (0.86) with the Ceramic cup rim —
-        // they are literally coplanar. polygonOffset can't save this case under log
-        // depth, so nudge the disk up by half a millimetre in local space. Invisible
+        // they are literally coplanar. A fixed nudge is more predictable than
+        // polygonOffset there, so lift the disk half a millimetre in local space. Invisible
         // to the eye, enough for the depth test to stop flickering.
         if (matName === 'Coffee') {
           child.position.y += 0.0005;

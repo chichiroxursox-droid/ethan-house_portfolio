@@ -50,11 +50,27 @@ const params = {
 const FOG_BASE = new THREE.Color(0xE8B87A);
 const FOG_WARM = new THREE.Color(0xD9A05F);
 
+// ── Post-processing gate (decided before the renderer — it changes canvas AA + DPR) ──
+// ?nopost=1 skips the composer entirely; debug pane can also toggle at runtime.
+// Coarse-pointer devices (phones/tablets) skip it too — the bloom chain's
+// bandwidth cost is 30-50% of frame time on tile-based mobile GPUs.
+const noPost =
+  new URLSearchParams(window.location.search).get('nopost') === '1' ||
+  window.matchMedia('(pointer: coarse)').matches;
+
 // ── Renderer ──
 const canvas = document.getElementById('webgl');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, logarithmicDepthBuffer: true });
+// antialias only affects the default framebuffer; with the composer on, the canvas
+// just receives a flat quad, so MSAA there is pure bandwidth (FXAA runs inside the
+// composer instead). No logarithmicDepthBuffer: it writes gl_FragDepth in every
+// material, which disables early-Z / Apple TBDR hidden-surface removal — every
+// overlapping grass blade and roof-occluded room fragment got fully shaded. The
+// 0.1..200 camera range is fine for a standard 24-bit depth buffer.
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: noPost });
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+// Composer caps at 1.5x (see postfx.js); matching the canvas skips a final
+// 1.5x→2x upscale that adds pixels but no detail.
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, noPost ? 2 : 1.5));
 renderer.setClearColor(0xE8B87A);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFShadowMap; // PCFSoft is deprecated in r183 (console-confirmed fallback)
@@ -104,12 +120,6 @@ gsap.ticker.add((time) => lenis.raf(time * 1000));
 gsap.ticker.lagSmoothing(0);
 
 // ── Post-processing (bloom + golden-hour grade) ──
-// ?nopost=1 skips the composer entirely; debug pane can also toggle at runtime.
-// Coarse-pointer devices (phones/tablets) skip it too — the bloom chain's
-// bandwidth cost is 30-50% of frame time on tile-based mobile GPUs.
-const noPost =
-  new URLSearchParams(window.location.search).get('nopost') === '1' ||
-  window.matchMedia('(pointer: coarse)').matches;
 if (!noPost) initPostFX(renderer, scene, camera);
 
 // ── Debug ──
@@ -347,7 +357,14 @@ async function init() {
   window.addEventListener('pointerdown', unlockAudio, { once: true });
 }
 
-init();
+// Don't render until the scene is populated: the terrain only arrives after the
+// GLB awaits, and until then the bird's-eye camera stares straight down at the
+// sky dome's below-horizon glow (clamped to the bright horizon colour) → bloom
+// → a white flash for a second or two. First frame lands, then the canvas fades in.
+init().finally(() => {
+  animate();
+  canvas.classList.add('ready');
+});
 
 // ── Tab visibility ──
 let isTabVisible = true;
@@ -461,8 +478,6 @@ function animate() {
   params.perf.calls = renderer.info.render.calls;
   if (delta > 0) params.perf.fps = params.perf.fps * 0.95 + (1 / delta) * 0.05;
 }
-
-animate();
 
 // ── Resize ──
 let resizeTimeout;
