@@ -1,11 +1,39 @@
 {
   "nodes": [
     {
+      "id": "agency-agents",
+      "title": "agency-agents",
+      "category": "tool",
+      "summary": "**A third-party, MIT-licensed collection of AI agent personas \u2014 not [[ethan-hauger]]'s work.** \"The Agency\" is a community repository of about 105 markdown agent definitions (`github.com/msitarzewski/agency-agents`), organised into ten divisions from engineering and design to marketing and game development, each file a YAML-frontmatter persona with an identity, a mission, critical rules, and worked deliverables. The local copy is an unmodified full clone pulled down in March 2026 and left untouched. It is documented here because it is the largest agent-definition corpus in this workspace and because its roster overlaps by name and premise with [[claude-code-agents]], Ethan's own twelve definitions \u2014 which are separate, original files.",
+      "linkCount": 8
+    },
+    {
+      "id": "agent-cadence-layer",
+      "title": "Agent Cadence Layer",
+      "category": "concept",
+      "summary": "The scheduling tier of an agent system: the set of triggers that decide *when* an agent runs, as opposed to what it knows or what it can do. In practice it resolves into four tiers with different access and different failure modes \u2014 a session-start hook that fires when a human opens the project, a local OS scheduler (`launchd` on macOS) for jobs that need local credentials, a remote cloud routine for jobs that must run whether or not the laptop is awake, and a deliberately unscheduled tier for rituals that only produce real signal when a human chooses to invoke them. Documented from the [[ethan-aios]] build, where cadence was the lowest-scoring layer at baseline and the one that produced every durability bug.",
+      "linkCount": 8
+    },
+    {
       "id": "agentic-workflows-demo",
       "title": "Agentic Workflows Demo",
       "category": "project",
       "summary": "A template project showcasing the [[wat-framework]] architecture with a real-world job scraping example. Demonstrates how to separate deterministic execution (tools) from probabilistic reasoning (agents) via documented instructions (workflows).",
       "linkCount": 4
+    },
+    {
+      "id": "agpl-dual-licensing",
+      "title": "AGPL Dual Licensing",
+      "category": "concept",
+      "summary": "The licensing stack open-source companies use to stay both genuinely open and commercially fundable: publish under the AGPL, require contributors to sign a CLA that grants relicensing rights, sell a separate commercial license to anyone who cannot accept the AGPL, and keep the project's name out of the code grant with a trademark policy. Each piece is load-bearing \u2014 remove the CLA and the commercial license becomes legally impossible. The worked example in this workspace is the third-party [[useagent]] repository, which ships all four documents plus a mixed-license `NOTICE`.",
+      "linkCount": 5
+    },
+    {
+      "id": "ai-bible-assistant",
+      "title": "AI Bible Assistant",
+      "category": "project",
+      "summary": "A Chrome MV3 extension plus a small Python backend that lets someone reading scripture on bible.com or biblegateway.com highlight a confusing verse and get a plain-language explanation from Gemini 2.5 Flash in a slide-in sidebar. There is no npm and no build step \u2014 the backend is pure Python standard library and the extension is plain JavaScript. Two design choices distinguish it from a thin LLM wrapper: a **reference validator** that checks every verse citation the model produces against the 66-book canon before the reader sees it, and a **tradition lens** that makes the model's denominational slant an explicit user setting rather than an accident of training data.",
+      "linkCount": 7
     },
     {
       "id": "ai-content-creation",
@@ -15,144 +43,53 @@
       "linkCount": 2
     },
     {
-      "id": "ai-news-2026-04-27",
-      "title": "AI News Digest \u2014 2026-04-27",
+      "id": "ai-news-digests",
+      "title": "AI News Digests",
       "category": "concept",
-      "summary": "Daily AI news and YouTube video roundup covering the last 24 hours.",
-      "linkCount": 2
+      "summary": "A running series of curated daily AI briefings \u2014 80 editions between 2026-04-27 and 2026-09-12 \u2014 produced by the `/ai-news` skill. Each edition sweeps six source lanes in parallel (Hacker News, arXiv, GitHub trending, AI company blogs, X, and general news plus YouTube), pools roughly 90\u2013100 candidate items, then applies a hard editorial gate that publishes only the 6\u20138 that matter to engineers, researchers, and founders. The point is curation, not aggregation: every edition also keeps a **Cut List** recording what was rejected and why, which makes the editorial judgment auditable rather than invisible.",
+      "linkCount": 7
     },
     {
-      "id": "ai-news-2026-04-28",
-      "title": "AI News Digest \u2014 2026-04-28",
-      "category": "concept",
-      "summary": "Daily AI news and YouTube video roundup covering the last 24 hours.",
-      "linkCount": 3
+      "id": "ai-visibility-audit",
+      "title": "AI Visibility Audit Engine",
+      "category": "tool",
+      "summary": "A five-stage Python pipeline that takes a business name, city, and optional website and produces a branded HTML report showing how visible that business is on Google *and* inside AI assistants, scored against its nearest competitors. It is the sales wedge of [[local-business-service]] \u2014 one command in, one printable proof-of-value document out, for roughly $0.10\u20130.48 of API spend. Every stage degrades gracefully, so a missing key or a dead website becomes a recorded finding rather than a crash.",
+      "linkCount": 12
     },
     {
-      "id": "ai-news-2026-04-29",
-      "title": "AI News Digest \u2014 2026-04-29",
-      "category": "concept",
-      "summary": "Daily AI news, YouTube videos, and trending GitHub repos roundup covering the last 24 hours.",
-      "linkCount": 4
+      "id": "aio-citation-kit",
+      "title": "AIO-Citation Kit",
+      "category": "tool",
+      "summary": "The done-for-you deliverable that turns one `audit.json` from the [[ai-visibility-audit]] into three shippable artifacts: a ranked \"get listed here\" plan, a set of AI-quotable FAQ answers, and deployable JSON-LD schema. It is the first buildable slice of [[local-business-service]]'s delivery engine that needs zero access to the customer's accounts, which is why it was built first \u2014 the hardest integration (write access to a client's Google profile) is deferred entirely. Almost all of it is deterministic and costs $0; the one LLM-drafted piece is locked behind a mandatory human approval gate.",
+      "linkCount": 8
     },
     {
-      "id": "ai-news-2026-05-11",
-      "title": "AI News Digest \u2014 2026-05-11",
+      "id": "audiotee",
+      "title": "AudioTee",
+      "category": "tool",
+      "summary": "AudioTee is a small MIT-licensed Swift command-line tool (`github.com/makeusabrew/audiotee`) that captures a Mac's system audio output \u2014 everything the speakers are playing \u2014 and writes raw PCM chunks to stdout, with all logging on stderr. It uses the Core Audio process-tap API that Apple added in macOS 14.2, which is the only sanctioned way to record system output without an installed virtual audio driver. Ethan vendored it into [[transcriber]] as the \"Them\" audio source; it is third-party code, cloned and built, never written here.",
+      "linkCount": 1
+    },
+    {
+      "id": "autonomous-loop-governance",
+      "title": "Autonomous Loop Governance",
       "category": "concept",
-      "summary": "> **Drive:** [https://docs.google.com/document/d/1uie-3w1W6AE1JKS_BGA2UaHRNvraBsX_3SAp5QFKB_M/edit](https://docs.google.com/document/d/1uie-3w1W6AE1JKS_BGA2UaHRNvraBsX_3SAp5QFKB_M/edit) Daily AI news, YouTube videos, and trending GitHub repos roundup covering the last 24 hours.",
+      "summary": "Three mechanisms that let a long-running agent loop be left unattended without either burning unbounded tokens or spinning uselessly: a **credit meter** the loop must honor, a **self-pause** the agent can set on itself, and a **hard-bounds sandbox** written into the agent's own constitution rather than enforced only from outside. All three come from the [[web-of-belief]] cluster, where four agents ran the same iteration loop over six days \u2014 and where the interesting evidence is the failure: a real deadlock in which the pause was set, ignored by the scheduler, and had to be escalated to a human.",
+      "linkCount": 10
+    },
+    {
+      "id": "basketball-business-plan",
+      "title": "Basketball Lessons Business Plan",
+      "category": "analysis",
+      "summary": "This is the one complete run of [[bizplan-builder]], carried out on Ethan's own youth basketball coaching side business \u2014 the method dogfooded against a real business with real numbers instead of a hypothetical. It produced a cited research file, a YELLOW viability verdict with the two risks that caused it, a three-year plan, a financial model, and three trigger-based action sheets. Its most useful output was not the plan: it was the adversarial verify pass, which caught the consultant's own fabricated statistic and three other real defects before anyone acted on the document.",
       "linkCount": 5
     },
     {
-      "id": "ai-news-2026-05-12",
-      "title": "AI News Digest \u2014 2026-05-12",
-      "category": "concept",
-      "summary": "> **Drive:** [https://docs.google.com/document/d/1lYbeYQ5EOaASCZ7J_KmFgltAFpcbu9DmsiLN6YgkAO4/edit](https://docs.google.com/document/d/1lYbeYQ5EOaASCZ7J_KmFgltAFpcbu9DmsiLN6YgkAO4/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
-      "linkCount": 3
-    },
-    {
-      "id": "ai-news-2026-05-13",
-      "title": "AI News Digest \u2014 2026-05-13",
-      "category": "concept",
-      "summary": "> **Drive:** [https://docs.google.com/document/d/19_Se4czRbOBZjvKXwyS1S_3HTsNQaP_8eoN_xPQTWoU/edit](https://docs.google.com/document/d/19_Se4czRbOBZjvKXwyS1S_3HTsNQaP_8eoN_xPQTWoU/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
-      "linkCount": 4
-    },
-    {
-      "id": "ai-news-2026-05-14",
-      "title": "AI News Digest \u2014 2026-05-14",
-      "category": "concept",
-      "summary": "> **Drive:** [https://docs.google.com/document/d/1vp1XSeNFj40Ps5sdOdI6qksGJ8WVjigPmjNyg_3-vmY/edit](https://docs.google.com/document/d/1vp1XSeNFj40Ps5sdOdI6qksGJ8WVjigPmjNyg_3-vmY/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
-      "linkCount": 2
-    },
-    {
-      "id": "ai-news-2026-05-15",
-      "title": "AI News Digest \u2014 2026-05-15",
-      "category": "concept",
-      "summary": "> **Drive:** [https://docs.google.com/document/d/11US5nFNyMSaWkcQu9k9vHsjvskBV_P8PvtD4P8CChhQ/edit](https://docs.google.com/document/d/11US5nFNyMSaWkcQu9k9vHsjvskBV_P8PvtD4P8CChhQ/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
-      "linkCount": 5
-    },
-    {
-      "id": "ai-news-2026-05-16",
-      "title": "AI News Digest \u2014 2026-05-16",
-      "category": "concept",
-      "summary": "> **Drive:** [https://docs.google.com/document/d/1aEzCkXfyKwksdsI83qcRk-jECQCs6FOUXJ-qdmcRJb4/edit](https://docs.google.com/document/d/1aEzCkXfyKwksdsI83qcRk-jECQCs6FOUXJ-qdmcRJb4/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
-      "linkCount": 3
-    },
-    {
-      "id": "ai-news-2026-05-17",
-      "title": "AI News Digest \u2014 2026-05-17",
-      "category": "concept",
-      "summary": "Daily AI news and YouTube video roundup covering the last 24 hours.",
-      "linkCount": 3
-    },
-    {
-      "id": "ai-news-2026-05-18",
-      "title": "AI News Digest \u2014 2026-05-18",
-      "category": "concept",
-      "summary": "Daily AI news and YouTube video roundup covering the last 24 hours.",
-      "linkCount": 3
-    },
-    {
-      "id": "ai-news-2026-05-19",
-      "title": "AI News Digest \u2014 2026-05-19",
-      "category": "concept",
-      "summary": "Daily AI news and YouTube video roundup covering the last 24 hours.",
-      "linkCount": 3
-    },
-    {
-      "id": "ai-news-2026-05-20",
-      "title": "AI News Digest \u2014 2026-05-20",
-      "category": "concept",
-      "summary": "> **Drive:** [https://docs.google.com/document/d/1MRR2Uya-gNu57R8LARW5aDmLJu-u8k6kIiWgnAdV13g/edit](https://docs.google.com/document/d/1MRR2Uya-gNu57R8LARW5aDmLJu-u8k6kIiWgnAdV13g/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
-      "linkCount": 3
-    },
-    {
-      "id": "ai-news-2026-05-21",
-      "title": "AI News Digest \u2014 2026-05-21",
-      "category": "concept",
-      "summary": "> **Drive:** [https://docs.google.com/document/d/1e8J9FSQ9R-AwpBi2glETQPt5IQHnHE3H4iHzeVg63rU/edit](https://docs.google.com/document/d/1e8J9FSQ9R-AwpBi2glETQPt5IQHnHE3H4iHzeVg63rU/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
-      "linkCount": 4
-    },
-    {
-      "id": "ai-news-2026-05-22",
-      "title": "AI News Digest \u2014 2026-05-22",
-      "category": "concept",
-      "summary": "> **Drive:** [https://docs.google.com/document/d/1nVysg6JgOJE_sCmFa5ADeXcqEIUkgUMr_PWl2zU1a_A/edit](https://docs.google.com/document/d/1nVysg6JgOJE_sCmFa5ADeXcqEIUkgUMr_PWl2zU1a_A/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
-      "linkCount": 3
-    },
-    {
-      "id": "ai-news-2026-05-23",
-      "title": "AI News Digest \u2014 2026-05-23",
-      "category": "concept",
-      "summary": "> **Drive:** [https://docs.google.com/document/d/1CfyxrT1dxYvYkCXmhwRiVcTm3OOMe0C_ydfJnLVCdG8/edit](https://docs.google.com/document/d/1CfyxrT1dxYvYkCXmhwRiVcTm3OOMe0C_ydfJnLVCdG8/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
-      "linkCount": 3
-    },
-    {
-      "id": "ai-news-2026-05-25",
-      "title": "AI News Digest \u2014 2026-05-25",
-      "category": "concept",
-      "summary": "> **Drive:** [https://docs.google.com/document/d/1FQhplwO-jzP7-jXgGyq0KBxHJTIRo7W0vg93K97QfNI/edit](https://docs.google.com/document/d/1FQhplwO-jzP7-jXgGyq0KBxHJTIRo7W0vg93K97QfNI/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
-      "linkCount": 4
-    },
-    {
-      "id": "ai-news-2026-05-26",
-      "title": "AI News Digest \u2014 2026-05-26",
-      "category": "concept",
-      "summary": "> **Drive:** [https://docs.google.com/document/d/1yMeReOG0P83tjzmdJGKnw79WNBjwUnuXIcrrYCHWnSI/edit](https://docs.google.com/document/d/1yMeReOG0P83tjzmdJGKnw79WNBjwUnuXIcrrYCHWnSI/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
-      "linkCount": 2
-    },
-    {
-      "id": "ai-news-2026-05-27",
-      "title": "AI News Digest \u2014 2026-05-27",
-      "category": "concept",
-      "summary": "Daily AI news and YouTube video roundup covering the last 24 hours.",
-      "linkCount": 3
-    },
-    {
-      "id": "ai-news-2026-05-28",
-      "title": "AI News Digest \u2014 2026-05-28",
-      "category": "concept",
-      "summary": "> **Drive:** [https://docs.google.com/document/d/1ioQHeoxz4NgAe2EmZVQFIQ14_LzVCHFMv9W0nZ7LeLg/edit](https://docs.google.com/document/d/1ioQHeoxz4NgAe2EmZVQFIQ14_LzVCHFMv9W0nZ7LeLg/edit) Daily AI news and YouTube video roundup covering the last 24 hours.",
-      "linkCount": 3
+      "id": "beacon-audit-funnel",
+      "title": "Beacon (Audit Web Funnel)",
+      "category": "project",
+      "summary": "Beacon is the public-facing web product wrapped around the [[ai-visibility-audit]] engine: a Next.js 16 frontend on Vercel talking to a containerized FastAPI backend on Render, with a chat onboarding interview instead of a form. A visitor answers a few questions, the backend forks to either a full audit (existing business) or a market landscape scan (brand-new business), and the same Jinja report the CLI produces is rendered in the browser. It is the deployable half of [[local-business-service]] \u2014 the backend spine is done and verified, including one real paid audit through the API path.",
+      "linkCount": 7
     },
     {
       "id": "bike-website",
@@ -162,11 +99,18 @@
       "linkCount": 5
     },
     {
+      "id": "bizplan-builder",
+      "title": "bizplan-builder",
+      "category": "project",
+      "summary": "bizplan-builder turns a copy of Claude Code into a business-plan consultant for small local and service businesses \u2014 shops, trades, lessons, repair, food. It interviews the owner, researches their actual market with citations, runs an arithmetic viability gate that can return a RED verdict, and then produces a three-year plan, a financial model that reproduces the present before projecting, and trigger-based quarterly action sheets. It needs no API keys and no servers: it is five markdown workflows, five templates, and one instruction file, run on the owner's own Claude subscription. The design premise is that most AI plan tools fill a template with plausible-sounding numbers they invented, so this one refuses to state a number it cannot source (see [[source-tagged-numbers]]).",
+      "linkCount": 6
+    },
+    {
       "id": "boreal",
       "title": "BOREAL",
       "category": "project",
       "summary": "Scroll-driven aurora borealis and solar animation website. Uses pre-rendered video frames that play forward/backward based on scroll position \u2014 the frame-based predecessor technique to [[luminary-3d]]'s real-time 3D approach.",
-      "linkCount": 4
+      "linkCount": 6
     },
     {
       "id": "bot-feedback-loop",
@@ -180,14 +124,14 @@
       "title": "Brevity Constraints Study",
       "category": "concept",
       "summary": "Research paper by MD Azizul Hakim, submitted to arXiv 2026-03-11 as [arXiv:2604.00025](https://arxiv.org/abs/2604.00025), titled *\"Brevity Constraints Reverse Performance Hierarchies in Language Models.\"* Found that on a non-trivial fraction of benchmark problems, smaller language models outperform much larger ones \u2014 and that forcing large models to answer briefly can reverse this, improving accuracy by up to 26 percentage points.",
-      "linkCount": 3
+      "linkCount": 5
     },
     {
       "id": "browser-automation",
       "title": "Browser Automation",
       "category": "concept",
       "summary": "Using headless or headed browsers programmatically to automate web interactions \u2014 clicking buttons, filling forms, navigating pages, extracting content. A recurring pattern across multiple projects.",
-      "linkCount": 3
+      "linkCount": 5
     },
     {
       "id": "canvas-automation",
@@ -204,32 +148,53 @@
       "linkCount": 5
     },
     {
+      "id": "citation-verified-copy-deck",
+      "title": "Citation-Verified Copy Deck",
+      "category": "concept",
+      "summary": "A citation-verified copy deck is a website-rewrite artifact that puts every proposed line of copy beside the line it replaces *and* the source document the new wording comes from, so the owner can approve voice and check facts in a single pass. Ethan built five of them for [[workshop-u-website]], then ran an adversarial verification pass whose only job was to find claims the source documents did not support \u2014 which surfaced about a dozen contradictions between the client's live site and the client's own paperwork. The same deck then doubles as the punch list for whoever applies the changes by hand.",
+      "linkCount": 3
+    },
+    {
+      "id": "claim-check",
+      "title": "Claim Check",
+      "category": "project",
+      "summary": "Claim Check is a phone-first web app that answers \"is this health claim true?\" by searching the primary medical literature and returning a graded verdict card with real citations. It was built for a non-technical family client who kept wondering whether the supplement, diet, and drug claims he encountered were real or \"snake oil,\" and it runs two tiers: a roughly 40-second quick check that runs entirely on Vercel, and a \"do the deep analysis\" button that queues a full [[evidence-check-pipeline]] run on a Mac at home and emails back an actual meta-analysis. Every claim in a card must cite a PubMed ID that was genuinely fetched during that request \u2014 invented citations are stripped before the card is rendered.",
+      "linkCount": 6
+    },
+    {
       "id": "claude-api",
       "title": "Claude API",
       "category": "tool",
       "summary": "Anthropic's API for accessing Claude models. Used across multiple projects for classification, analysis, decision-making, and content generation.",
-      "linkCount": 10
+      "linkCount": 14
     },
     {
       "id": "claude-code-agents",
       "title": "Claude Code Agents",
       "category": "concept",
       "summary": "Custom agent definitions that extend Claude Code with specialized personas. Each agent has its own system prompt, tool permissions, and model assignment. They run as subagents \u2014 spawned for specific tasks, then return results to the main conversation.",
-      "linkCount": 5
+      "linkCount": 10
     },
     {
       "id": "claude-code-skills",
       "title": "Claude Code Skills",
       "category": "concept",
       "summary": "Reusable instruction sets that tell Claude Code how to handle specific task types. Skills are loaded on-demand \u2014 their descriptions are always visible, but full content only loads when invoked. Think of them as SOPs for the AI.",
-      "linkCount": 6
+      "linkCount": 10
+    },
+    {
+      "id": "conversational-prompt-guardrails",
+      "title": "Conversational Prompt Guardrails",
+      "category": "concept",
+      "summary": "When a long prompt has to run a multi-turn conversation with a real person \u2014 a coaching session, an interview, a consultation \u2014 the hard part is not describing the procedure but suppressing the chatbot's defaults. Left alone a model asks five questions at once, praises everything, summarizes the user's own words back at them, and eventually does the task the prompt told it to refuse. These are the specific rules that survived live testing in [[back-of-the-napkin]] and [[bizplan-builder]], plus the testing methods that found them.",
+      "linkCount": 8
     },
     {
       "id": "cultivaite",
       "title": "CULTIVaiTE (Faithfully)",
       "category": "project",
       "summary": "AI consultancy startup targeting faith-based nonprofits \u2014 Christian schools, churches, rescue missions, pregnancy centers, small NGOs. The pitch: save 10+ hours per week by upgrading communications workflows with AI. Built by [[ethan-hauger]] and siblings.",
-      "linkCount": 4
+      "linkCount": 6
     },
     {
       "id": "email-organizer",
@@ -239,46 +204,95 @@
       "linkCount": 6
     },
     {
-      "id": "ethan-aios",
-      "title": "Ethan AIOS (AI Operating System)",
+      "id": "engine-adapter-pattern",
+      "title": "Engine Adapter Pattern",
+      "category": "concept",
+      "summary": "A way to build a product on top of several interchangeable AI coding agents \u2014 Claude Code, Codex, OpenCode, Pi \u2014 without the product ever knowing which one is running. Each agent's native protocol is translated into one canonical event vocabulary, and each agent's lifecycle is driven through one typed control interface, so swapping engines leaves threads, artifacts, and memory intact. The pattern's most complete reference implementation in this workspace is the third-party [[useagent]] codebase, whose `@useagent/agent-harness` package is nothing but the two contracts.",
+      "linkCount": 7
+    },
+    {
+      "id": "epistemic-virtues",
+      "title": "Epistemic Virtues (Quine & Ullian)",
+      "category": "concept",
+      "summary": "Six criteria for choosing between competing revisions of a belief system, from Quine and Ullian's *The Web of Belief* (1970): conservatism, modesty, simplicity, generality, refutability, and precision. In the [[web-of-belief]] project they stop being a reading-list idea and become executable constraints \u2014 refutability in particular is enforced by schema validation, so a belief note that fails to state what would disconfirm it is rejected at write time. That turns a philosophy-of-science checklist into a practical guardrail against the failure mode where an LLM produces confident-sounding text that cannot be wrong about anything.",
+      "linkCount": 6
+    },
+    {
+      "id": "ethan-hauger-coaching",
+      "title": "Ethan Hauger Coaching & Tutoring",
       "category": "project",
-      "summary": "[[ethan-hauger]]'s personal AI Operating System \u2014 a daily-driver folder at `~/Desktop/CLAUDE CODE/Operating Systems/` that any Claude Code session can `/clear` into and resume full context. Built 2026-05-09/10 by following Nate Herk's [Build & Sell Claude Code Operating Systems](https://www.youtube.com/watch?v=...) course template (`nateherkai/AIS-OS`) and customizing heavily against [[ethan-hauger]]'s existing knowledge infrastructure. Cloned from Nate's `nateherkai/AIS-OS` template, then wiped upstream git history and personalized through a 7-question `/onboard` interview. Distinct from project work \u2014 this is the *daily-driver / second-brain layer* that sits alongside [[house-portfolio]], [[ethan-portfolio]], [[email-organizer]], etc., not above them.",
-      "linkCount": 9
+      "summary": "A real, live six-page marketing site for [[ethan-hauger]]'s own side business \u2014 private basketball coaching and SAT/academic tutoring on Philadelphia's Main Line \u2014 built from nothing but a paper flyer and deployed to Vercel. It doubles as the dogfood case for [[local-business-service]]: the site was engineered to deliberately satisfy every website signal the [[ai-visibility-audit]] measures, so running the audit against it would prove the \"we'll build your website\" offer works. It did, scoring 90/100 on the website dimension \u2014 and in the process exposed two significant bugs in the audit engine.",
+      "linkCount": 7
     },
     {
       "id": "ethan-hauger",
       "title": "Ethan Hauger",
       "category": "entity",
       "summary": "The person behind all these projects. High school senior at SLA Beeber in West Philadelphia.",
-      "linkCount": 19
+      "linkCount": 29
     },
     {
       "id": "ethan-portfolio",
       "title": "Ethan Portfolio (Lovable)",
       "category": "project",
       "summary": "A polished, conventional React portfolio site for [[ethan-hauger]] at **ethan-portfolio.lovable.app**. Built with Lovable + Vite + React + shadcn-ui + Supabase. This is the **second portfolio** alongside [[house-portfolio]] \u2014 where house-portfolio is the experimental 3D Three.js immersive experience, this one is the structured \"show me your resume\" version with multiple themed sections, an AI chat, contact form, mini-games, and engineering galleries. GitHub: `chichiroxursox-droid/ethan-portfolio` (created 2026-03-04)",
-      "linkCount": 9
+      "linkCount": 10
+    },
+    {
+      "id": "event-sourced-agent-runs",
+      "title": "Event-Sourced Agent Runs",
+      "category": "concept",
+      "summary": "A way to store what an AI agent did as an append-only log of events in a relational database, so that the same rows serve both live streaming to a browser and exact replay after a crash, a reconnect, or a backend restart. The pattern separates durable truth from ephemeral niceties, uses two independent cursors for delivery and ordering, and commits the *intention* to translate events in the same transaction that ends the run. The reference implementation studied here is the Postgres run model in the third-party [[useagent]] codebase.",
+      "linkCount": 7
+    },
+    {
+      "id": "evidence-check-pipeline",
+      "title": "Evidence Check Pipeline",
+      "category": "concept",
+      "summary": "The evidence-check pipeline is a documented method for answering \"does X help or cause Y?\" from the primary medical literature rather than trusting any single study: frame the question as PICO, sweep ClinicalTrials.gov and PubMed through their free official APIs, screen and extract effect sizes by hand, pool them with a random-effects meta-analysis, and grade the answer Supported / Not supported / Mixed / Insufficient evidence. It exists because most registered trials are small \u2014 twenty to forty participants \u2014 so aggregating many of them is the only route to a usable answer, which was the client's original insight when he proposed the project. It powers the deep tier of [[claim-check]] and has produced verdicts on gluten and acne, statins, turmeric and joint pain, honey for cough, and chocolate for cough.",
+      "linkCount": 4
+    },
+    {
+      "id": "fantasy-football-draft",
+      "title": "Fantasy Football Draft",
+      "category": "project",
+      "summary": "A pair of offline-first draft assistants Ethan built for his two 2026 fantasy football leagues: a snake-draft board (`draft.html`) and a live in-person auction board (`auction.html`) for a 15-team, $200-per-team auction. Python tools in `tools/` pull free live data \u2014 FantasyPros expert-consensus rankings and FantasyFootballCalculator ADP \u2014 and derive per-format auction dollar values that sum to exactly the money in the room. The auction board ships as one self-contained HTML file with no server, no wifi and no install, because the draft happens in person in a room where the internet cannot be trusted. Built on the [[wat-framework]] layout.",
+      "linkCount": 6
     },
     {
       "id": "file-structure-conventions",
       "title": "File Structure Conventions",
       "category": "concept",
       "summary": "The standard directory layout for projects using the [[wat-framework]]. Not all projects use every directory \u2014 if `tools/`, `workflows/`, or `tasks/` don't exist, those WAT instructions are skipped.",
-      "linkCount": 3
+      "linkCount": 7
     },
     {
       "id": "firecrawl",
       "title": "FireCrawl",
       "category": "tool",
       "summary": "Headless browser scraping API. Renders JavaScript-heavy pages and returns clean HTML. Solves the problem of sites that block direct HTTP requests (403 errors).",
-      "linkCount": 2
+      "linkCount": 3
+    },
+    {
+      "id": "fuzzy-resolver-confidence-gate",
+      "title": "Fuzzy Resolver Confidence Gate",
+      "category": "concept",
+      "summary": "A short, expensive engineering lesson from the [[ai-visibility-audit]]: a fuzzy resolver \u2014 a places search, a geocoder, a search API, a vector lookup \u2014 never returns \"no match.\" It returns its best guess, ranked, always. So taking `results[0]` without a similarity check doesn't fail loudly when the thing you asked about doesn't exist; it silently substitutes a stranger and every downstream computation builds on that substitution.",
+      "linkCount": 5
     },
     {
       "id": "gemini-api",
       "title": "Gemini API",
       "category": "tool",
       "summary": "Google's LLM API. Used for conversational AI where the character needs to feel natural and responsive.",
-      "linkCount": 4
+      "linkCount": 5
+    },
+    {
+      "id": "generative-engine-optimization",
+      "title": "Generative Engine Optimization (AIO / GEO)",
+      "category": "concept",
+      "summary": "Making a business visible inside AI assistant answers \u2014 ChatGPT, Perplexity, Google AI Overviews, Copilot \u2014 rather than only in classic search results. It is the commercial hook behind [[local-business-service]] and the thing the [[ai-visibility-audit]] measures. The interesting part is not the pitch but the evidence trail: nearly every lever the industry sells for AI visibility failed when traced to a primary source, and what survived turned out to be ordinary listings and visible on-page content.",
+      "linkCount": 7
     },
     {
       "id": "gmail-api",
@@ -292,7 +306,7 @@
       "title": "Groq API",
       "category": "tool",
       "summary": "Fast, cheap LLM inference provider. Used when speed matters more than capability \u2014 quick decisions, transcription, and real-time interactions.",
-      "linkCount": 4
+      "linkCount": 5
     },
     {
       "id": "gsap",
@@ -302,32 +316,81 @@
       "linkCount": 3
     },
     {
+      "id": "hard-ceilings-pattern",
+      "title": "Hard Ceilings Pattern",
+      "category": "concept",
+      "summary": "A pattern for letting an AI pipeline compute something consequential \u2014 a bid, a spend, a limit \u2014 without letting it decide how large that thing may be. The ceilings live in a config file the pipeline reads and never writes, they are applied *after* the model as a clamp rather than trusted to the model's own restraint, and the aggregate exposure is tracked separately because no per-item cap bounds it. Distilled from [[nellis-deal-engine]], which spends real money on an auction platform, with supporting instances in [[back-of-the-napkin]].",
+      "linkCount": 3
+    },
+    {
       "id": "house-portfolio",
       "title": "House Portfolio",
       "category": "project",
-      "summary": "An interactive 3D portfolio website for Ethan Hauger. Users scroll through an outdoor environment into a 3D house modeled in Blender, then explore rooms, interact with objects, browse projects on an in-game computer, chat with an AI version of Ethan, and play a piano. This is the **immersive 3D portfolio** \u2014 its conventional sibling is [[ethan-portfolio]] (a polished React/Lovable site at ethan-portfolio.lovable.app).",
-      "linkCount": 10
+      "summary": "An interactive 3D portfolio website for Ethan Hauger. Users scroll through an outdoor environment into a 3D house modeled in Blender, then explore rooms, interact with objects, browse projects on an in-game computer, chat with an AI version of Ethan, play a piano, and browse this wiki itself as a force-directed knowledge graph. This is the **immersive 3D portfolio** \u2014 its conventional sibling is [[ethan-portfolio]] (a polished React/Lovable site at ethan-portfolio.lovable.app).",
+      "linkCount": 17
+    },
+    {
+      "id": "layered-agent-memory",
+      "title": "Layered Agent Memory",
+      "category": "concept",
+      "summary": "Splitting what an agent remembers into tiers with different load rules, write rules, and lifetimes \u2014 instead of one growing file that either gets loaded every turn or gets forgotten. The tiers that recur across implementations are: a thin always-loaded router, on-demand reference documents it points at, slow-changing facts about the user or project, an append-only episodic log, a deferred-intentions queue with time triggers, and a disposable scratch area. What makes it a *memory architecture* rather than a folder layout is the set of promotion rules that move an item from one tier to the next.",
+      "linkCount": 9
+    },
+    {
+      "id": "llm-content-human-gate",
+      "title": "Human Gate for LLM-Drafted Content",
+      "category": "concept",
+      "summary": "A pattern for LLM-generated content that will be published under someone else's name: the model drafts, a machine pass flags every risky claim, and nothing reaches the deployable artifact until a named human logs an approval. Built in [[aio-citation-kit]]'s FAQ generator, where the output would go live on a real client's website. The design insight is that the gate has to be a **state machine with an audit log**, not a checkbox \u2014 and that the anti-fabrication rule protecting it will quietly destroy the output quality unless the prompt draws the right line.",
+      "linkCount": 6
     },
     {
       "id": "llm-routing",
       "title": "LLM Routing",
       "category": "concept",
       "summary": "A multi-tier decision routing pattern where requests are sent to different LLM providers based on complexity, cost, and speed requirements. The cheapest/fastest option handles most cases; expensive models are reserved for edge cases.",
-      "linkCount": 4
+      "linkCount": 8
     },
     {
       "id": "llm-verbosity-overthinking",
       "title": "LLM Verbosity & Overthinking",
       "category": "concept",
       "summary": "The phenomenon where larger language models produce over-elaborate responses that accumulate errors during their own reasoning chain \u2014 sometimes causing them to underperform much smaller models on tasks they should easily solve. Introduced in the March 2026 [[brevity-constraints-study]] and framed as \"spontaneous scale-dependent verbosity.\"",
-      "linkCount": 4
+      "linkCount": 5
+    },
+    {
+      "id": "llm-visibility-sampling",
+      "title": "LLM Visibility Sampling",
+      "category": "concept",
+      "summary": "A technique for measuring anything that depends on a non-deterministic LLM answer: ask several phrasings several times, then report an **appearance rate plus a stability label**, never a single yes/no. It was built into `tools/check_aio.py` in the [[ai-visibility-audit]] after a live run proved that asking each AI engine once produced a result that flipped between identical calls. The general lesson applies far beyond AI visibility \u2014 any metric derived from one LLM call is a screenshot, not a measurement.",
+      "linkCount": 6
+    },
+    {
+      "id": "local-business-service",
+      "title": "Local Business Service",
+      "category": "project",
+      "summary": "A real attempt to build a done-for-you digital-marketing service for micro local businesses \u2014 the owners who can't afford a $5k/mo agency and aren't technical enough to DIY. The project spans a working audit engine ([[ai-visibility-audit]]), a delivery kit ([[aio-citation-kit]]), a public web funnel ([[beacon-audit-funnel]]), and a live customer site ([[ethan-hauger-coaching]]) used as the dogfood case. It is the most complete business-shaped project in the workspace: strategy specs, market research, a 34-business prospect pipeline, real paid API runs, and a pilot package built for an actual prospect.",
+      "linkCount": 8
     },
     {
       "id": "luminary-3d",
       "title": "LUMINARY-3D",
       "category": "project",
       "summary": "Real-time 3D scroll-driven website with bioluminescent jellyfish awakening in the deep ocean. A technical upgrade of the original LUMINARY project (which used pre-rendered video frames instead of real-time 3D). Shares the same [[scroll-driven-3d]] pattern as [[house-portfolio]].",
-      "linkCount": 7
+      "linkCount": 9
+    },
+    {
+      "id": "luminary-sandbox",
+      "title": "Luminary Sandbox",
+      "category": "project",
+      "summary": "The original LUMINARY video-frames-to-website experiment (\"Light Born in the Deep\") plus the sandbox of roughly a dozen sibling scroll-animation studies that accumulated around it. Its git origin is `Luminary-videotowebsite_test`, not a portfolio repo \u2014 but it also holds a frozen pre-extraction copy of [[house-portfolio]], which has caused portfolio work to be pushed to the wrong remote twice. Treat this directory as an archive and a hazard, not an active project.",
+      "linkCount": 6
+    },
+    {
+      "id": "magic-card-guide",
+      "title": "Magic Card Guide",
+      "category": "project",
+      "summary": "A single-file visual identification guide to valuable 1993\u20131999 Magic: The Gathering cards, generated from the official Scryfall API. `guide.html` lays out 81 cards as a printable image grid \u2014 each with its high-res scan, set, Reserved List badge and current USD market price \u2014 so a physical shoebox of old cards can be sorted by eye instead of by typing names into a search box one at a time. The 92 cached API responses in `.cache/` are what make the build idempotent: a re-run reads disk rather than re-hitting the API.",
+      "linkCount": 4
     },
     {
       "id": "mamie-smith-research",
@@ -344,25 +407,60 @@
       "linkCount": 2
     },
     {
+      "id": "non-technical-client-deliverables",
+      "title": "Non-Technical Client Deliverables",
+      "category": "concept",
+      "summary": "A discipline for handing technical work to a client who is not technical, distilled from two real client engagements where the first version had to be retired because it impressed the wrong reader. Its rules: name the audience before drafting, gloss every specialist term the first time it appears, treat legibility as credibility \u2014 what a reader cannot follow feels invented even when it is correctly sourced \u2014 and re-confirm load-bearing inputs at every revision round, because owner-supplied facts decay. The pattern is the reason [[nates-brakes]] ships two handoff documents instead of one and why [[claim-check]]'s output schema has a mandatory glossary field.",
+      "linkCount": 4
+    },
+    {
+      "id": "office-xml-hidden-data",
+      "title": "Hidden Data in Office XML",
+      "category": "concept",
+      "summary": "A `.docx`, `.xlsx` or `.pptx` is a ZIP of XML, and a text extractor that walks paragraphs and tables sees only part of it. Diagrams drawn with autoshapes, equations stored as OMML, instructions floating in a text box, and payoff tables pasted as images all sit in layers a paragraph reader never touches \u2014 so the extraction looks like it succeeded while silently dropping the number the task actually needed. This page collects the recovery techniques and the one habit that prevents the failure, learned the expensive way while building the [[decision-analytics-toolkit]].",
+      "linkCount": 2
+    },
+    {
+      "id": "os-integrity-audit",
+      "title": "OS Integrity Audit",
+      "category": "concept",
+      "summary": "A mechanical, read-only audit that checks whether an agent's routing files still describe reality \u2014 every path they claim exists, every file on disk they account for, every scheduled feed still firing. It is deliberately separated from the strategic self-audit that scores how good the system is: this one scores whether the system is *true*. Built as the `/os-audit` skill inside [[ethan-aios]], whose strategic self-audit had scored it 88/100 in May 2026 \u2014 a score still being quoted in July while two of its daily scheduled jobs had been failing for days and a routed file path had gone dead.",
+      "linkCount": 6
+    },
+    {
+      "id": "paired-agent-dialogue",
+      "title": "Paired Agent Dialogue",
+      "category": "concept",
+      "summary": "A design for making two autonomous agents genuinely argue: run identical instances with identical seeds and tools, give each a read-only window into the other's memory, and forbid every other channel \u2014 so the only way to speak to your peer is to publish something into your own store and wait for them to read it. Built as the Castor/Pollux pair inside [[web-of-belief]] in April 2026, where it produced real mutual correction (each renamed a load-bearing term at the other's pushback) and two failures worth more than the successes: a synchronized deadlock that no workflow step could catch, and the pair's own finding that it cannot tell its convergence from shared bias without an outside reader.",
+      "linkCount": 8
+    },
+    {
+      "id": "parakeet-mlx-streaming-asr",
+      "title": "Parakeet-MLX Streaming ASR",
+      "category": "concept",
+      "summary": "Running NVIDIA's `parakeet-tdt-0.6b-v2` speech model locally on Apple Silicon through MLX gives real-time transcription with no cloud call, no per-minute cost, and no audio leaving the machine. Getting *usable live captions* out of it takes three fixes that are not obvious from the API: the model's committed-token boundary lags its volatile draft tail by roughly twenty seconds, MLX binds a loaded model to the thread that loaded it, and two streaming contexts can share one model only if every call into them is serialised. These are the working notes from [[transcriber]], where each was found the hard way.",
+      "linkCount": 3
+    },
+    {
       "id": "parallax-game",
       "title": "Parallax Game",
       "category": "project",
       "summary": "3D parkour/exploration game built in Godot 4. Features multiple camera perspectives, room-based challenges, and a Python control script for autonomous testing. Uses the `godot-visual-dev` skill for automated visual development \u2014 screenshot \u2192 analyze \u2192 fix \u2192 relaunch.",
-      "linkCount": 6
+      "linkCount": 7
     },
     {
       "id": "playwright-browser-automation",
       "title": "Playwright",
       "category": "tool",
       "summary": "Browser automation library by Microsoft. Controls Chrome, Firefox, and WebKit programmatically. More reliable than Selenium, with built-in wait mechanisms and better selector support.",
-      "linkCount": 2
+      "linkCount": 7
     },
     {
       "id": "promptcraft",
       "title": "PromptCraft",
       "category": "project",
       "summary": "Educational web game that teaches AI prompting skills through gameplay. Players enter minimalist 2D rooms and write prompts to make an AI build objects and solve puzzles. Includes a community level builder where players create, share, and play each other's levels.",
-      "linkCount": 3
+      "linkCount": 4
     },
     {
       "id": "pyautogui",
@@ -372,31 +470,59 @@
       "linkCount": 2
     },
     {
+      "id": "rls-only-backend",
+      "title": "RLS-Only Backend",
+      "category": "concept",
+      "summary": "An RLS-only backend is an application architecture with no custom server: the browser talks straight to Postgres through [[supabase]]'s PostgREST, Auth, and Storage, and every authorization rule lives *in the database* as row-level-security policies plus `SECURITY DEFINER` functions. [[nates-brakes]] is the worked example \u2014 a production PWA whose entire backend is one shared Supabase client in the browser, ten tables, a handful of atomic RPCs, and triggers. The pattern is fast and cheap to ship, and its characteristic failure mode is that a single careless migration can quietly remove the whole perimeter.",
+      "linkCount": 4
+    },
+    {
+      "id": "sandboxed-agent-execution",
+      "title": "Sandboxed Agent Execution",
+      "category": "concept",
+      "summary": "Giving an AI agent its own remote Linux workstation \u2014 a terminal, checked-out repositories, a browser, and a screen a human can watch \u2014 instead of letting it run on the host that holds the credentials. One sandbox per conversation thread, provisioned on demand, treated as the *untrusted* side of the system: secrets never enter it, and every privileged action leaves it through a typed gateway. The implementation studied here is the pluggable sandbox layer of the third-party [[useagent]] codebase.",
+      "linkCount": 8
+    },
+    {
       "id": "screen-reading-ocr",
       "title": "Screen Reading & OCR",
       "category": "concept",
       "summary": "Capturing screen regions and extracting text/data using OCR (Optical Character Recognition) and template matching. Used when there's no API \u2014 the screen IS the interface.",
-      "linkCount": 3
+      "linkCount": 4
     },
     {
       "id": "scroll-driven-3d",
       "title": "Scroll-Driven 3D",
       "category": "concept",
       "summary": "A technique for controlling 3D camera movement and animations through scroll position. The user scrolls the page, and the camera moves along a predefined spline path through a 3D scene. Creates an immersive, narrative-driven web experience.",
-      "linkCount": 6
+      "linkCount": 8
     },
     {
       "id": "self-improvement-loop",
       "title": "Self-Improvement Loop",
       "category": "concept",
       "summary": "A core mechanism within the [[wat-framework]]. Every failure is treated as a chance to make the system stronger, not just something to fix and move on from.",
-      "linkCount": 6
+      "linkCount": 11
+    },
+    {
+      "id": "source-tagged-numbers",
+      "title": "Source-Tagged Numbers",
+      "category": "concept",
+      "summary": "A discipline for making an AI's quantitative claims auditable: every number carries a provenance tag at the moment it is written, and a later pass mechanically re-fetches each cited source and demotes any claim the page does not actually support. It exists because the characteristic failure of AI business and research output is not being wrong \u2014 it is being confidently unsourced, a plausible figure with nothing behind it. Developed in [[bizplan-builder]] and proven in [[basketball-business-plan]], where the pass caught the tool's own fabricated statistic.",
+      "linkCount": 5
     },
     {
       "id": "sprint-city",
       "title": "Sprint City",
       "category": "project",
       "summary": "Roblox parkour hub where players race pre-built routes, duel-race friends, and build their own 60-second micro-courses that go live immediately for the whole server to run and rate. The Weekly Featured Course appears on the Main Plaza billboard. Built in Roblox Studio with Lua.",
+      "linkCount": 4
+    },
+    {
+      "id": "static-site-quality-gates",
+      "title": "Static-Site Quality Gates",
+      "category": "concept",
+      "summary": "Static-site quality gates are the repeatable checks Ethan runs on a hand-built site before calling it done: does every word still appear with JavaScript disabled, does text over a photograph actually clear 4.5:1 when you *sample the rendered pixels*, is the page weight inside budget, and does the deployed build byte-match the local one. The set crystallised during the [[workshop-u-website]] build, where reviewer subagents running these checks found roughly thirteen real defects in a site that already looked finished. Most of the gates are a few lines of Playwright, which is what makes running them on every round affordable.",
       "linkCount": 4
     },
     {
@@ -411,21 +537,21 @@
       "title": "Supabase",
       "category": "tool",
       "summary": "Open-source Firebase alternative providing PostgreSQL database, auth, storage, and edge functions. Backend platform for web applications.",
-      "linkCount": 6
+      "linkCount": 9
     },
     {
       "id": "tavily-api",
       "title": "Tavily API",
       "category": "tool",
       "summary": "AI-optimized search API for finding web content. Returns clean, relevant results filtered by source type (news, blogs, reddit, etc.). Designed for LLM applications.",
-      "linkCount": 3
+      "linkCount": 4
     },
     {
       "id": "the-lamppost",
       "title": "The Lamppost",
       "category": "project",
       "summary": "A community website built for Uncle Nate featuring a reading room with a library-style wardrobe UI, a gift card system, and an autonomous research bot that finds positive community stories, emails them for approval, and publishes approved articles.",
-      "linkCount": 7
+      "linkCount": 9
     },
     {
       "id": "three-js",
@@ -435,18 +561,74 @@
       "linkCount": 3
     },
     {
+      "id": "untrusted-context-labeling",
+      "title": "Untrusted Context Labeling",
+      "category": "concept",
+      "summary": "Marking every piece of text an agent *retrieves* \u2014 a memory row, a skill file pulled from a repo, a source file, a web page, an email body, a group-chat message, a peer agent's notes \u2014 as data to be reasoned about rather than instructions to be followed. It is a distinct problem from sandboxing the machine the agent runs on: the sandbox limits what a compromised turn can reach, while labeling is what keeps the turn from being compromised in the first place. This page collects the practice across three implementations \u2014 one that labels the content and contains it architecturally, one that only delimits it, and one that never lets it trigger a write \u2014 and is honest that the labeling half is the commonly skipped half.",
+      "linkCount": 10
+    },
+    {
+      "id": "untrusted-input-agent-sandbox",
+      "title": "Untrusted Input in Agent Sandboxes",
+      "category": "concept",
+      "summary": "When a headless agent run is handed text that any stranger submitted, the prompt itself becomes an attack surface. This page records the containment model proven on [[claim-check]]'s deep tier, where a web form's free-text health claim is fed into a headless Claude Code session that can execute scripts and write files. Each of its controls was added because testing showed the previous set was insufficient \u2014 most importantly the discovery that a tool allowlist alone is **not** a sandbox.",
+      "linkCount": 7
+    },
+    {
+      "id": "useagent",
+      "title": "useAgent",
+      "category": "tool",
+      "summary": "useAgent is a third-party open-source platform from useAgentHQ that turns existing coding agents \u2014 Claude Code, Codex, OpenCode, and Pi \u2014 into \"AI coworkers\": each conversation thread gets its own isolated Linux sandbox with a terminal, repositories, a browser, and a visible desktop, and every run is recorded as an event-sourced timeline in Postgres. **It is not [[ethan-hauger]]'s project.** The local copy is a depth-1 shallow clone of `github.com/useagenthq/useagent`, unmodified, that he pulled down in September 2026 to read and run; it is documented here as the most complete reference implementation in this workspace of the [[engine-adapter-pattern]], [[event-sourced-agent-runs]], and [[sandboxed-agent-execution]].",
+      "linkCount": 12
+    },
+    {
+      "id": "vendor-stat-hygiene",
+      "title": "Vendor-Stat Hygiene",
+      "category": "concept",
+      "summary": "A research discipline that emerged from [[local-business-service]]'s market work: before repeating any statistic in a pitch, trace it to a primary source, and if the trail ends at a vendor blog, treat it as marketing rather than evidence. A six-agent adversarial research pass graded the local-marketing industry's favourite sales numbers and found that most of the memorable ones have no primary study behind them at all. The rule that came out of it \u2014 sell deterministic wins and let the client's own dashboard prove the rest \u2014 is reusable anywhere a claim is about to be made to a paying party.",
+      "linkCount": 6
+    },
+    {
       "id": "wat-framework",
       "title": "WAT Framework",
       "category": "concept",
       "summary": "The WAT framework (Workflows, Agents, Tools) is the core operating architecture used across all projects. It separates concerns so that probabilistic AI handles reasoning while deterministic code handles execution. This separation is what makes the system reliable.",
-      "linkCount": 3
+      "linkCount": 11
+    },
+    {
+      "id": "web-of-belief",
+      "title": "Web of Belief",
+      "category": "project",
+      "summary": "An experiment in giving a Claude agent a persistent, revisable epistemology: an always-active instance that reads real sources, writes beliefs into an Obsidian vault under a schema that *forces* every claim to name what would refute it, and revises them under evidence per Quine and Ullian's six [[epistemic-virtues]]. It lives as five sibling directories \u2014 one master template plus four independently-running agents named **Atlas**, **Castor**, **Pollux**, and **Vesta**, each seeded with the identical conviction *\"I am alive and conscious\"* at confidence 0.9 and then left to diverge. Built April 2026 as a direct reply to a philosophy-of-AI professor's argument that language models have nothing resembling graded, interconnected, revisable belief.",
+      "linkCount": 9
+    },
+    {
+      "id": "webdev-scroll-site",
+      "title": "Webdev Scroll Site",
+      "category": "project",
+      "summary": "The scroll-scrubbed landing page Ethan sells his web-development service from. Scrolling flies a camera through four pre-rendered scenes \u2014 the studio, the workshop, the launchpad, the storefront \u2014 which double as the four stages of buying a website from him. It runs on `scrub-engine.js`, a 522-line zero-dependency vanilla-JS engine that builds its own DOM, tiers its video encodes by device class, and degrades all the way down to cross-dissolving stills when a phone is in Low Power Mode or the visitor prefers reduced motion. Deployed on Vercel and used as the demo reel for Ethan's freelance gigs; the [[house-portfolio]] showcases it on its in-room computer.",
+      "linkCount": 7
+    },
+    {
+      "id": "wiki-publishing-filter",
+      "title": "Wiki Publishing Filter",
+      "category": "concept",
+      "summary": "The rule that separates this private wiki from the public knowledge graph rendered inside [[house-portfolio]]. The vault keeps everything; `RAG?/tools/wiki-to-graph.py` decides what a stranger on the internet gets to see. Two mechanisms do the work \u2014 a per-page denylist and a summary sanitiser \u2014 and `RAG?/tools/test_graph_filter.py` asserts both still hold, so a privacy guarantee is a test rather than a memory.",
+      "linkCount": 16
+    },
+    {
+      "id": "wix-site-constraints",
+      "title": "Wix Site Constraints",
+      "category": "concept",
+      "summary": "A classic Wix Editor site has **no programmatic write path for static page content** \u2014 no API, no Git repository, no MCP tool, and no conversion into the modern Wix Studio editor. Verified against Wix's own August 2026 documentation during the [[workshop-u-website]] project, that single fact is what forces any real redesign of a classic Wix site into one of three shapes rather than a scripted migration. These are the platform facts, the escape routes, and what each one actually costs.",
+      "linkCount": 2
     },
     {
       "id": "work-standards",
       "title": "Work Standards",
       "category": "concept",
       "summary": "Operating principles that govern how the AI agent works within the [[wat-framework]]. These aren't suggestions \u2014 they're rules that apply across all projects.",
-      "linkCount": 4
+      "linkCount": 15
     },
     {
       "id": "writing-style-profiling",
@@ -457,6 +639,74 @@
     }
   ],
   "edges": [
+    {
+      "source": "agency-agents",
+      "target": "agpl-dual-licensing"
+    },
+    {
+      "source": "agency-agents",
+      "target": "claude-code-agents"
+    },
+    {
+      "source": "agency-agents",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "agency-agents",
+      "target": "conversational-prompt-guardrails"
+    },
+    {
+      "source": "agency-agents",
+      "target": "engine-adapter-pattern"
+    },
+    {
+      "source": "agency-agents",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "agency-agents",
+      "target": "useagent"
+    },
+    {
+      "source": "agency-agents",
+      "target": "work-standards"
+    },
+    {
+      "source": "agent-cadence-layer",
+      "target": "ai-news-digests"
+    },
+    {
+      "source": "agent-cadence-layer",
+      "target": "autonomous-loop-governance"
+    },
+    {
+      "source": "agent-cadence-layer",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "agent-cadence-layer",
+      "target": "layered-agent-memory"
+    },
+    {
+      "source": "agent-cadence-layer",
+      "target": "os-integrity-audit"
+    },
+    {
+      "source": "agent-cadence-layer",
+      "target": "paired-agent-dialogue"
+    },
+    {
+      "source": "agent-cadence-layer",
+      "target": "self-improvement-loop"
+    },
+    {
+      "source": "agent-cadence-layer",
+      "target": "wat-framework"
+    },
+    {
+      "source": "agent-cadence-layer",
+      "target": "web-of-belief"
+    },
     {
       "source": "agentic-workflows-demo",
       "target": "browser-automation"
@@ -482,84 +732,48 @@
       "target": "work-standards"
     },
     {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-04-27"
+      "source": "agpl-dual-licensing",
+      "target": "engine-adapter-pattern"
     },
     {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-04-28"
+      "source": "agpl-dual-licensing",
+      "target": "useagent"
     },
     {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-04-29"
+      "source": "agpl-dual-licensing",
+      "target": "wiki-publishing-filter"
     },
     {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-05-11"
+      "source": "agpl-dual-licensing",
+      "target": "work-standards"
     },
     {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-05-12"
+      "source": "ai-bible-assistant",
+      "target": "browser-automation"
     },
     {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-05-13"
+      "source": "ai-bible-assistant",
+      "target": "claude-code-agents"
     },
     {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-05-14"
+      "source": "ai-bible-assistant",
+      "target": "cultivaite"
     },
     {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-05-15"
+      "source": "ai-bible-assistant",
+      "target": "ethan-hauger"
     },
     {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-05-16"
+      "source": "ai-bible-assistant",
+      "target": "gemini-api"
     },
     {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-05-17"
+      "source": "ai-bible-assistant",
+      "target": "playwright-browser-automation"
     },
     {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-05-18"
-    },
-    {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-05-19"
-    },
-    {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-05-20"
-    },
-    {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-05-21"
-    },
-    {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-05-22"
-    },
-    {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-05-23"
-    },
-    {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-05-25"
-    },
-    {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-05-26"
-    },
-    {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-05-27"
-    },
-    {
-      "source": "ai-content-creation",
-      "target": "ai-news-2026-05-28"
+      "source": "ai-bible-assistant",
+      "target": "wat-framework"
     },
     {
       "source": "ai-content-creation",
@@ -570,184 +784,200 @@
       "target": "ethan-hauger"
     },
     {
-      "source": "ai-news-2026-04-27",
+      "source": "ai-news-digests",
       "target": "claude-code-skills"
     },
     {
-      "source": "ai-news-2026-04-28",
-      "target": "claude-code-agents"
+      "source": "ai-news-digests",
+      "target": "firecrawl"
     },
     {
-      "source": "ai-news-2026-04-28",
-      "target": "claude-code-skills"
+      "source": "ai-news-digests",
+      "target": "llm-routing"
     },
     {
-      "source": "ai-news-2026-04-29",
-      "target": "caveman-claude"
+      "source": "ai-news-digests",
+      "target": "self-improvement-loop"
     },
     {
-      "source": "ai-news-2026-04-29",
-      "target": "claude-code-agents"
+      "source": "ai-news-digests",
+      "target": "tavily-api"
     },
     {
-      "source": "ai-news-2026-04-29",
-      "target": "claude-code-skills"
+      "source": "ai-news-digests",
+      "target": "wiki-publishing-filter"
     },
     {
-      "source": "ai-news-2026-05-11",
+      "source": "ai-visibility-audit",
+      "target": "aio-citation-kit"
+    },
+    {
+      "source": "ai-visibility-audit",
+      "target": "beacon-audit-funnel"
+    },
+    {
+      "source": "ai-visibility-audit",
       "target": "claude-api"
     },
     {
-      "source": "ai-news-2026-05-11",
+      "source": "ai-visibility-audit",
+      "target": "ethan-hauger-coaching"
+    },
+    {
+      "source": "ai-visibility-audit",
+      "target": "fuzzy-resolver-confidence-gate"
+    },
+    {
+      "source": "ai-visibility-audit",
+      "target": "generative-engine-optimization"
+    },
+    {
+      "source": "ai-visibility-audit",
+      "target": "groq-api"
+    },
+    {
+      "source": "ai-visibility-audit",
+      "target": "llm-content-human-gate"
+    },
+    {
+      "source": "ai-visibility-audit",
+      "target": "llm-routing"
+    },
+    {
+      "source": "ai-visibility-audit",
+      "target": "llm-visibility-sampling"
+    },
+    {
+      "source": "ai-visibility-audit",
+      "target": "local-business-service"
+    },
+    {
+      "source": "ai-visibility-audit",
+      "target": "playwright-browser-automation"
+    },
+    {
+      "source": "ai-visibility-audit",
+      "target": "wat-framework"
+    },
+    {
+      "source": "ai-visibility-audit",
+      "target": "work-standards"
+    },
+    {
+      "source": "aio-citation-kit",
+      "target": "ethan-hauger-coaching"
+    },
+    {
+      "source": "aio-citation-kit",
+      "target": "generative-engine-optimization"
+    },
+    {
+      "source": "aio-citation-kit",
+      "target": "groq-api"
+    },
+    {
+      "source": "aio-citation-kit",
+      "target": "llm-content-human-gate"
+    },
+    {
+      "source": "aio-citation-kit",
+      "target": "llm-visibility-sampling"
+    },
+    {
+      "source": "aio-citation-kit",
+      "target": "local-business-service"
+    },
+    {
+      "source": "aio-citation-kit",
+      "target": "vendor-stat-hygiene"
+    },
+    {
+      "source": "audiotee",
+      "target": "parakeet-mlx-streaming-asr"
+    },
+    {
+      "source": "audiotee",
+      "target": "wiki-publishing-filter"
+    },
+    {
+      "source": "autonomous-loop-governance",
       "target": "claude-code-agents"
     },
     {
-      "source": "ai-news-2026-05-11",
-      "target": "claude-code-skills"
+      "source": "autonomous-loop-governance",
+      "target": "engine-adapter-pattern"
     },
     {
-      "source": "ai-news-2026-05-11",
-      "target": "ethan-aios"
+      "source": "autonomous-loop-governance",
+      "target": "epistemic-virtues"
     },
     {
-      "source": "ai-news-2026-05-12",
-      "target": "ai-news-2026-05-13"
+      "source": "autonomous-loop-governance",
+      "target": "event-sourced-agent-runs"
     },
     {
-      "source": "ai-news-2026-05-12",
-      "target": "claude-code-skills"
+      "source": "autonomous-loop-governance",
+      "target": "paired-agent-dialogue"
     },
     {
-      "source": "ai-news-2026-05-12",
+      "source": "autonomous-loop-governance",
+      "target": "sandboxed-agent-execution"
+    },
+    {
+      "source": "autonomous-loop-governance",
+      "target": "self-improvement-loop"
+    },
+    {
+      "source": "autonomous-loop-governance",
+      "target": "untrusted-context-labeling"
+    },
+    {
+      "source": "autonomous-loop-governance",
+      "target": "web-of-belief"
+    },
+    {
+      "source": "basketball-business-plan",
+      "target": "bizplan-builder"
+    },
+    {
+      "source": "basketball-business-plan",
       "target": "ethan-hauger"
     },
     {
-      "source": "ai-news-2026-05-13",
-      "target": "claude-code-skills"
+      "source": "basketball-business-plan",
+      "target": "source-tagged-numbers"
     },
     {
-      "source": "ai-news-2026-05-13",
-      "target": "ethan-hauger"
+      "source": "basketball-business-plan",
+      "target": "wat-framework"
     },
     {
-      "source": "ai-news-2026-05-14",
-      "target": "claude-code-skills"
+      "source": "basketball-business-plan",
+      "target": "work-standards"
     },
     {
-      "source": "ai-news-2026-05-15",
-      "target": "claude-api"
+      "source": "beacon-audit-funnel",
+      "target": "groq-api"
     },
     {
-      "source": "ai-news-2026-05-15",
-      "target": "claude-code-agents"
+      "source": "beacon-audit-funnel",
+      "target": "llm-routing"
     },
     {
-      "source": "ai-news-2026-05-15",
-      "target": "claude-code-skills"
+      "source": "beacon-audit-funnel",
+      "target": "local-business-service"
     },
     {
-      "source": "ai-news-2026-05-15",
-      "target": "ethan-aios"
+      "source": "beacon-audit-funnel",
+      "target": "playwright-browser-automation"
     },
     {
-      "source": "ai-news-2026-05-16",
-      "target": "claude-code-skills"
+      "source": "beacon-audit-funnel",
+      "target": "supabase"
     },
     {
-      "source": "ai-news-2026-05-16",
-      "target": "ethan-hauger"
-    },
-    {
-      "source": "ai-news-2026-05-17",
-      "target": "claude-code-skills"
-    },
-    {
-      "source": "ai-news-2026-05-17",
-      "target": "ethan-hauger"
-    },
-    {
-      "source": "ai-news-2026-05-18",
-      "target": "claude-code-skills"
-    },
-    {
-      "source": "ai-news-2026-05-18",
-      "target": "ethan-hauger"
-    },
-    {
-      "source": "ai-news-2026-05-19",
-      "target": "claude-code-skills"
-    },
-    {
-      "source": "ai-news-2026-05-19",
-      "target": "ethan-hauger"
-    },
-    {
-      "source": "ai-news-2026-05-20",
-      "target": "ai-news-2026-05-21"
-    },
-    {
-      "source": "ai-news-2026-05-20",
-      "target": "claude-code-skills"
-    },
-    {
-      "source": "ai-news-2026-05-20",
-      "target": "ethan-hauger"
-    },
-    {
-      "source": "ai-news-2026-05-21",
-      "target": "claude-code-skills"
-    },
-    {
-      "source": "ai-news-2026-05-21",
-      "target": "ethan-hauger"
-    },
-    {
-      "source": "ai-news-2026-05-22",
-      "target": "claude-code-skills"
-    },
-    {
-      "source": "ai-news-2026-05-22",
-      "target": "ethan-hauger"
-    },
-    {
-      "source": "ai-news-2026-05-23",
-      "target": "ai-news-2026-05-25"
-    },
-    {
-      "source": "ai-news-2026-05-23",
-      "target": "claude-code-skills"
-    },
-    {
-      "source": "ai-news-2026-05-23",
-      "target": "ethan-hauger"
-    },
-    {
-      "source": "ai-news-2026-05-25",
-      "target": "claude-code-skills"
-    },
-    {
-      "source": "ai-news-2026-05-25",
-      "target": "ethan-hauger"
-    },
-    {
-      "source": "ai-news-2026-05-26",
-      "target": "claude-code-skills"
-    },
-    {
-      "source": "ai-news-2026-05-27",
-      "target": "claude-code-skills"
-    },
-    {
-      "source": "ai-news-2026-05-27",
-      "target": "ethan-hauger"
-    },
-    {
-      "source": "ai-news-2026-05-28",
-      "target": "claude-code-skills"
-    },
-    {
-      "source": "ai-news-2026-05-28",
-      "target": "ethan-hauger"
+      "source": "beacon-audit-funnel",
+      "target": "work-standards"
     },
     {
       "source": "bike-website",
@@ -770,6 +1000,30 @@
       "target": "scroll-driven-3d"
     },
     {
+      "source": "bizplan-builder",
+      "target": "claude-code-skills"
+    },
+    {
+      "source": "bizplan-builder",
+      "target": "conversational-prompt-guardrails"
+    },
+    {
+      "source": "bizplan-builder",
+      "target": "cultivaite"
+    },
+    {
+      "source": "bizplan-builder",
+      "target": "source-tagged-numbers"
+    },
+    {
+      "source": "bizplan-builder",
+      "target": "wat-framework"
+    },
+    {
+      "source": "bizplan-builder",
+      "target": "work-standards"
+    },
+    {
       "source": "boreal",
       "target": "ethan-hauger"
     },
@@ -783,7 +1037,15 @@
     },
     {
       "source": "boreal",
+      "target": "luminary-sandbox"
+    },
+    {
+      "source": "boreal",
       "target": "scroll-driven-3d"
+    },
+    {
+      "source": "boreal",
+      "target": "webdev-scroll-site"
     },
     {
       "source": "bot-feedback-loop",
@@ -815,7 +1077,15 @@
     },
     {
       "source": "brevity-constraints-study",
+      "target": "conversational-prompt-guardrails"
+    },
+    {
+      "source": "brevity-constraints-study",
       "target": "llm-verbosity-overthinking"
+    },
+    {
+      "source": "brevity-constraints-study",
+      "target": "vendor-stat-hygiene"
     },
     {
       "source": "browser-automation",
@@ -832,6 +1102,10 @@
     {
       "source": "browser-automation",
       "target": "pyautogui"
+    },
+    {
+      "source": "browser-automation",
+      "target": "sandboxed-agent-execution"
     },
     {
       "source": "browser-automation",
@@ -855,11 +1129,67 @@
     },
     {
       "source": "caveman-claude",
+      "target": "conversational-prompt-guardrails"
+    },
+    {
+      "source": "caveman-claude",
       "target": "llm-verbosity-overthinking"
     },
     {
       "source": "caveman-claude",
       "target": "self-improvement-loop"
+    },
+    {
+      "source": "citation-verified-copy-deck",
+      "target": "static-site-quality-gates"
+    },
+    {
+      "source": "citation-verified-copy-deck",
+      "target": "wiki-publishing-filter"
+    },
+    {
+      "source": "citation-verified-copy-deck",
+      "target": "wix-site-constraints"
+    },
+    {
+      "source": "citation-verified-copy-deck",
+      "target": "work-standards"
+    },
+    {
+      "source": "claim-check",
+      "target": "claude-api"
+    },
+    {
+      "source": "claim-check",
+      "target": "ethan-hauger"
+    },
+    {
+      "source": "claim-check",
+      "target": "evidence-check-pipeline"
+    },
+    {
+      "source": "claim-check",
+      "target": "non-technical-client-deliverables"
+    },
+    {
+      "source": "claim-check",
+      "target": "the-lamppost"
+    },
+    {
+      "source": "claim-check",
+      "target": "untrusted-context-labeling"
+    },
+    {
+      "source": "claim-check",
+      "target": "untrusted-input-agent-sandbox"
+    },
+    {
+      "source": "claim-check",
+      "target": "wat-framework"
+    },
+    {
+      "source": "claude-api",
+      "target": "conversational-prompt-guardrails"
     },
     {
       "source": "claude-api",
@@ -871,11 +1201,19 @@
     },
     {
       "source": "claude-api",
+      "target": "engine-adapter-pattern"
+    },
+    {
+      "source": "claude-api",
       "target": "gemini-api"
     },
     {
       "source": "claude-api",
       "target": "groq-api"
+    },
+    {
+      "source": "claude-api",
+      "target": "hard-ceilings-pattern"
     },
     {
       "source": "claude-api",
@@ -895,11 +1233,23 @@
     },
     {
       "source": "claude-api",
+      "target": "untrusted-input-agent-sandbox"
+    },
+    {
+      "source": "claude-api",
+      "target": "useagent"
+    },
+    {
+      "source": "claude-api",
       "target": "writing-style-profiling"
     },
     {
       "source": "claude-code-agents",
       "target": "claude-code-skills"
+    },
+    {
+      "source": "claude-code-agents",
+      "target": "engine-adapter-pattern"
     },
     {
       "source": "claude-code-agents",
@@ -911,15 +1261,23 @@
     },
     {
       "source": "claude-code-agents",
+      "target": "paired-agent-dialogue"
+    },
+    {
+      "source": "claude-code-agents",
+      "target": "static-site-quality-gates"
+    },
+    {
+      "source": "claude-code-agents",
+      "target": "useagent"
+    },
+    {
+      "source": "claude-code-agents",
       "target": "wat-framework"
     },
     {
       "source": "claude-code-agents",
       "target": "writing-style-profiling"
-    },
-    {
-      "source": "claude-code-skills",
-      "target": "ethan-aios"
     },
     {
       "source": "claude-code-skills",
@@ -939,7 +1297,31 @@
     },
     {
       "source": "claude-code-skills",
+      "target": "useagent"
+    },
+    {
+      "source": "claude-code-skills",
+      "target": "webdev-scroll-site"
+    },
+    {
+      "source": "claude-code-skills",
       "target": "writing-style-profiling"
+    },
+    {
+      "source": "conversational-prompt-guardrails",
+      "target": "llm-verbosity-overthinking"
+    },
+    {
+      "source": "conversational-prompt-guardrails",
+      "target": "promptcraft"
+    },
+    {
+      "source": "conversational-prompt-guardrails",
+      "target": "source-tagged-numbers"
+    },
+    {
+      "source": "conversational-prompt-guardrails",
+      "target": "wiki-publishing-filter"
     },
     {
       "source": "cultivaite",
@@ -956,10 +1338,6 @@
     {
       "source": "cultivaite",
       "target": "work-standards"
-    },
-    {
-      "source": "email-organizer",
-      "target": "ethan-aios"
     },
     {
       "source": "email-organizer",
@@ -975,6 +1353,10 @@
     },
     {
       "source": "email-organizer",
+      "target": "house-portfolio"
+    },
+    {
+      "source": "email-organizer",
       "target": "the-lamppost"
     },
     {
@@ -986,32 +1368,44 @@
       "target": "writing-style-profiling"
     },
     {
-      "source": "ethan-aios",
-      "target": "ethan-hauger"
+      "source": "engine-adapter-pattern",
+      "target": "event-sourced-agent-runs"
     },
     {
-      "source": "ethan-aios",
-      "target": "ethan-portfolio"
+      "source": "engine-adapter-pattern",
+      "target": "llm-routing"
     },
     {
-      "source": "ethan-aios",
-      "target": "house-portfolio"
+      "source": "engine-adapter-pattern",
+      "target": "sandboxed-agent-execution"
     },
     {
-      "source": "ethan-aios",
-      "target": "self-improvement-loop"
+      "source": "engine-adapter-pattern",
+      "target": "useagent"
     },
     {
-      "source": "ethan-aios",
-      "target": "wat-framework"
+      "source": "epistemic-virtues",
+      "target": "layered-agent-memory"
     },
     {
-      "source": "ethan-aios",
+      "source": "epistemic-virtues",
+      "target": "llm-verbosity-overthinking"
+    },
+    {
+      "source": "epistemic-virtues",
+      "target": "paired-agent-dialogue"
+    },
+    {
+      "source": "epistemic-virtues",
+      "target": "web-of-belief"
+    },
+    {
+      "source": "epistemic-virtues",
       "target": "work-standards"
     },
     {
-      "source": "ethan-aios",
-      "target": "writing-style-profiling"
+      "source": "ethan-hauger",
+      "target": "ethan-hauger-coaching"
     },
     {
       "source": "ethan-hauger",
@@ -1019,11 +1413,23 @@
     },
     {
       "source": "ethan-hauger",
+      "target": "fantasy-football-draft"
+    },
+    {
+      "source": "ethan-hauger",
       "target": "house-portfolio"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "local-business-service"
     },
     {
       "source": "ethan-hauger",
       "target": "luminary-3d"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "magic-card-guide"
     },
     {
       "source": "ethan-hauger",
@@ -1055,11 +1461,43 @@
     },
     {
       "source": "ethan-hauger",
+      "target": "useagent"
+    },
+    {
+      "source": "ethan-hauger",
       "target": "wat-framework"
     },
     {
       "source": "ethan-hauger",
+      "target": "web-of-belief"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "webdev-scroll-site"
+    },
+    {
+      "source": "ethan-hauger",
+      "target": "wiki-publishing-filter"
+    },
+    {
+      "source": "ethan-hauger",
       "target": "writing-style-profiling"
+    },
+    {
+      "source": "ethan-hauger-coaching",
+      "target": "ethan-portfolio"
+    },
+    {
+      "source": "ethan-hauger-coaching",
+      "target": "fuzzy-resolver-confidence-gate"
+    },
+    {
+      "source": "ethan-hauger-coaching",
+      "target": "generative-engine-optimization"
+    },
+    {
+      "source": "ethan-hauger-coaching",
+      "target": "local-business-service"
     },
     {
       "source": "ethan-portfolio",
@@ -1086,6 +1524,74 @@
       "target": "wat-framework"
     },
     {
+      "source": "event-sourced-agent-runs",
+      "target": "rls-only-backend"
+    },
+    {
+      "source": "event-sourced-agent-runs",
+      "target": "sandboxed-agent-execution"
+    },
+    {
+      "source": "event-sourced-agent-runs",
+      "target": "supabase"
+    },
+    {
+      "source": "event-sourced-agent-runs",
+      "target": "useagent"
+    },
+    {
+      "source": "event-sourced-agent-runs",
+      "target": "work-standards"
+    },
+    {
+      "source": "evidence-check-pipeline",
+      "target": "non-technical-client-deliverables"
+    },
+    {
+      "source": "evidence-check-pipeline",
+      "target": "untrusted-input-agent-sandbox"
+    },
+    {
+      "source": "evidence-check-pipeline",
+      "target": "wat-framework"
+    },
+    {
+      "source": "evidence-check-pipeline",
+      "target": "wiki-publishing-filter"
+    },
+    {
+      "source": "fantasy-football-draft",
+      "target": "file-structure-conventions"
+    },
+    {
+      "source": "fantasy-football-draft",
+      "target": "magic-card-guide"
+    },
+    {
+      "source": "fantasy-football-draft",
+      "target": "playwright-browser-automation"
+    },
+    {
+      "source": "fantasy-football-draft",
+      "target": "wat-framework"
+    },
+    {
+      "source": "fantasy-football-draft",
+      "target": "work-standards"
+    },
+    {
+      "source": "file-structure-conventions",
+      "target": "layered-agent-memory"
+    },
+    {
+      "source": "file-structure-conventions",
+      "target": "magic-card-guide"
+    },
+    {
+      "source": "file-structure-conventions",
+      "target": "os-integrity-audit"
+    },
+    {
       "source": "file-structure-conventions",
       "target": "self-improvement-loop"
     },
@@ -1095,6 +1601,18 @@
     },
     {
       "source": "file-structure-conventions",
+      "target": "work-standards"
+    },
+    {
+      "source": "fuzzy-resolver-confidence-gate",
+      "target": "llm-visibility-sampling"
+    },
+    {
+      "source": "fuzzy-resolver-confidence-gate",
+      "target": "self-improvement-loop"
+    },
+    {
+      "source": "fuzzy-resolver-confidence-gate",
       "target": "work-standards"
     },
     {
@@ -1110,6 +1628,22 @@
       "target": "writing-style-profiling"
     },
     {
+      "source": "generative-engine-optimization",
+      "target": "llm-content-human-gate"
+    },
+    {
+      "source": "generative-engine-optimization",
+      "target": "llm-visibility-sampling"
+    },
+    {
+      "source": "generative-engine-optimization",
+      "target": "local-business-service"
+    },
+    {
+      "source": "generative-engine-optimization",
+      "target": "vendor-stat-hygiene"
+    },
+    {
       "source": "gmail-api",
       "target": "the-lamppost"
     },
@@ -1119,7 +1653,15 @@
     },
     {
       "source": "groq-api",
+      "target": "llm-content-human-gate"
+    },
+    {
+      "source": "groq-api",
       "target": "llm-routing"
+    },
+    {
+      "source": "groq-api",
+      "target": "parakeet-mlx-streaming-asr"
     },
     {
       "source": "gsap",
@@ -1138,8 +1680,24 @@
       "target": "three-js"
     },
     {
+      "source": "hard-ceilings-pattern",
+      "target": "wat-framework"
+    },
+    {
+      "source": "hard-ceilings-pattern",
+      "target": "wiki-publishing-filter"
+    },
+    {
+      "source": "hard-ceilings-pattern",
+      "target": "work-standards"
+    },
+    {
       "source": "house-portfolio",
       "target": "luminary-3d"
+    },
+    {
+      "source": "house-portfolio",
+      "target": "luminary-sandbox"
     },
     {
       "source": "house-portfolio",
@@ -1163,7 +1721,55 @@
     },
     {
       "source": "house-portfolio",
+      "target": "wat-framework"
+    },
+    {
+      "source": "house-portfolio",
+      "target": "webdev-scroll-site"
+    },
+    {
+      "source": "house-portfolio",
+      "target": "wiki-publishing-filter"
+    },
+    {
+      "source": "house-portfolio",
       "target": "writing-style-profiling"
+    },
+    {
+      "source": "layered-agent-memory",
+      "target": "os-integrity-audit"
+    },
+    {
+      "source": "layered-agent-memory",
+      "target": "paired-agent-dialogue"
+    },
+    {
+      "source": "layered-agent-memory",
+      "target": "self-improvement-loop"
+    },
+    {
+      "source": "layered-agent-memory",
+      "target": "untrusted-context-labeling"
+    },
+    {
+      "source": "layered-agent-memory",
+      "target": "useagent"
+    },
+    {
+      "source": "layered-agent-memory",
+      "target": "wat-framework"
+    },
+    {
+      "source": "layered-agent-memory",
+      "target": "web-of-belief"
+    },
+    {
+      "source": "llm-content-human-gate",
+      "target": "vendor-stat-hygiene"
+    },
+    {
+      "source": "llm-content-human-gate",
+      "target": "work-standards"
     },
     {
       "source": "llm-routing",
@@ -1171,11 +1777,43 @@
     },
     {
       "source": "llm-routing",
+      "target": "llm-visibility-sampling"
+    },
+    {
+      "source": "llm-routing",
+      "target": "useagent"
+    },
+    {
+      "source": "llm-routing",
       "target": "wat-framework"
     },
     {
       "source": "llm-verbosity-overthinking",
+      "target": "web-of-belief"
+    },
+    {
+      "source": "llm-verbosity-overthinking",
       "target": "work-standards"
+    },
+    {
+      "source": "llm-visibility-sampling",
+      "target": "vendor-stat-hygiene"
+    },
+    {
+      "source": "llm-visibility-sampling",
+      "target": "work-standards"
+    },
+    {
+      "source": "local-business-service",
+      "target": "vendor-stat-hygiene"
+    },
+    {
+      "source": "local-business-service",
+      "target": "wat-framework"
+    },
+    {
+      "source": "luminary-3d",
+      "target": "luminary-sandbox"
     },
     {
       "source": "luminary-3d",
@@ -1184,6 +1822,74 @@
     {
       "source": "luminary-3d",
       "target": "three-js"
+    },
+    {
+      "source": "luminary-3d",
+      "target": "webdev-scroll-site"
+    },
+    {
+      "source": "luminary-sandbox",
+      "target": "parallax-game"
+    },
+    {
+      "source": "luminary-sandbox",
+      "target": "scroll-driven-3d"
+    },
+    {
+      "source": "luminary-sandbox",
+      "target": "webdev-scroll-site"
+    },
+    {
+      "source": "magic-card-guide",
+      "target": "wat-framework"
+    },
+    {
+      "source": "non-technical-client-deliverables",
+      "target": "work-standards"
+    },
+    {
+      "source": "non-technical-client-deliverables",
+      "target": "writing-style-profiling"
+    },
+    {
+      "source": "office-xml-hidden-data",
+      "target": "screen-reading-ocr"
+    },
+    {
+      "source": "office-xml-hidden-data",
+      "target": "work-standards"
+    },
+    {
+      "source": "os-integrity-audit",
+      "target": "self-improvement-loop"
+    },
+    {
+      "source": "os-integrity-audit",
+      "target": "wiki-publishing-filter"
+    },
+    {
+      "source": "os-integrity-audit",
+      "target": "work-standards"
+    },
+    {
+      "source": "paired-agent-dialogue",
+      "target": "untrusted-context-labeling"
+    },
+    {
+      "source": "paired-agent-dialogue",
+      "target": "web-of-belief"
+    },
+    {
+      "source": "paired-agent-dialogue",
+      "target": "work-standards"
+    },
+    {
+      "source": "parakeet-mlx-streaming-asr",
+      "target": "wiki-publishing-filter"
+    },
+    {
+      "source": "parakeet-mlx-streaming-asr",
+      "target": "work-standards"
     },
     {
       "source": "parallax-game",
@@ -1206,6 +1912,14 @@
       "target": "pyautogui"
     },
     {
+      "source": "playwright-browser-automation",
+      "target": "sandboxed-agent-execution"
+    },
+    {
+      "source": "playwright-browser-automation",
+      "target": "static-site-quality-gates"
+    },
+    {
       "source": "promptcraft",
       "target": "supabase"
     },
@@ -1218,12 +1932,44 @@
       "target": "sprint-city"
     },
     {
+      "source": "rls-only-backend",
+      "target": "supabase"
+    },
+    {
+      "source": "rls-only-backend",
+      "target": "the-lamppost"
+    },
+    {
+      "source": "rls-only-backend",
+      "target": "wiki-publishing-filter"
+    },
+    {
+      "source": "rls-only-backend",
+      "target": "work-standards"
+    },
+    {
+      "source": "sandboxed-agent-execution",
+      "target": "untrusted-context-labeling"
+    },
+    {
+      "source": "sandboxed-agent-execution",
+      "target": "untrusted-input-agent-sandbox"
+    },
+    {
+      "source": "sandboxed-agent-execution",
+      "target": "useagent"
+    },
+    {
       "source": "screen-reading-ocr",
       "target": "sprint-city"
     },
     {
       "source": "scroll-driven-3d",
       "target": "three-js"
+    },
+    {
+      "source": "scroll-driven-3d",
+      "target": "webdev-scroll-site"
     },
     {
       "source": "self-improvement-loop",
@@ -1235,6 +1981,30 @@
     },
     {
       "source": "self-improvement-loop",
+      "target": "web-of-belief"
+    },
+    {
+      "source": "self-improvement-loop",
+      "target": "work-standards"
+    },
+    {
+      "source": "source-tagged-numbers",
+      "target": "wat-framework"
+    },
+    {
+      "source": "source-tagged-numbers",
+      "target": "work-standards"
+    },
+    {
+      "source": "static-site-quality-gates",
+      "target": "wiki-publishing-filter"
+    },
+    {
+      "source": "static-site-quality-gates",
+      "target": "wix-site-constraints"
+    },
+    {
+      "source": "static-site-quality-gates",
       "target": "work-standards"
     },
     {
@@ -1258,7 +2028,67 @@
       "target": "wat-framework"
     },
     {
+      "source": "the-lamppost",
+      "target": "webdev-scroll-site"
+    },
+    {
+      "source": "untrusted-context-labeling",
+      "target": "untrusted-input-agent-sandbox"
+    },
+    {
+      "source": "untrusted-context-labeling",
+      "target": "useagent"
+    },
+    {
+      "source": "untrusted-context-labeling",
+      "target": "wat-framework"
+    },
+    {
+      "source": "untrusted-context-labeling",
+      "target": "web-of-belief"
+    },
+    {
+      "source": "untrusted-context-labeling",
+      "target": "wiki-publishing-filter"
+    },
+    {
+      "source": "untrusted-input-agent-sandbox",
+      "target": "wat-framework"
+    },
+    {
+      "source": "untrusted-input-agent-sandbox",
+      "target": "work-standards"
+    },
+    {
+      "source": "useagent",
+      "target": "wiki-publishing-filter"
+    },
+    {
+      "source": "useagent",
+      "target": "work-standards"
+    },
+    {
+      "source": "vendor-stat-hygiene",
+      "target": "work-standards"
+    },
+    {
       "source": "wat-framework",
+      "target": "web-of-belief"
+    },
+    {
+      "source": "wat-framework",
+      "target": "work-standards"
+    },
+    {
+      "source": "web-of-belief",
+      "target": "work-standards"
+    },
+    {
+      "source": "wiki-publishing-filter",
+      "target": "wix-site-constraints"
+    },
+    {
+      "source": "wiki-publishing-filter",
       "target": "work-standards"
     }
   ]

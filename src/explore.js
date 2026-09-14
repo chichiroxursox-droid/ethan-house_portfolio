@@ -7,12 +7,12 @@ import { setClockFocused } from './clock.js';
 
 // ── Interactive object definitions ──
 const INTERACTIVE = {
-  'Basketball': "Basketball has played a massive part in my life and identity. I've been playing seriously since 6th grade, and I've grown so much since then. I made varsity all four years and have started since 10th grade. It's taught me discipline and teamwork, and blessed me with many good relationships with my teammates and coaches.",
+  'Basketball': "Basketball has played a massive part in my life and identity. I've been playing seriously since 6th grade, and I've grown so much since then. I made varsity all four years and started from 10th grade on, and now I play intramural at Temple. It's taught me discipline and teamwork, and blessed me with many good relationships with my teammates and coaches.",
   'FloorLamp': "This thing's been on at 2am more times than I can count. Debugging hits different when the whole house is quiet.",
   'Piano': "I took lessons as a kid, and have been self-taught since 7th grade. I learn and memorize basically any song that catches my ear, spanning from classical to pop songs. I enjoy playing, I like good music, and it gives me a kind of peace.",
   'DogBed': "Honey. My pit bull mix. She's usually right here sleeping while I work. Best coding partner I've ever had.",
   'Cross': "My faith keeps me grounded. Everything I do — the coding, the mentoring, the basketball — it all comes back to something bigger than me.",
-  'Microphone': "This is a Humanium microphone — made from melted-down illegal guns, built by me and my peers. I co-lead the Reforge Project. Check it out → reforgeproject.org",
+  'Microphone': "This is a Humanium microphone — made from melted-down illegal guns, built by me and my peers. I co-led the Reforge Project in high school. Check it out → reforgeproject.org",
   'Controller': "I've grown up playing video games. It started when my older brother showed me Minecraft, and I've been a gamer ever since. Nowadays, I play less, but I still enjoy playing games whenever my friends are on.",
   'Bookshelf': "I've always been a reader. Fantasy is probably my biggest love — the Scythe series really stuck with me. I'm also into murder mysteries (Agatha Christie especially), graphic novels and comics like Calvin and Hobbes, and Greek mythology (I devoured the Percy Jackson series as a kid). Every now and then I'll pick up a nonfiction book too — Tattoos on the Heart and How to Know a Person both hit me hard.",
   'ParticleOrb': "What's this...",
